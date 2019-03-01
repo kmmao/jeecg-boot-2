@@ -5,26 +5,112 @@ Jeecg-Boot 快速开发平台(前后端分离版本)
 
 项目介绍：
 -----------------------------------
-Jeecg-boot 一个全新的版本，采用前后端分离方案，提供强大代码生成器的快速开发平台。
-前端页面代码和后端功能代码一键生成，不需要写任何代码，保持jeecg一贯的强大！！
+Jeecg-boot 是一款企业级快速开发平台采用前后端分离技术（全新技术换代版本）。提供强大的代码生成器，
+前端页面代码和后端代码一键生成，不需要写任何代码，保持jeecg一贯的强大，绝对是全栈开发者福音！！
+JeecgBoot的宗旨是降低前后端分离的开发成本，提高UI能力的同时，简化开发成本，追求更高的能力，No代码概念，一系列智能化在线开发。
 
 
 技术架构：
 -----------------------------------
-后端技术： SpringBoot + Mybatis-plus + Shiro + Jwt + Swagger-ui + Redis
 
-前端技术： Ant-design-vue + Vue + Webpack
+#### 后端
+- 基础框架：Spring Boot 2.0.3.RELEASE
 
-其他技术： Druid（数据库连接池）、Logback（日志工具） 、poi（Excel工具）、
-           Quartz（定时任务）、lombok（简化代码）
-		   
-项目构建： Maven、Jdk8
+- 持久层框架：Mybatis-plus_3.0.6
+
+- 安全框架：Apache Shiro 1.4.0-RC2
+
+- JWT：Jwt_3.4.1
+
+- 数据库连接池：阿里巴巴Druid 1.1.10
+
+- 缓存框架：redis
+
+- 日志打印：logback
+
+- 其他：fastjson，poi，Swagger-ui，quartz, lombok（简化代码）等。
 
 
+#### 前端
+ 
+- 基础框架：[ant-design-vue](https://github.com/vueComponent/ant-design-vue) - Ant Design Of Vue 实现
+- JavaScript框架：Vue
+- Webpack
+- node
+- yarn
+- eslint
+- @vue/cli 3.2.1
+- [vue-cropper](https://github.com/xyxiao001/vue-cropper) - 头像裁剪组件
+- [@antv/g2](https://antv.alipay.com/zh-cn/index.html) - Alipay AntV 数据可视化图表
+- [Viser-vue](https://viserjs.github.io/docs.html#/viser/guide/installation)  - antv/g2 封装实现
+
+
+#### 开发环境
+
+- 语言：Java 8
+
+- IDE：Eclipse Oxygen & IDEA 2018.1.4(Ultimate Edition)
+
+- 依赖管理：Maven
+
+- 数据库：MySQL5.7  &  Oracle 11g
+
+- 版本管理：SVN，git
+
+
+
+#### 技术文档
+
+- 在线演示 ：  [http://boot.jeecg.org](http://boot.jeecg.org)
+
+- 官方文档 ：  [http://jeecg-boot.mydoc.io](http://jeecg-boot.mydoc.io)
+
+- 常见问题 ：  [http://www.jeecg.org/forum.php?mod=viewthread&tid=7816&page=1&extra=#pid21237](http://www.jeecg.org/forum.php?mod=viewthread&tid=7816&page=1&extra=#pid21237)
+
+- QQ交流群 ：  284271917
+
+- 视频教程 ：  https://pan.baidu.com/s/1Il0TS50I70vH1AG1y40wtw 提取码：hok5
+ 
+- 开发工具 ：  https://pan.baidu.com/s/1kFIJcn5GSlSJWAQKeCowrg 提取码：ilmc 
+ 
+ 
+
+### 功能模块
+```
+├─系统管理
+│  ├─用户管理
+│  ├─角色管理
+│  ├─菜单管理（权限设置）
+│  ├─部门管理
+│  └─字典管理
+├─智能化功能
+│  ├─代码生成器功能（一键生成，包括前端页面也可以生成，绝对是后端开发福音）
+├─系统监控
+│  ├─定时任务
+│  ├─系统日志
+│  ├─系统通知
+│  ├─SQL监控
+│  ├─swagger-ui(在线接口文档)
+│─常用示例
+│  ├─单表模型例子
+│  └─一对多模型例子
+│  └─打印例子
+│  └─一对多TAB例子
+│─更多页面模板
+│  ├─各种高级表单
+│  ├─各种列表效果
+│  └─结果页面
+│  └─异常页面
+│  └─个人页面
+└─其他模块
+   └─其他
+   
+```
+   
+   
 
 系统效果
 ----
-
 ![输入图片说明](https://static.oschina.net/uploads/img/201902/25154007_icdX.png "在这里输入图片标题")
 ![输入图片说明](https://static.oschina.net/uploads/img/201902/25153956_Q752.png "在这里输入图片标题")
 ![输入图片说明](https://static.oschina.net/uploads/img/201901/07154149_555Q.png "在这里输入图片标题")
@@ -39,14 +125,7 @@ Jeecg-boot 一个全新的版本，采用前后端分离方案，提供强大代
 ![输入图片说明](https://static.oschina.net/uploads/img/201902/25155242_K7Sw.png "在这里输入图片标题")
 
 
-技术文档
------------------------------------
-* 在线演示: [http://boot.jeecg.org](http://boot.jeecg.org)
-* 官方文档: [http://jeecg-boot.mydoc.io](http://jeecg-boot.mydoc.io)
-* QQ交流群：284271917
-* 视频教程： https://pan.baidu.com/s/1Il0TS50I70vH1AG1y40wtw 提取码：hok5 
-* 开发工具： https://pan.baidu.com/s/1kFIJcn5GSlSJWAQKeCowrg 提取码：ilmc 
- 
+
 
 
 后台开发环境和依赖
