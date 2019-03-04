@@ -1,13 +1,13 @@
 Jeecg-Boot 快速开发平台(前后端分离版本)
 ===============
 
-当前最新版本： 1.0（发布日期：20190225）
+当前最新版本： 1.0（发布日期：20190304）
 
 项目介绍：
 -----------------------------------
-Jeecg-boot 是一款企业级快速开发平台采用前后端分离技术（全新技术换代版本）。提供强大的代码生成器，
+Jeecg-boot 是一款企业级快速开发平台!采用前后端分离技术:SpringBoot，Mybatis-plus，Shiro，JWT，Vue & Ant Design。提供强大的代码生成器，
 前端页面代码和后端代码一键生成，不需要写任何代码，保持jeecg一贯的强大，绝对是全栈开发者福音！！
-JeecgBoot的宗旨是降低前后端分离的开发成本，提高UI能力的同时，简化开发成本，追求更高的能力，No代码概念，一系列智能化在线开发。
+JeecgBoot的宗旨是降低前后端分离的开发成本，提高UI能力的同时，提高开发效率，追求更高的能力，No代码概念，一系列智能化在线开发。
 
 
 技术架构：
@@ -18,9 +18,7 @@ JeecgBoot的宗旨是降低前后端分离的开发成本，提高UI能力的同
 
 - 持久层框架：Mybatis-plus_3.0.6
 
-- 安全框架：Apache Shiro 1.4.0-RC2
-
-- JWT：Jwt_3.4.1
+- 安全框架：Apache Shiro 1.4.0-RC2，Jwt_3.4.1
 
 - 数据库连接池：阿里巴巴Druid 1.1.10
 
@@ -33,29 +31,27 @@ JeecgBoot的宗旨是降低前后端分离的开发成本，提高UI能力的同
 
 #### 前端
  
-- 基础框架：[ant-design-vue](https://github.com/vueComponent/ant-design-vue) - Ant Design Of Vue 实现
-- JavaScript框架：Vue
-- Webpack
-- node
-- yarn
-- eslint
-- @vue/cli 3.2.1
+- [Vue 2.5.22](https://cn.vuejs.org/),[Vuex](https://vuex.vuejs.org/zh/),[Vue Router](https://router.vuejs.org/zh/)
+- [Axios](https://github.com/axios/axios)
+- [ant-design-vue](https://vuecomponent.github.io/ant-design-vue/docs/vue/introduce-cn/)
+- [webpack](https://www.webpackjs.com/),[yarn](https://yarnpkg.com/zh-Hans/)
 - [vue-cropper](https://github.com/xyxiao001/vue-cropper) - 头像裁剪组件
 - [@antv/g2](https://antv.alipay.com/zh-cn/index.html) - Alipay AntV 数据可视化图表
 - [Viser-vue](https://viserjs.github.io/docs.html#/viser/guide/installation)  - antv/g2 封装实现
+- eslint，[@vue/cli 3.2.1](https://cli.vuejs.org/zh/guide)
 
 
 #### 开发环境
 
 - 语言：Java 8
 
-- IDE：Eclipse Oxygen & IDEA 2018.1.4(Ultimate Edition)
+- IDE： Eclipse安装lombok插件 或者 IDEA
 
 - 依赖管理：Maven
 
-- 数据库：MySQL5.7  &  Oracle 11g
+- 数据库：MySQL5.0  &  Oracle 11g
 
-- 版本管理：SVN，git
+- 缓存：Redis
 
 
 
@@ -134,8 +130,9 @@ JeecgBoot的宗旨是降低前后端分离的开发成本，提高UI能力的同
 - maven
 - jdk8
 - mysql
-- 数据库脚步：\jeecg-boot\docs\dbsys-init-20190225.sql
-- 下载代码默认系统账号： admin/123456
+- redis
+- 数据库脚步：jeecg-boot\docs\dbsys-init-20190225.sql
+- 默认登录账号： admin/123456
 
 
 前端开发环境和依赖
@@ -161,23 +158,22 @@ git clone https://github.com/zhangdaiscott/jeecg-boot.git
 cd  jeecg-boot/ant-design-jeecg-vue
 ```
 
-- 安装依赖
+1. 安装node.js
+2. 切换到ant-design-jeecg-vue文件夹下
 ```
+# 安装yarn
+npm install -g yarn
+
+# 下载依赖
 yarn install
-```
 
-- 开发模式运行
-```
+# 启动
 yarn run serve
-```
 
-- 编译项目
-```
+# 编译项目
 yarn run build
-```
 
-- Lints and fixes files
-```
+# Lints and fixes files
 yarn run lint
 ```
 
