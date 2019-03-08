@@ -17,6 +17,8 @@ public class SysPermissionTree implements Serializable {
 
 	private String key;
 
+	private String title;
+
 	/**
 	 * 父id
 	 */
@@ -126,6 +128,7 @@ public class SysPermissionTree implements Serializable {
 		this.redirect = permission.getRedirect();
 		this.url = permission.getUrl();
 		this.hidden = permission.isHidden();
+		this.title=permission.getName();
 		this.alwaysShow= permission.isAlwaysShow();
 		if (permission.getIsLeaf() == 0) {
 			this.children = new ArrayList<SysPermissionTree>();
@@ -187,6 +190,14 @@ public class SysPermissionTree implements Serializable {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
 	public String getIcon() {
