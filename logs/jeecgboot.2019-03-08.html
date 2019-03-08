@@ -21458,3 +21458,579 @@ TD.Exception { background: #A2AEE8; font-family: courier, monospace;}
 <td class="FileOfCaller">LogRecordAspect.java</td>
 <td class="LineOfCaller">42</td>
 </tr>
+
+<tr class="debug odd">
+<td class="Level">DEBUG</td>
+<td class="Date">2019-03-08 14:00:16,322</td>
+<td class="Message">==&gt;  Preparing: select * from sys_user where username = ? </td>
+<td class="MethodOfCaller">debug</td>
+<td class="FileOfCaller">BaseJdbcLogger.java</td>
+<td class="LineOfCaller">159</td>
+</tr>
+
+<tr class="debug even">
+<td class="Level">DEBUG</td>
+<td class="Date">2019-03-08 14:00:16,323</td>
+<td class="Message">==&gt; Parameters: admin(String)</td>
+<td class="MethodOfCaller">debug</td>
+<td class="FileOfCaller">BaseJdbcLogger.java</td>
+<td class="LineOfCaller">159</td>
+</tr>
+
+<tr class="debug odd">
+<td class="Level">DEBUG</td>
+<td class="Date">2019-03-08 14:00:16,324</td>
+<td class="Message">&lt;==      Total: 1</td>
+<td class="MethodOfCaller">debug</td>
+<td class="FileOfCaller">BaseJdbcLogger.java</td>
+<td class="LineOfCaller">159</td>
+</tr>
+
+<tr class="info even">
+<td class="Level">INFO</td>
+<td class="Date">2019-03-08 14:00:16,337</td>
+<td class="Message">请求开始, 各个参数, url: http://localhost:4200/jeecg-boot/sys/ng-alain/getAppData, method: GET, uri: /jeecg-boot/sys/ng-alain/getAppData, params: null</td>
+<td class="MethodOfCaller">doAround</td>
+<td class="FileOfCaller">LogRecordAspect.java</td>
+<td class="LineOfCaller">37</td>
+</tr>
+
+<tr class="debug odd">
+<td class="Level">DEBUG</td>
+<td class="Date">2019-03-08 14:00:16,338</td>
+<td class="Message">==&gt;  Preparing: SELECT p.* FROM sys_permission p WHERE exists( select a.id from sys_role_permission a join sys_role b on a.role_id = b.id join sys_user_role c on c.role_id = b.id join sys_user d on d.id = c.user_id where p.id = a.permission_id AND d.username = ? ) and p.del_flag = 0 order by p.sort_no ASC </td>
+<td class="MethodOfCaller">debug</td>
+<td class="FileOfCaller">BaseJdbcLogger.java</td>
+<td class="LineOfCaller">159</td>
+</tr>
+
+<tr class="debug even">
+<td class="Level">DEBUG</td>
+<td class="Date">2019-03-08 14:00:16,339</td>
+<td class="Message">==&gt; Parameters: admin(String)</td>
+<td class="MethodOfCaller">debug</td>
+<td class="FileOfCaller">BaseJdbcLogger.java</td>
+<td class="LineOfCaller">159</td>
+</tr>
+
+<tr class="debug odd">
+<td class="Level">DEBUG</td>
+<td class="Date">2019-03-08 14:00:16,353</td>
+<td class="Message">&lt;==      Total: 57</td>
+<td class="MethodOfCaller">debug</td>
+<td class="FileOfCaller">BaseJdbcLogger.java</td>
+<td class="LineOfCaller">159</td>
+</tr>
+
+<tr class="info even">
+<td class="Level">INFO</td>
+<td class="Date">2019-03-08 14:00:16,356</td>
+<td class="Message">请求结束，controller的返回值是 {&quot;app&quot;:{&quot;name&quot;:&quot;jee-ngAlain&quot;,&quot;description&quot;:&quot;jeecg+ng-alain整合版本&quot;},&quot;menu&quot;:[{&quot;children&quot;:[{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/dashboard/analysis&quot;,&quot;text&quot;:&quot;首页&quot;},{&quot;reuse&quot;:true,&quot;children&quot;:[{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/isystem/user&quot;,&quot;text&quot;:&quot;用户管理&quot;},{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/isystem/depart&quot;,&quot;text&quot;:&quot;部门管理&quot;},{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/isystem/role&quot;,&quot;text&quot;:&quot;角色管理&quot;},{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/isystem/permission&quot;,&quot;text&quot;:&quot;菜单管理&quot;},{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/isystem/log&quot;,&quot;text&quot;:&quot;日志管理&quot;},{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/isystem/QuartzJobList&quot;,&quot;text&quot;:&quot;定时任务&quot;},{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/isystem/dict&quot;,&quot;text&quot;:&quot;数据字典&quot;},{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/isystem/annountCement&quot;,&quot;text&quot;:&quot;系统通告&quot;}],&quot;icon&quot;:{&quot;type&quot;:&quot;icon&quot;,&quot;value&quot;:&quot;appstore&quot;},&quot;text&quot;:&quot;系统管理&quot;},{&quot;reuse&quot;:true,&quot;children&quot;:[{&quot;reuse&quot;:true,&quot;link&quot;:&quot;13b55c856d11b66f790467055e109e9c&quot;,&quot;text&quot;:&quot;SQL监控&quot;},{&quot;reuse&quot;:true,&quot;link&quot;:&quot;193e77945b4958c3243b322920a995b8&quot;,&quot;text&quot;:&quot;在线文档&quot;},{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/dashboard/workplace&quot;,&quot;text&quot;:&quot;工作台&quot;}],&quot;icon&quot;:{&quot;type&quot;:&quot;icon&quot;,&quot;value&quot;:&quot;appstore&quot;},&quot;text&quot;:&quot;系统监控&quot;},{&quot;reuse&quot;:true,&quot;children&quot;:[{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/jeecg/jeecgDemoList&quot;,&quot;text&quot;:&quot;单表模型示例&quot;},{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/jeecg/tablist/JeecgOrderDMainList&quot;,&quot;text&quot;:&quot;一对多Tab示例&quot;},{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/jeecg/JeecgOrderMainList&quot;,&quot;text&quot;:&quot;一对多示例&quot;},{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/jeecg/PrintDemoList&quot;,&quot;text&quot;:&quot;打印测试&quot;},{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/jeecg/helloworld&quot;,&quot;text&quot;:&quot;helloworld&quot;},{&quot;reuse&quot;:true,&quot;link&quot;:&quot;80a4754f336b799905047399bbe1287e&quot;,&quot;text&quot;:&quot;online表单&quot;},{&quot;reuse&quot;:true,&quot;link&quot;:&quot;bfa89e563d9509fbc5c6503dd50faf2e&quot;,&quot;text&quot;:&quot;百度&quot;},{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/jeecg/FlowTest&quot;,&quot;text&quot;:&quot;数据回执模拟&quot;}],&quot;icon&quot;:{&quot;type&quot;:&quot;icon&quot;,&quot;value&quot;:&quot;appstore&quot;},&quot;text&quot;:&quot;常见案例&quot;},{&quot;reuse&quot;:true,&quot;children&quot;:[{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/form/base-form&quot;,&quot;text&quot;:&quot;基础表单&quot;},{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/form/step-form&quot;,&quot;text&quot;:&quot;分步表单&quot;},{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/form/advanced-form&quot;,&quot;text&quot;:&quot;高级表单&quot;}],&quot;icon&quot;:{&quot;type&quot;:&quot;icon&quot;,&quot;value&quot;:&quot;appstore&quot;},&quot;text&quot;:&quot;表单页&quot;},{&quot;reuse&quot;:true,&quot;children&quot;:[{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/list/query-list&quot;,&quot;text&quot;:&quot;查询表格&quot;},{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/list/edit-table&quot;,&quot;text&quot;:&quot;内联编辑表格&quot;},{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/list/user-list&quot;,&quot;text&quot;:&quot;用户列表&quot;},{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/list/role-list&quot;,&quot;text&quot;:&quot;角色列表&quot;},{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/list/permission-list&quot;,&quot;text&quot;:&quot;权限列表&quot;},{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/list/basic-list&quot;,&quot;text&quot;:&quot;标准列表&quot;},{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/list/card&quot;,&quot;text&quot;:&quot;卡片列表&quot;},{&quot;reuse&quot;:true,&quot;children&quot;:[{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/list/search/article&quot;,&quot;text&quot;:&quot;搜索列表（文章）&quot;},{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/list/search/application&quot;,&quot;text&quot;:&quot;搜索列表（应用）&quot;},{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/list/search/project&quot;,&quot;text&quot;:&quot;搜索列表（项目）&quot;}],&quot;icon&quot;:{&quot;type&quot;:&quot;icon&quot;,&quot;value&quot;:&quot;appstore&quot;},&quot;text&quot;:&quot;搜索列表&quot;}],&quot;icon&quot;:{&quot;type&quot;:&quot;icon&quot;,&quot;value&quot;:&quot;appstore&quot;},&quot;text&quot;:&quot;列表页&quot;},{&quot;reuse&quot;:true,&quot;children&quot;:[{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/profile/basic&quot;,&quot;text&quot;:&quot;基础详情页&quot;},{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/profile/advanced&quot;,&quot;text&quot;:&quot;高级详情页&quot;}],&quot;icon&quot;:{&quot;type&quot;:&quot;icon&quot;,&quot;value&quot;:&quot;appstore&quot;},&quot;text&quot;:&quot;详情页&quot;},{&quot;reuse&quot;:true,&quot;children&quot;:[{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/result/success&quot;,&quot;text&quot;:&quot;成功&quot;},{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/result/fail&quot;,&quot;text&quot;:&quot;失败&quot;}],&quot;icon&quot;:{&quot;type&quot;:&quot;icon&quot;,&quot;value&quot;:&quot;appstore&quot;},&quot;text&quot;:&quot;结果页&quot;},{&quot;reuse&quot;:true,&quot;children&quot;:[{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/exception/403&quot;,&quot;text&quot;:&quot;403&quot;},{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/exception/404&quot;,&quot;text&quot;:&quot;404&quot;},{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/exception/500&quot;,&quot;text&quot;:&quot;500&quot;}],&quot;icon&quot;:{&quot;type&quot;:&quot;icon&quot;,&quot;value&quot;:&quot;appstore&quot;},&quot;text&quot;:&quot;异常页&quot;},{&quot;reuse&quot;:true,&quot;children&quot;:[{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/account/center&quot;,&quot;text&quot;:&quot;个人中心&quot;},{&quot;reuse&quot;:true,&quot;children&quot;:[{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/account/settings/base&quot;,&quot;text&quot;:&quot;基本设置&quot;},{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/account/settings/binding&quot;,&quot;text&quot;:&quot;账户绑定&quot;},{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/account/settings/custom&quot;,&quot;text&quot;:&quot;个性化设置&quot;},{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/account/settings/security&quot;,&quot;text&quot;:&quot;安全设置&quot;},{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/account/settings/notification&quot;,&quot;text&quot;:&quot;新消息通知&quot;}],&quot;icon&quot;:{&quot;type&quot;:&quot;icon&quot;,&quot;value&quot;:&quot;appstore&quot;},&quot;text&quot;:&quot;个人设置&quot;}],&quot;icon&quot;:{&quot;type&quot;:&quot;icon&quot;,&quot;value&quot;:&quot;appstore&quot;},&quot;text&quot;:&quot;个人页&quot;}],&quot;text&quot;:&quot;jeecg菜单&quot;,&quot;group&quot;:true}],&quot;user&quot;:{&quot;name&quot;:&quot;admin&quot;,&quot;avatar&quot;:&quot;./assets/tmp/img/avatar.jpg&quot;,&quot;email&quot;:&quot;11@qq.com&quot;,&quot;token&quot;:&quot;eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1NTIwMjI4NzksInVzZXJuYW1lIjoiYWRtaW4ifQ.fg3hOHYa-ugxughOil8SgedckzM1uBm0QzfoM2UPGHs&quot;}}</td>
+<td class="MethodOfCaller">doAround</td>
+<td class="FileOfCaller">LogRecordAspect.java</td>
+<td class="LineOfCaller">42</td>
+</tr>
+
+<tr class="debug odd">
+<td class="Level">DEBUG</td>
+<td class="Date">2019-03-08 14:00:16,694</td>
+<td class="Message">==&gt;  Preparing: select * from sys_user where username = ? </td>
+<td class="MethodOfCaller">debug</td>
+<td class="FileOfCaller">BaseJdbcLogger.java</td>
+<td class="LineOfCaller">159</td>
+</tr>
+
+<tr class="debug even">
+<td class="Level">DEBUG</td>
+<td class="Date">2019-03-08 14:00:16,695</td>
+<td class="Message">==&gt; Parameters: admin(String)</td>
+<td class="MethodOfCaller">debug</td>
+<td class="FileOfCaller">BaseJdbcLogger.java</td>
+<td class="LineOfCaller">159</td>
+</tr>
+
+<tr class="debug odd">
+<td class="Level">DEBUG</td>
+<td class="Date">2019-03-08 14:00:16,696</td>
+<td class="Message">&lt;==      Total: 1</td>
+<td class="MethodOfCaller">debug</td>
+<td class="FileOfCaller">BaseJdbcLogger.java</td>
+<td class="LineOfCaller">159</td>
+</tr>
+
+<tr class="info even">
+<td class="Level">INFO</td>
+<td class="Date">2019-03-08 14:00:16,704</td>
+<td class="Message">请求开始, 各个参数, url: http://localhost:4200/jeecg-boot/sysdepart/sysDepart/queryTreeList, method: GET, uri: /jeecg-boot/sysdepart/sysDepart/queryTreeList, params: null</td>
+<td class="MethodOfCaller">doAround</td>
+<td class="FileOfCaller">LogRecordAspect.java</td>
+<td class="LineOfCaller">37</td>
+</tr>
+
+<tr class="debug odd">
+<td class="Level">DEBUG</td>
+<td class="Date">2019-03-08 14:00:16,705</td>
+<td class="Message">==&gt;  Preparing: SELECT id,parent_id,depart_name,depart_name_en,depart_name_abbr,depart_order,description,org_type,org_code,mobile,fax,address,memo,status,del_flag,create_by,create_time,update_by,update_time FROM sys_depart WHERE del_flag = ? ORDER BY depart_order ASC </td>
+<td class="MethodOfCaller">debug</td>
+<td class="FileOfCaller">BaseJdbcLogger.java</td>
+<td class="LineOfCaller">159</td>
+</tr>
+
+<tr class="debug even">
+<td class="Level">DEBUG</td>
+<td class="Date">2019-03-08 14:00:16,706</td>
+<td class="Message">==&gt; Parameters: 0(Integer)</td>
+<td class="MethodOfCaller">debug</td>
+<td class="FileOfCaller">BaseJdbcLogger.java</td>
+<td class="LineOfCaller">159</td>
+</tr>
+
+<tr class="debug odd">
+<td class="Level">DEBUG</td>
+<td class="Date">2019-03-08 14:00:16,708</td>
+<td class="Message">&lt;==      Total: 6</td>
+<td class="MethodOfCaller">debug</td>
+<td class="FileOfCaller">BaseJdbcLogger.java</td>
+<td class="LineOfCaller">159</td>
+</tr>
+
+<tr class="info even">
+<td class="Level">INFO</td>
+<td class="Date">2019-03-08 14:00:16,710</td>
+<td class="Message">请求结束，controller的返回值是 Result(success=true, message=null, code=null, result=[org.jeecg.modules.system.model.SysDepartTreeModel@f799b8c8, org.jeecg.modules.system.model.SysDepartTreeModel@9a97e6fb], timestamp=1552024816704)</td>
+<td class="MethodOfCaller">doAround</td>
+<td class="FileOfCaller">LogRecordAspect.java</td>
+<td class="LineOfCaller">42</td>
+</tr>
+
+<tr class="debug odd">
+<td class="Level">DEBUG</td>
+<td class="Date">2019-03-08 14:04:47,115</td>
+<td class="Message">==&gt;  Preparing: select * from sys_user where username = ? </td>
+<td class="MethodOfCaller">debug</td>
+<td class="FileOfCaller">BaseJdbcLogger.java</td>
+<td class="LineOfCaller">159</td>
+</tr>
+
+<tr class="debug even">
+<td class="Level">DEBUG</td>
+<td class="Date">2019-03-08 14:04:47,116</td>
+<td class="Message">==&gt; Parameters: admin(String)</td>
+<td class="MethodOfCaller">debug</td>
+<td class="FileOfCaller">BaseJdbcLogger.java</td>
+<td class="LineOfCaller">159</td>
+</tr>
+
+<tr class="debug odd">
+<td class="Level">DEBUG</td>
+<td class="Date">2019-03-08 14:04:47,117</td>
+<td class="Message">&lt;==      Total: 1</td>
+<td class="MethodOfCaller">debug</td>
+<td class="FileOfCaller">BaseJdbcLogger.java</td>
+<td class="LineOfCaller">159</td>
+</tr>
+
+<tr class="info even">
+<td class="Level">INFO</td>
+<td class="Date">2019-03-08 14:04:47,134</td>
+<td class="Message">请求开始, 各个参数, url: http://localhost:4200/jeecg-boot/sys/ng-alain/getAppData, method: GET, uri: /jeecg-boot/sys/ng-alain/getAppData, params: null</td>
+<td class="MethodOfCaller">doAround</td>
+<td class="FileOfCaller">LogRecordAspect.java</td>
+<td class="LineOfCaller">37</td>
+</tr>
+
+<tr class="debug odd">
+<td class="Level">DEBUG</td>
+<td class="Date">2019-03-08 14:04:47,136</td>
+<td class="Message">==&gt;  Preparing: SELECT p.* FROM sys_permission p WHERE exists( select a.id from sys_role_permission a join sys_role b on a.role_id = b.id join sys_user_role c on c.role_id = b.id join sys_user d on d.id = c.user_id where p.id = a.permission_id AND d.username = ? ) and p.del_flag = 0 order by p.sort_no ASC </td>
+<td class="MethodOfCaller">debug</td>
+<td class="FileOfCaller">BaseJdbcLogger.java</td>
+<td class="LineOfCaller">159</td>
+</tr>
+
+<tr class="debug even">
+<td class="Level">DEBUG</td>
+<td class="Date">2019-03-08 14:04:47,136</td>
+<td class="Message">==&gt; Parameters: admin(String)</td>
+<td class="MethodOfCaller">debug</td>
+<td class="FileOfCaller">BaseJdbcLogger.java</td>
+<td class="LineOfCaller">159</td>
+</tr>
+
+<tr class="debug odd">
+<td class="Level">DEBUG</td>
+<td class="Date">2019-03-08 14:04:47,145</td>
+<td class="Message">&lt;==      Total: 57</td>
+<td class="MethodOfCaller">debug</td>
+<td class="FileOfCaller">BaseJdbcLogger.java</td>
+<td class="LineOfCaller">159</td>
+</tr>
+
+<tr class="info even">
+<td class="Level">INFO</td>
+<td class="Date">2019-03-08 14:04:47,149</td>
+<td class="Message">请求结束，controller的返回值是 {&quot;app&quot;:{&quot;name&quot;:&quot;jee-ngAlain&quot;,&quot;description&quot;:&quot;jeecg+ng-alain整合版本&quot;},&quot;menu&quot;:[{&quot;children&quot;:[{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/dashboard/analysis&quot;,&quot;text&quot;:&quot;首页&quot;},{&quot;reuse&quot;:true,&quot;children&quot;:[{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/isystem/user&quot;,&quot;text&quot;:&quot;用户管理&quot;},{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/isystem/depart&quot;,&quot;text&quot;:&quot;部门管理&quot;},{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/isystem/role&quot;,&quot;text&quot;:&quot;角色管理&quot;},{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/isystem/permission&quot;,&quot;text&quot;:&quot;菜单管理&quot;},{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/isystem/log&quot;,&quot;text&quot;:&quot;日志管理&quot;},{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/isystem/QuartzJobList&quot;,&quot;text&quot;:&quot;定时任务&quot;},{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/isystem/dict&quot;,&quot;text&quot;:&quot;数据字典&quot;},{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/isystem/annountCement&quot;,&quot;text&quot;:&quot;系统通告&quot;}],&quot;icon&quot;:{&quot;type&quot;:&quot;icon&quot;,&quot;value&quot;:&quot;appstore&quot;},&quot;text&quot;:&quot;系统管理&quot;},{&quot;reuse&quot;:true,&quot;children&quot;:[{&quot;reuse&quot;:true,&quot;link&quot;:&quot;13b55c856d11b66f790467055e109e9c&quot;,&quot;text&quot;:&quot;SQL监控&quot;},{&quot;reuse&quot;:true,&quot;link&quot;:&quot;193e77945b4958c3243b322920a995b8&quot;,&quot;text&quot;:&quot;在线文档&quot;},{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/dashboard/workplace&quot;,&quot;text&quot;:&quot;工作台&quot;}],&quot;icon&quot;:{&quot;type&quot;:&quot;icon&quot;,&quot;value&quot;:&quot;appstore&quot;},&quot;text&quot;:&quot;系统监控&quot;},{&quot;reuse&quot;:true,&quot;children&quot;:[{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/jeecg/jeecgDemoList&quot;,&quot;text&quot;:&quot;单表模型示例&quot;},{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/jeecg/tablist/JeecgOrderDMainList&quot;,&quot;text&quot;:&quot;一对多Tab示例&quot;},{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/jeecg/JeecgOrderMainList&quot;,&quot;text&quot;:&quot;一对多示例&quot;},{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/jeecg/PrintDemoList&quot;,&quot;text&quot;:&quot;打印测试&quot;},{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/jeecg/helloworld&quot;,&quot;text&quot;:&quot;helloworld&quot;},{&quot;reuse&quot;:true,&quot;link&quot;:&quot;80a4754f336b799905047399bbe1287e&quot;,&quot;text&quot;:&quot;online表单&quot;},{&quot;reuse&quot;:true,&quot;link&quot;:&quot;bfa89e563d9509fbc5c6503dd50faf2e&quot;,&quot;text&quot;:&quot;百度&quot;},{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/jeecg/FlowTest&quot;,&quot;text&quot;:&quot;数据回执模拟&quot;}],&quot;icon&quot;:{&quot;type&quot;:&quot;icon&quot;,&quot;value&quot;:&quot;appstore&quot;},&quot;text&quot;:&quot;常见案例&quot;},{&quot;reuse&quot;:true,&quot;children&quot;:[{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/form/base-form&quot;,&quot;text&quot;:&quot;基础表单&quot;},{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/form/step-form&quot;,&quot;text&quot;:&quot;分步表单&quot;},{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/form/advanced-form&quot;,&quot;text&quot;:&quot;高级表单&quot;}],&quot;icon&quot;:{&quot;type&quot;:&quot;icon&quot;,&quot;value&quot;:&quot;appstore&quot;},&quot;text&quot;:&quot;表单页&quot;},{&quot;reuse&quot;:true,&quot;children&quot;:[{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/list/query-list&quot;,&quot;text&quot;:&quot;查询表格&quot;},{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/list/edit-table&quot;,&quot;text&quot;:&quot;内联编辑表格&quot;},{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/list/user-list&quot;,&quot;text&quot;:&quot;用户列表&quot;},{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/list/role-list&quot;,&quot;text&quot;:&quot;角色列表&quot;},{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/list/permission-list&quot;,&quot;text&quot;:&quot;权限列表&quot;},{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/list/basic-list&quot;,&quot;text&quot;:&quot;标准列表&quot;},{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/list/card&quot;,&quot;text&quot;:&quot;卡片列表&quot;},{&quot;reuse&quot;:true,&quot;children&quot;:[{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/list/search/article&quot;,&quot;text&quot;:&quot;搜索列表（文章）&quot;},{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/list/search/application&quot;,&quot;text&quot;:&quot;搜索列表（应用）&quot;},{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/list/search/project&quot;,&quot;text&quot;:&quot;搜索列表（项目）&quot;}],&quot;icon&quot;:{&quot;type&quot;:&quot;icon&quot;,&quot;value&quot;:&quot;appstore&quot;},&quot;text&quot;:&quot;搜索列表&quot;}],&quot;icon&quot;:{&quot;type&quot;:&quot;icon&quot;,&quot;value&quot;:&quot;appstore&quot;},&quot;text&quot;:&quot;列表页&quot;},{&quot;reuse&quot;:true,&quot;children&quot;:[{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/profile/basic&quot;,&quot;text&quot;:&quot;基础详情页&quot;},{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/profile/advanced&quot;,&quot;text&quot;:&quot;高级详情页&quot;}],&quot;icon&quot;:{&quot;type&quot;:&quot;icon&quot;,&quot;value&quot;:&quot;appstore&quot;},&quot;text&quot;:&quot;详情页&quot;},{&quot;reuse&quot;:true,&quot;children&quot;:[{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/result/success&quot;,&quot;text&quot;:&quot;成功&quot;},{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/result/fail&quot;,&quot;text&quot;:&quot;失败&quot;}],&quot;icon&quot;:{&quot;type&quot;:&quot;icon&quot;,&quot;value&quot;:&quot;appstore&quot;},&quot;text&quot;:&quot;结果页&quot;},{&quot;reuse&quot;:true,&quot;children&quot;:[{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/exception/403&quot;,&quot;text&quot;:&quot;403&quot;},{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/exception/404&quot;,&quot;text&quot;:&quot;404&quot;},{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/exception/500&quot;,&quot;text&quot;:&quot;500&quot;}],&quot;icon&quot;:{&quot;type&quot;:&quot;icon&quot;,&quot;value&quot;:&quot;appstore&quot;},&quot;text&quot;:&quot;异常页&quot;},{&quot;reuse&quot;:true,&quot;children&quot;:[{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/account/center&quot;,&quot;text&quot;:&quot;个人中心&quot;},{&quot;reuse&quot;:true,&quot;children&quot;:[{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/account/settings/base&quot;,&quot;text&quot;:&quot;基本设置&quot;},{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/account/settings/binding&quot;,&quot;text&quot;:&quot;账户绑定&quot;},{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/account/settings/custom&quot;,&quot;text&quot;:&quot;个性化设置&quot;},{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/account/settings/security&quot;,&quot;text&quot;:&quot;安全设置&quot;},{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/account/settings/notification&quot;,&quot;text&quot;:&quot;新消息通知&quot;}],&quot;icon&quot;:{&quot;type&quot;:&quot;icon&quot;,&quot;value&quot;:&quot;appstore&quot;},&quot;text&quot;:&quot;个人设置&quot;}],&quot;icon&quot;:{&quot;type&quot;:&quot;icon&quot;,&quot;value&quot;:&quot;appstore&quot;},&quot;text&quot;:&quot;个人页&quot;}],&quot;text&quot;:&quot;jeecg菜单&quot;,&quot;group&quot;:true}],&quot;user&quot;:{&quot;name&quot;:&quot;admin&quot;,&quot;avatar&quot;:&quot;./assets/tmp/img/avatar.jpg&quot;,&quot;email&quot;:&quot;11@qq.com&quot;,&quot;token&quot;:&quot;eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1NTIwMjI4NzksInVzZXJuYW1lIjoiYWRtaW4ifQ.fg3hOHYa-ugxughOil8SgedckzM1uBm0QzfoM2UPGHs&quot;}}</td>
+<td class="MethodOfCaller">doAround</td>
+<td class="FileOfCaller">LogRecordAspect.java</td>
+<td class="LineOfCaller">42</td>
+</tr>
+
+<tr class="debug odd">
+<td class="Level">DEBUG</td>
+<td class="Date">2019-03-08 14:04:47,836</td>
+<td class="Message">==&gt;  Preparing: select * from sys_user where username = ? </td>
+<td class="MethodOfCaller">debug</td>
+<td class="FileOfCaller">BaseJdbcLogger.java</td>
+<td class="LineOfCaller">159</td>
+</tr>
+
+<tr class="debug even">
+<td class="Level">DEBUG</td>
+<td class="Date">2019-03-08 14:04:47,837</td>
+<td class="Message">==&gt; Parameters: admin(String)</td>
+<td class="MethodOfCaller">debug</td>
+<td class="FileOfCaller">BaseJdbcLogger.java</td>
+<td class="LineOfCaller">159</td>
+</tr>
+
+<tr class="debug odd">
+<td class="Level">DEBUG</td>
+<td class="Date">2019-03-08 14:04:47,837</td>
+<td class="Message">&lt;==      Total: 1</td>
+<td class="MethodOfCaller">debug</td>
+<td class="FileOfCaller">BaseJdbcLogger.java</td>
+<td class="LineOfCaller">159</td>
+</tr>
+
+<tr class="info even">
+<td class="Level">INFO</td>
+<td class="Date">2019-03-08 14:04:47,847</td>
+<td class="Message">请求开始, 各个参数, url: http://localhost:4200/jeecg-boot/sysdepart/sysDepart/queryTreeList, method: GET, uri: /jeecg-boot/sysdepart/sysDepart/queryTreeList, params: null</td>
+<td class="MethodOfCaller">doAround</td>
+<td class="FileOfCaller">LogRecordAspect.java</td>
+<td class="LineOfCaller">37</td>
+</tr>
+
+<tr class="debug odd">
+<td class="Level">DEBUG</td>
+<td class="Date">2019-03-08 14:04:47,848</td>
+<td class="Message">==&gt;  Preparing: SELECT id,parent_id,depart_name,depart_name_en,depart_name_abbr,depart_order,description,org_type,org_code,mobile,fax,address,memo,status,del_flag,create_by,create_time,update_by,update_time FROM sys_depart WHERE del_flag = ? ORDER BY depart_order ASC </td>
+<td class="MethodOfCaller">debug</td>
+<td class="FileOfCaller">BaseJdbcLogger.java</td>
+<td class="LineOfCaller">159</td>
+</tr>
+
+<tr class="debug even">
+<td class="Level">DEBUG</td>
+<td class="Date">2019-03-08 14:04:47,848</td>
+<td class="Message">==&gt; Parameters: 0(Integer)</td>
+<td class="MethodOfCaller">debug</td>
+<td class="FileOfCaller">BaseJdbcLogger.java</td>
+<td class="LineOfCaller">159</td>
+</tr>
+
+<tr class="debug odd">
+<td class="Level">DEBUG</td>
+<td class="Date">2019-03-08 14:04:47,850</td>
+<td class="Message">&lt;==      Total: 6</td>
+<td class="MethodOfCaller">debug</td>
+<td class="FileOfCaller">BaseJdbcLogger.java</td>
+<td class="LineOfCaller">159</td>
+</tr>
+
+<tr class="info even">
+<td class="Level">INFO</td>
+<td class="Date">2019-03-08 14:04:47,850</td>
+<td class="Message">请求结束，controller的返回值是 Result(success=true, message=null, code=null, result=[org.jeecg.modules.system.model.SysDepartTreeModel@f799b8c8, org.jeecg.modules.system.model.SysDepartTreeModel@9a97e6fb], timestamp=1552025087847)</td>
+<td class="MethodOfCaller">doAround</td>
+<td class="FileOfCaller">LogRecordAspect.java</td>
+<td class="LineOfCaller">42</td>
+</tr>
+
+<tr class="debug odd">
+<td class="Level">DEBUG</td>
+<td class="Date">2019-03-08 14:04:56,248</td>
+<td class="Message">==&gt;  Preparing: select * from sys_user where username = ? </td>
+<td class="MethodOfCaller">debug</td>
+<td class="FileOfCaller">BaseJdbcLogger.java</td>
+<td class="LineOfCaller">159</td>
+</tr>
+
+<tr class="debug even">
+<td class="Level">DEBUG</td>
+<td class="Date">2019-03-08 14:04:56,249</td>
+<td class="Message">==&gt; Parameters: admin(String)</td>
+<td class="MethodOfCaller">debug</td>
+<td class="FileOfCaller">BaseJdbcLogger.java</td>
+<td class="LineOfCaller">159</td>
+</tr>
+
+<tr class="debug odd">
+<td class="Level">DEBUG</td>
+<td class="Date">2019-03-08 14:04:56,250</td>
+<td class="Message">&lt;==      Total: 1</td>
+<td class="MethodOfCaller">debug</td>
+<td class="FileOfCaller">BaseJdbcLogger.java</td>
+<td class="LineOfCaller">159</td>
+</tr>
+
+<tr class="info even">
+<td class="Level">INFO</td>
+<td class="Date">2019-03-08 14:04:56,265</td>
+<td class="Message">请求开始, 各个参数, url: http://localhost:4200/jeecg-boot/sys/ng-alain/getAppData, method: GET, uri: /jeecg-boot/sys/ng-alain/getAppData, params: null</td>
+<td class="MethodOfCaller">doAround</td>
+<td class="FileOfCaller">LogRecordAspect.java</td>
+<td class="LineOfCaller">37</td>
+</tr>
+
+<tr class="debug odd">
+<td class="Level">DEBUG</td>
+<td class="Date">2019-03-08 14:04:56,266</td>
+<td class="Message">==&gt;  Preparing: SELECT p.* FROM sys_permission p WHERE exists( select a.id from sys_role_permission a join sys_role b on a.role_id = b.id join sys_user_role c on c.role_id = b.id join sys_user d on d.id = c.user_id where p.id = a.permission_id AND d.username = ? ) and p.del_flag = 0 order by p.sort_no ASC </td>
+<td class="MethodOfCaller">debug</td>
+<td class="FileOfCaller">BaseJdbcLogger.java</td>
+<td class="LineOfCaller">159</td>
+</tr>
+
+<tr class="debug even">
+<td class="Level">DEBUG</td>
+<td class="Date">2019-03-08 14:04:56,267</td>
+<td class="Message">==&gt; Parameters: admin(String)</td>
+<td class="MethodOfCaller">debug</td>
+<td class="FileOfCaller">BaseJdbcLogger.java</td>
+<td class="LineOfCaller">159</td>
+</tr>
+
+<tr class="debug odd">
+<td class="Level">DEBUG</td>
+<td class="Date">2019-03-08 14:04:56,273</td>
+<td class="Message">&lt;==      Total: 57</td>
+<td class="MethodOfCaller">debug</td>
+<td class="FileOfCaller">BaseJdbcLogger.java</td>
+<td class="LineOfCaller">159</td>
+</tr>
+
+<tr class="info even">
+<td class="Level">INFO</td>
+<td class="Date">2019-03-08 14:04:56,276</td>
+<td class="Message">请求结束，controller的返回值是 {&quot;app&quot;:{&quot;name&quot;:&quot;jee-ngAlain&quot;,&quot;description&quot;:&quot;jeecg+ng-alain整合版本&quot;},&quot;menu&quot;:[{&quot;children&quot;:[{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/dashboard/analysis&quot;,&quot;text&quot;:&quot;首页&quot;},{&quot;reuse&quot;:true,&quot;children&quot;:[{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/isystem/user&quot;,&quot;text&quot;:&quot;用户管理&quot;},{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/isystem/depart&quot;,&quot;text&quot;:&quot;部门管理&quot;},{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/isystem/role&quot;,&quot;text&quot;:&quot;角色管理&quot;},{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/isystem/permission&quot;,&quot;text&quot;:&quot;菜单管理&quot;},{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/isystem/log&quot;,&quot;text&quot;:&quot;日志管理&quot;},{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/isystem/QuartzJobList&quot;,&quot;text&quot;:&quot;定时任务&quot;},{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/isystem/dict&quot;,&quot;text&quot;:&quot;数据字典&quot;},{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/isystem/annountCement&quot;,&quot;text&quot;:&quot;系统通告&quot;}],&quot;icon&quot;:{&quot;type&quot;:&quot;icon&quot;,&quot;value&quot;:&quot;appstore&quot;},&quot;text&quot;:&quot;系统管理&quot;},{&quot;reuse&quot;:true,&quot;children&quot;:[{&quot;reuse&quot;:true,&quot;link&quot;:&quot;13b55c856d11b66f790467055e109e9c&quot;,&quot;text&quot;:&quot;SQL监控&quot;},{&quot;reuse&quot;:true,&quot;link&quot;:&quot;193e77945b4958c3243b322920a995b8&quot;,&quot;text&quot;:&quot;在线文档&quot;},{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/dashboard/workplace&quot;,&quot;text&quot;:&quot;工作台&quot;}],&quot;icon&quot;:{&quot;type&quot;:&quot;icon&quot;,&quot;value&quot;:&quot;appstore&quot;},&quot;text&quot;:&quot;系统监控&quot;},{&quot;reuse&quot;:true,&quot;children&quot;:[{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/jeecg/jeecgDemoList&quot;,&quot;text&quot;:&quot;单表模型示例&quot;},{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/jeecg/tablist/JeecgOrderDMainList&quot;,&quot;text&quot;:&quot;一对多Tab示例&quot;},{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/jeecg/JeecgOrderMainList&quot;,&quot;text&quot;:&quot;一对多示例&quot;},{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/jeecg/PrintDemoList&quot;,&quot;text&quot;:&quot;打印测试&quot;},{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/jeecg/helloworld&quot;,&quot;text&quot;:&quot;helloworld&quot;},{&quot;reuse&quot;:true,&quot;link&quot;:&quot;80a4754f336b799905047399bbe1287e&quot;,&quot;text&quot;:&quot;online表单&quot;},{&quot;reuse&quot;:true,&quot;link&quot;:&quot;bfa89e563d9509fbc5c6503dd50faf2e&quot;,&quot;text&quot;:&quot;百度&quot;},{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/jeecg/FlowTest&quot;,&quot;text&quot;:&quot;数据回执模拟&quot;}],&quot;icon&quot;:{&quot;type&quot;:&quot;icon&quot;,&quot;value&quot;:&quot;appstore&quot;},&quot;text&quot;:&quot;常见案例&quot;},{&quot;reuse&quot;:true,&quot;children&quot;:[{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/form/base-form&quot;,&quot;text&quot;:&quot;基础表单&quot;},{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/form/step-form&quot;,&quot;text&quot;:&quot;分步表单&quot;},{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/form/advanced-form&quot;,&quot;text&quot;:&quot;高级表单&quot;}],&quot;icon&quot;:{&quot;type&quot;:&quot;icon&quot;,&quot;value&quot;:&quot;appstore&quot;},&quot;text&quot;:&quot;表单页&quot;},{&quot;reuse&quot;:true,&quot;children&quot;:[{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/list/query-list&quot;,&quot;text&quot;:&quot;查询表格&quot;},{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/list/edit-table&quot;,&quot;text&quot;:&quot;内联编辑表格&quot;},{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/list/user-list&quot;,&quot;text&quot;:&quot;用户列表&quot;},{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/list/role-list&quot;,&quot;text&quot;:&quot;角色列表&quot;},{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/list/permission-list&quot;,&quot;text&quot;:&quot;权限列表&quot;},{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/list/basic-list&quot;,&quot;text&quot;:&quot;标准列表&quot;},{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/list/card&quot;,&quot;text&quot;:&quot;卡片列表&quot;},{&quot;reuse&quot;:true,&quot;children&quot;:[{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/list/search/article&quot;,&quot;text&quot;:&quot;搜索列表（文章）&quot;},{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/list/search/application&quot;,&quot;text&quot;:&quot;搜索列表（应用）&quot;},{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/list/search/project&quot;,&quot;text&quot;:&quot;搜索列表（项目）&quot;}],&quot;icon&quot;:{&quot;type&quot;:&quot;icon&quot;,&quot;value&quot;:&quot;appstore&quot;},&quot;text&quot;:&quot;搜索列表&quot;}],&quot;icon&quot;:{&quot;type&quot;:&quot;icon&quot;,&quot;value&quot;:&quot;appstore&quot;},&quot;text&quot;:&quot;列表页&quot;},{&quot;reuse&quot;:true,&quot;children&quot;:[{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/profile/basic&quot;,&quot;text&quot;:&quot;基础详情页&quot;},{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/profile/advanced&quot;,&quot;text&quot;:&quot;高级详情页&quot;}],&quot;icon&quot;:{&quot;type&quot;:&quot;icon&quot;,&quot;value&quot;:&quot;appstore&quot;},&quot;text&quot;:&quot;详情页&quot;},{&quot;reuse&quot;:true,&quot;children&quot;:[{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/result/success&quot;,&quot;text&quot;:&quot;成功&quot;},{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/result/fail&quot;,&quot;text&quot;:&quot;失败&quot;}],&quot;icon&quot;:{&quot;type&quot;:&quot;icon&quot;,&quot;value&quot;:&quot;appstore&quot;},&quot;text&quot;:&quot;结果页&quot;},{&quot;reuse&quot;:true,&quot;children&quot;:[{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/exception/403&quot;,&quot;text&quot;:&quot;403&quot;},{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/exception/404&quot;,&quot;text&quot;:&quot;404&quot;},{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/exception/500&quot;,&quot;text&quot;:&quot;500&quot;}],&quot;icon&quot;:{&quot;type&quot;:&quot;icon&quot;,&quot;value&quot;:&quot;appstore&quot;},&quot;text&quot;:&quot;异常页&quot;},{&quot;reuse&quot;:true,&quot;children&quot;:[{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/account/center&quot;,&quot;text&quot;:&quot;个人中心&quot;},{&quot;reuse&quot;:true,&quot;children&quot;:[{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/account/settings/base&quot;,&quot;text&quot;:&quot;基本设置&quot;},{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/account/settings/binding&quot;,&quot;text&quot;:&quot;账户绑定&quot;},{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/account/settings/custom&quot;,&quot;text&quot;:&quot;个性化设置&quot;},{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/account/settings/security&quot;,&quot;text&quot;:&quot;安全设置&quot;},{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/account/settings/notification&quot;,&quot;text&quot;:&quot;新消息通知&quot;}],&quot;icon&quot;:{&quot;type&quot;:&quot;icon&quot;,&quot;value&quot;:&quot;appstore&quot;},&quot;text&quot;:&quot;个人设置&quot;}],&quot;icon&quot;:{&quot;type&quot;:&quot;icon&quot;,&quot;value&quot;:&quot;appstore&quot;},&quot;text&quot;:&quot;个人页&quot;}],&quot;text&quot;:&quot;jeecg菜单&quot;,&quot;group&quot;:true}],&quot;user&quot;:{&quot;name&quot;:&quot;admin&quot;,&quot;avatar&quot;:&quot;./assets/tmp/img/avatar.jpg&quot;,&quot;email&quot;:&quot;11@qq.com&quot;,&quot;token&quot;:&quot;eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1NTIwMjI4NzksInVzZXJuYW1lIjoiYWRtaW4ifQ.fg3hOHYa-ugxughOil8SgedckzM1uBm0QzfoM2UPGHs&quot;}}</td>
+<td class="MethodOfCaller">doAround</td>
+<td class="FileOfCaller">LogRecordAspect.java</td>
+<td class="LineOfCaller">42</td>
+</tr>
+
+<tr class="debug odd">
+<td class="Level">DEBUG</td>
+<td class="Date">2019-03-08 14:04:56,845</td>
+<td class="Message">==&gt;  Preparing: select * from sys_user where username = ? </td>
+<td class="MethodOfCaller">debug</td>
+<td class="FileOfCaller">BaseJdbcLogger.java</td>
+<td class="LineOfCaller">159</td>
+</tr>
+
+<tr class="debug even">
+<td class="Level">DEBUG</td>
+<td class="Date">2019-03-08 14:04:56,845</td>
+<td class="Message">==&gt; Parameters: admin(String)</td>
+<td class="MethodOfCaller">debug</td>
+<td class="FileOfCaller">BaseJdbcLogger.java</td>
+<td class="LineOfCaller">159</td>
+</tr>
+
+<tr class="debug odd">
+<td class="Level">DEBUG</td>
+<td class="Date">2019-03-08 14:04:56,846</td>
+<td class="Message">&lt;==      Total: 1</td>
+<td class="MethodOfCaller">debug</td>
+<td class="FileOfCaller">BaseJdbcLogger.java</td>
+<td class="LineOfCaller">159</td>
+</tr>
+
+<tr class="info even">
+<td class="Level">INFO</td>
+<td class="Date">2019-03-08 14:04:56,861</td>
+<td class="Message">请求开始, 各个参数, url: http://localhost:4200/jeecg-boot/sysdepart/sysDepart/queryTreeList, method: GET, uri: /jeecg-boot/sysdepart/sysDepart/queryTreeList, params: null</td>
+<td class="MethodOfCaller">doAround</td>
+<td class="FileOfCaller">LogRecordAspect.java</td>
+<td class="LineOfCaller">37</td>
+</tr>
+
+<tr class="debug odd">
+<td class="Level">DEBUG</td>
+<td class="Date">2019-03-08 14:04:56,862</td>
+<td class="Message">==&gt;  Preparing: SELECT id,parent_id,depart_name,depart_name_en,depart_name_abbr,depart_order,description,org_type,org_code,mobile,fax,address,memo,status,del_flag,create_by,create_time,update_by,update_time FROM sys_depart WHERE del_flag = ? ORDER BY depart_order ASC </td>
+<td class="MethodOfCaller">debug</td>
+<td class="FileOfCaller">BaseJdbcLogger.java</td>
+<td class="LineOfCaller">159</td>
+</tr>
+
+<tr class="debug even">
+<td class="Level">DEBUG</td>
+<td class="Date">2019-03-08 14:04:56,863</td>
+<td class="Message">==&gt; Parameters: 0(Integer)</td>
+<td class="MethodOfCaller">debug</td>
+<td class="FileOfCaller">BaseJdbcLogger.java</td>
+<td class="LineOfCaller">159</td>
+</tr>
+
+<tr class="debug odd">
+<td class="Level">DEBUG</td>
+<td class="Date">2019-03-08 14:04:56,864</td>
+<td class="Message">&lt;==      Total: 6</td>
+<td class="MethodOfCaller">debug</td>
+<td class="FileOfCaller">BaseJdbcLogger.java</td>
+<td class="LineOfCaller">159</td>
+</tr>
+
+<tr class="info even">
+<td class="Level">INFO</td>
+<td class="Date">2019-03-08 14:04:56,864</td>
+<td class="Message">请求结束，controller的返回值是 Result(success=true, message=null, code=null, result=[org.jeecg.modules.system.model.SysDepartTreeModel@f799b8c8, org.jeecg.modules.system.model.SysDepartTreeModel@9a97e6fb], timestamp=1552025096861)</td>
+<td class="MethodOfCaller">doAround</td>
+<td class="FileOfCaller">LogRecordAspect.java</td>
+<td class="LineOfCaller">42</td>
+</tr>
+
+<tr class="debug odd">
+<td class="Level">DEBUG</td>
+<td class="Date">2019-03-08 14:05:29,069</td>
+<td class="Message">==&gt;  Preparing: select * from sys_user where username = ? </td>
+<td class="MethodOfCaller">debug</td>
+<td class="FileOfCaller">BaseJdbcLogger.java</td>
+<td class="LineOfCaller">159</td>
+</tr>
+
+<tr class="debug even">
+<td class="Level">DEBUG</td>
+<td class="Date">2019-03-08 14:05:29,070</td>
+<td class="Message">==&gt; Parameters: admin(String)</td>
+<td class="MethodOfCaller">debug</td>
+<td class="FileOfCaller">BaseJdbcLogger.java</td>
+<td class="LineOfCaller">159</td>
+</tr>
+
+<tr class="debug odd">
+<td class="Level">DEBUG</td>
+<td class="Date">2019-03-08 14:05:29,071</td>
+<td class="Message">&lt;==      Total: 1</td>
+<td class="MethodOfCaller">debug</td>
+<td class="FileOfCaller">BaseJdbcLogger.java</td>
+<td class="LineOfCaller">159</td>
+</tr>
+
+<tr class="info even">
+<td class="Level">INFO</td>
+<td class="Date">2019-03-08 14:05:29,085</td>
+<td class="Message">请求开始, 各个参数, url: http://localhost:4200/jeecg-boot/sys/ng-alain/getAppData, method: GET, uri: /jeecg-boot/sys/ng-alain/getAppData, params: null</td>
+<td class="MethodOfCaller">doAround</td>
+<td class="FileOfCaller">LogRecordAspect.java</td>
+<td class="LineOfCaller">37</td>
+</tr>
+
+<tr class="debug odd">
+<td class="Level">DEBUG</td>
+<td class="Date">2019-03-08 14:05:29,087</td>
+<td class="Message">==&gt;  Preparing: SELECT p.* FROM sys_permission p WHERE exists( select a.id from sys_role_permission a join sys_role b on a.role_id = b.id join sys_user_role c on c.role_id = b.id join sys_user d on d.id = c.user_id where p.id = a.permission_id AND d.username = ? ) and p.del_flag = 0 order by p.sort_no ASC </td>
+<td class="MethodOfCaller">debug</td>
+<td class="FileOfCaller">BaseJdbcLogger.java</td>
+<td class="LineOfCaller">159</td>
+</tr>
+
+<tr class="debug even">
+<td class="Level">DEBUG</td>
+<td class="Date">2019-03-08 14:05:29,087</td>
+<td class="Message">==&gt; Parameters: admin(String)</td>
+<td class="MethodOfCaller">debug</td>
+<td class="FileOfCaller">BaseJdbcLogger.java</td>
+<td class="LineOfCaller">159</td>
+</tr>
+
+<tr class="debug odd">
+<td class="Level">DEBUG</td>
+<td class="Date">2019-03-08 14:05:29,095</td>
+<td class="Message">&lt;==      Total: 57</td>
+<td class="MethodOfCaller">debug</td>
+<td class="FileOfCaller">BaseJdbcLogger.java</td>
+<td class="LineOfCaller">159</td>
+</tr>
+
+<tr class="info even">
+<td class="Level">INFO</td>
+<td class="Date">2019-03-08 14:05:29,097</td>
+<td class="Message">请求结束，controller的返回值是 {&quot;app&quot;:{&quot;name&quot;:&quot;jee-ngAlain&quot;,&quot;description&quot;:&quot;jeecg+ng-alain整合版本&quot;},&quot;menu&quot;:[{&quot;children&quot;:[{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/dashboard/analysis&quot;,&quot;text&quot;:&quot;首页&quot;},{&quot;reuse&quot;:true,&quot;children&quot;:[{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/isystem/user&quot;,&quot;text&quot;:&quot;用户管理&quot;},{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/isystem/depart&quot;,&quot;text&quot;:&quot;部门管理&quot;},{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/isystem/role&quot;,&quot;text&quot;:&quot;角色管理&quot;},{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/isystem/permission&quot;,&quot;text&quot;:&quot;菜单管理&quot;},{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/isystem/log&quot;,&quot;text&quot;:&quot;日志管理&quot;},{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/isystem/QuartzJobList&quot;,&quot;text&quot;:&quot;定时任务&quot;},{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/isystem/dict&quot;,&quot;text&quot;:&quot;数据字典&quot;},{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/isystem/annountCement&quot;,&quot;text&quot;:&quot;系统通告&quot;}],&quot;icon&quot;:{&quot;type&quot;:&quot;icon&quot;,&quot;value&quot;:&quot;appstore&quot;},&quot;text&quot;:&quot;系统管理&quot;},{&quot;reuse&quot;:true,&quot;children&quot;:[{&quot;reuse&quot;:true,&quot;link&quot;:&quot;13b55c856d11b66f790467055e109e9c&quot;,&quot;text&quot;:&quot;SQL监控&quot;},{&quot;reuse&quot;:true,&quot;link&quot;:&quot;193e77945b4958c3243b322920a995b8&quot;,&quot;text&quot;:&quot;在线文档&quot;},{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/dashboard/workplace&quot;,&quot;text&quot;:&quot;工作台&quot;}],&quot;icon&quot;:{&quot;type&quot;:&quot;icon&quot;,&quot;value&quot;:&quot;appstore&quot;},&quot;text&quot;:&quot;系统监控&quot;},{&quot;reuse&quot;:true,&quot;children&quot;:[{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/jeecg/jeecgDemoList&quot;,&quot;text&quot;:&quot;单表模型示例&quot;},{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/jeecg/tablist/JeecgOrderDMainList&quot;,&quot;text&quot;:&quot;一对多Tab示例&quot;},{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/jeecg/JeecgOrderMainList&quot;,&quot;text&quot;:&quot;一对多示例&quot;},{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/jeecg/PrintDemoList&quot;,&quot;text&quot;:&quot;打印测试&quot;},{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/jeecg/helloworld&quot;,&quot;text&quot;:&quot;helloworld&quot;},{&quot;reuse&quot;:true,&quot;link&quot;:&quot;80a4754f336b799905047399bbe1287e&quot;,&quot;text&quot;:&quot;online表单&quot;},{&quot;reuse&quot;:true,&quot;link&quot;:&quot;bfa89e563d9509fbc5c6503dd50faf2e&quot;,&quot;text&quot;:&quot;百度&quot;},{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/jeecg/FlowTest&quot;,&quot;text&quot;:&quot;数据回执模拟&quot;}],&quot;icon&quot;:{&quot;type&quot;:&quot;icon&quot;,&quot;value&quot;:&quot;appstore&quot;},&quot;text&quot;:&quot;常见案例&quot;},{&quot;reuse&quot;:true,&quot;children&quot;:[{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/form/base-form&quot;,&quot;text&quot;:&quot;基础表单&quot;},{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/form/step-form&quot;,&quot;text&quot;:&quot;分步表单&quot;},{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/form/advanced-form&quot;,&quot;text&quot;:&quot;高级表单&quot;}],&quot;icon&quot;:{&quot;type&quot;:&quot;icon&quot;,&quot;value&quot;:&quot;appstore&quot;},&quot;text&quot;:&quot;表单页&quot;},{&quot;reuse&quot;:true,&quot;children&quot;:[{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/list/query-list&quot;,&quot;text&quot;:&quot;查询表格&quot;},{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/list/edit-table&quot;,&quot;text&quot;:&quot;内联编辑表格&quot;},{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/list/user-list&quot;,&quot;text&quot;:&quot;用户列表&quot;},{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/list/role-list&quot;,&quot;text&quot;:&quot;角色列表&quot;},{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/list/permission-list&quot;,&quot;text&quot;:&quot;权限列表&quot;},{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/list/basic-list&quot;,&quot;text&quot;:&quot;标准列表&quot;},{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/list/card&quot;,&quot;text&quot;:&quot;卡片列表&quot;},{&quot;reuse&quot;:true,&quot;children&quot;:[{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/list/search/article&quot;,&quot;text&quot;:&quot;搜索列表（文章）&quot;},{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/list/search/application&quot;,&quot;text&quot;:&quot;搜索列表（应用）&quot;},{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/list/search/project&quot;,&quot;text&quot;:&quot;搜索列表（项目）&quot;}],&quot;icon&quot;:{&quot;type&quot;:&quot;icon&quot;,&quot;value&quot;:&quot;appstore&quot;},&quot;text&quot;:&quot;搜索列表&quot;}],&quot;icon&quot;:{&quot;type&quot;:&quot;icon&quot;,&quot;value&quot;:&quot;appstore&quot;},&quot;text&quot;:&quot;列表页&quot;},{&quot;reuse&quot;:true,&quot;children&quot;:[{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/profile/basic&quot;,&quot;text&quot;:&quot;基础详情页&quot;},{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/profile/advanced&quot;,&quot;text&quot;:&quot;高级详情页&quot;}],&quot;icon&quot;:{&quot;type&quot;:&quot;icon&quot;,&quot;value&quot;:&quot;appstore&quot;},&quot;text&quot;:&quot;详情页&quot;},{&quot;reuse&quot;:true,&quot;children&quot;:[{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/result/success&quot;,&quot;text&quot;:&quot;成功&quot;},{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/result/fail&quot;,&quot;text&quot;:&quot;失败&quot;}],&quot;icon&quot;:{&quot;type&quot;:&quot;icon&quot;,&quot;value&quot;:&quot;appstore&quot;},&quot;text&quot;:&quot;结果页&quot;},{&quot;reuse&quot;:true,&quot;children&quot;:[{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/exception/403&quot;,&quot;text&quot;:&quot;403&quot;},{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/exception/404&quot;,&quot;text&quot;:&quot;404&quot;},{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/exception/500&quot;,&quot;text&quot;:&quot;500&quot;}],&quot;icon&quot;:{&quot;type&quot;:&quot;icon&quot;,&quot;value&quot;:&quot;appstore&quot;},&quot;text&quot;:&quot;异常页&quot;},{&quot;reuse&quot;:true,&quot;children&quot;:[{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/account/center&quot;,&quot;text&quot;:&quot;个人中心&quot;},{&quot;reuse&quot;:true,&quot;children&quot;:[{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/account/settings/base&quot;,&quot;text&quot;:&quot;基本设置&quot;},{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/account/settings/binding&quot;,&quot;text&quot;:&quot;账户绑定&quot;},{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/account/settings/custom&quot;,&quot;text&quot;:&quot;个性化设置&quot;},{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/account/settings/security&quot;,&quot;text&quot;:&quot;安全设置&quot;},{&quot;reuse&quot;:true,&quot;link&quot;:&quot;/account/settings/notification&quot;,&quot;text&quot;:&quot;新消息通知&quot;}],&quot;icon&quot;:{&quot;type&quot;:&quot;icon&quot;,&quot;value&quot;:&quot;appstore&quot;},&quot;text&quot;:&quot;个人设置&quot;}],&quot;icon&quot;:{&quot;type&quot;:&quot;icon&quot;,&quot;value&quot;:&quot;appstore&quot;},&quot;text&quot;:&quot;个人页&quot;}],&quot;text&quot;:&quot;jeecg菜单&quot;,&quot;group&quot;:true}],&quot;user&quot;:{&quot;name&quot;:&quot;admin&quot;,&quot;avatar&quot;:&quot;./assets/tmp/img/avatar.jpg&quot;,&quot;email&quot;:&quot;11@qq.com&quot;,&quot;token&quot;:&quot;eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1NTIwMjI4NzksInVzZXJuYW1lIjoiYWRtaW4ifQ.fg3hOHYa-ugxughOil8SgedckzM1uBm0QzfoM2UPGHs&quot;}}</td>
+<td class="MethodOfCaller">doAround</td>
+<td class="FileOfCaller">LogRecordAspect.java</td>
+<td class="LineOfCaller">42</td>
+</tr>
+
+<tr class="debug odd">
+<td class="Level">DEBUG</td>
+<td class="Date">2019-03-08 14:05:29,816</td>
+<td class="Message">==&gt;  Preparing: select * from sys_user where username = ? </td>
+<td class="MethodOfCaller">debug</td>
+<td class="FileOfCaller">BaseJdbcLogger.java</td>
+<td class="LineOfCaller">159</td>
+</tr>
+
+<tr class="debug even">
+<td class="Level">DEBUG</td>
+<td class="Date">2019-03-08 14:05:29,816</td>
+<td class="Message">==&gt; Parameters: admin(String)</td>
+<td class="MethodOfCaller">debug</td>
+<td class="FileOfCaller">BaseJdbcLogger.java</td>
+<td class="LineOfCaller">159</td>
+</tr>
+
+<tr class="debug odd">
+<td class="Level">DEBUG</td>
+<td class="Date">2019-03-08 14:05:29,817</td>
+<td class="Message">&lt;==      Total: 1</td>
+<td class="MethodOfCaller">debug</td>
+<td class="FileOfCaller">BaseJdbcLogger.java</td>
+<td class="LineOfCaller">159</td>
+</tr>
+
+<tr class="info even">
+<td class="Level">INFO</td>
+<td class="Date">2019-03-08 14:05:29,836</td>
+<td class="Message">请求开始, 各个参数, url: http://localhost:4200/jeecg-boot/sysdepart/sysDepart/queryTreeList, method: GET, uri: /jeecg-boot/sysdepart/sysDepart/queryTreeList, params: null</td>
+<td class="MethodOfCaller">doAround</td>
+<td class="FileOfCaller">LogRecordAspect.java</td>
+<td class="LineOfCaller">37</td>
+</tr>
+
+<tr class="debug odd">
+<td class="Level">DEBUG</td>
+<td class="Date">2019-03-08 14:05:29,838</td>
+<td class="Message">==&gt;  Preparing: SELECT id,parent_id,depart_name,depart_name_en,depart_name_abbr,depart_order,description,org_type,org_code,mobile,fax,address,memo,status,del_flag,create_by,create_time,update_by,update_time FROM sys_depart WHERE del_flag = ? ORDER BY depart_order ASC </td>
+<td class="MethodOfCaller">debug</td>
+<td class="FileOfCaller">BaseJdbcLogger.java</td>
+<td class="LineOfCaller">159</td>
+</tr>
+
+<tr class="debug even">
+<td class="Level">DEBUG</td>
+<td class="Date">2019-03-08 14:05:29,839</td>
+<td class="Message">==&gt; Parameters: 0(Integer)</td>
+<td class="MethodOfCaller">debug</td>
+<td class="FileOfCaller">BaseJdbcLogger.java</td>
+<td class="LineOfCaller">159</td>
+</tr>
+
+<tr class="debug odd">
+<td class="Level">DEBUG</td>
+<td class="Date">2019-03-08 14:05:29,840</td>
+<td class="Message">&lt;==      Total: 6</td>
+<td class="MethodOfCaller">debug</td>
+<td class="FileOfCaller">BaseJdbcLogger.java</td>
+<td class="LineOfCaller">159</td>
+</tr>
+
+<tr class="info even">
+<td class="Level">INFO</td>
+<td class="Date">2019-03-08 14:05:29,841</td>
+<td class="Message">请求结束，controller的返回值是 Result(success=true, message=null, code=null, result=[org.jeecg.modules.system.model.SysDepartTreeModel@f799b8c8, org.jeecg.modules.system.model.SysDepartTreeModel@9a97e6fb], timestamp=1552025129837)</td>
+<td class="MethodOfCaller">doAround</td>
+<td class="FileOfCaller">LogRecordAspect.java</td>
+<td class="LineOfCaller">42</td>
+</tr>

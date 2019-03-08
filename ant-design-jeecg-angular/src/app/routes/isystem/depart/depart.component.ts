@@ -62,7 +62,6 @@ export class IsystemDepartComponent implements OnInit {
      this.i=event.node.origin
      this.i['parentDepartName']=event.node.parentNode.origin.departName
      this.i['parentId']=event.node.parentNode.origin.id
-      console.log(event)
    }
    nzSearchValueChange(event){
       console.log(event)
@@ -73,13 +72,12 @@ export class IsystemDepartComponent implements OnInit {
       .subscribe(() => this.getDeparts());
   }
   addsub() {
-    console.log(this.i.key)
     if(!this.i.key){
       this.message.error('请选择一个部门')
       return;
     }
     this.modal
-      .createStatic(IsystemDepartAddComponent, { i: { parentId: this.i.key,parentName:this.i.parentDepartName} })
+      .createStatic(IsystemDepartAddComponent, { i: { parentId: this.i.key,parentName:this.i.title} })
       .subscribe(() => this.getDeparts());
   }
   save(value){
