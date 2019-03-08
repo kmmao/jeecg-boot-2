@@ -1,5 +1,5 @@
 import { SettingsService, _HttpClient } from '@delon/theme';
-import { Component, OnDestroy, Inject, Optional } from '@angular/core';
+import { Component, OnDestroy,OnInit, Inject, Optional } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { NzMessageService, NzModalService } from 'ng-zorro-antd';
@@ -12,13 +12,16 @@ import {
 import { ReuseTabService, ResultComponent } from '@delon/abc';
 import { environment } from '@env/environment';
 import { StartupService } from '@core';
+import { timingSafeEqual } from 'crypto';
 @Component({
   selector: 'passport-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.less'],
   providers: [SocialService],
 })
-export class UserLoginComponent implements OnDestroy {
+export class UserLoginComponent implements OnDestroy ,OnInit {
+  ngOnInit(): void {
+  }
   constructor(
     fb: FormBuilder,
     modalSrv: NzModalService,
@@ -36,7 +39,7 @@ export class UserLoginComponent implements OnDestroy {
     this.form = fb.group({
       userName: [null, [Validators.required, Validators.minLength(4)]],
       password: [null, Validators.required],
-      randCode: [null, Validators.required],
+      randCode: [123456, Validators.required],
       mobile: [null, [Validators.required, Validators.pattern(/^1\d{10}$/)]],
       captcha: [null, [Validators.required]],
       remember: [true],
