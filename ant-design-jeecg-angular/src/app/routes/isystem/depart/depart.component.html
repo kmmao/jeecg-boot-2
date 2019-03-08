@@ -7,8 +7,8 @@
 <div sg-container="2">
   <sg>
     <nz-card>
-        <button nz-button nzType="primary">添加子部门</button>
-        <button nz-button nzType="default">添加一级部门</button>
+        <button nz-button nzType="primary" (click)="addsub()">添加子部门</button>
+        <button nz-button nzType="default" (click)="add()">添加一级部门</button>
         <button nz-button nzType="danger">批量删除</button>
         <button nz-button nzType="dashed">刷新</button>
         <nz-alert nzType="info" nzMessage="当前选中：{{i.departName}}" nzShowIcon></nz-alert>
