@@ -70,8 +70,17 @@ public class SysDepartTreeModel implements Serializable{
 
     private Date updateTime;
 
+    private boolean isLeaf;
+
     private List<SysDepartTreeModel> children = new ArrayList<>();
 
+    public boolean getIsLeaf() {
+        return isLeaf;
+    }
+
+    public void setIsLeaf(boolean isleaf) {
+        isLeaf = this.isLeaf;
+    }
 
     /**
      * 将SysDepart对象转换成SysDepartTreeModel对象
@@ -146,6 +155,9 @@ public class SysDepartTreeModel implements Serializable{
     }
 
     public void setChildren(List<SysDepartTreeModel> children) {
+	    if (children==null){
+	        this.isLeaf=true;
+        }
         this.children = children;
     }
 

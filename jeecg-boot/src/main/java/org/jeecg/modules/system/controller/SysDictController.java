@@ -87,8 +87,12 @@ public class SysDictController {
 		LambdaQueryWrapper<SysDict> query = new LambdaQueryWrapper<>();
 		// 构造查询条件
 		String dictName = sysDict.getDictName();
+		String dictCode = sysDict.getDictCode();
 		if(oConvertUtils.isNotEmpty(dictName)) {
 			query.like(true, SysDict::getDictName, dictName);
+		}
+		if(oConvertUtils.isNotEmpty(dictCode)) {
+			query.like(true, SysDict::getDictCode, dictCode);
 		}
 		query.eq(true, SysDict::getDelFlag, "1");
 		query.orderByDesc(true, SysDict::getCreateTime);
