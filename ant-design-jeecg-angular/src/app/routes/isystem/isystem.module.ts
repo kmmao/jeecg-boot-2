@@ -24,6 +24,8 @@ import { IsystemAnnountAddComponent } from './annount-cement/annount-add/annount
 import { IsystemAnnountEditComponent } from './annount-cement/annount-edit/annount-edit.component';
 import { IsystemDepartAddComponent } from './depart/depart-add/depart-add.component';
 import { IsystemPermissionAddComponent } from './permission/permission-add/permission-add.component';
+import { IsystemQuartzJobAddComponent } from './quartz-job-list/quartz-job-add/quartz-job-add.component';
+import { IsystemQuartzJobEditComponent } from './quartz-job-list/quartz-job-edit/quartz-job-edit.component';
 
 const COMPONENTS = [
   IsystemUserComponent,
@@ -49,7 +51,9 @@ const COMPONENTS_NOROUNT = [
   IsystemAnnountAddComponent,
   IsystemAnnountEditComponent,
   IsystemDepartAddComponent,
-  IsystemPermissionAddComponent];
+  IsystemPermissionAddComponent,
+  IsystemQuartzJobAddComponent,
+  IsystemQuartzJobEditComponent];
 
 @NgModule({
   imports: [

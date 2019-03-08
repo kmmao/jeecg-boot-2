@@ -45,9 +45,6 @@ export class IsystemRoleComponent implements OnInit {
             component: IsystemRoleEditComponent,
           },
           click: (record: any, modal: any) => {
-            this.message.success(
-              `${JSON.stringify(modal)}`,
-            )
             this.st.reload();
           }
         },
@@ -61,17 +58,12 @@ export class IsystemRoleComponent implements OnInit {
                 title: '编辑',
                 component: IsystemRoleApprComponent,
               },
-              click: (record: any, modal: any) =>
-                this.message.success(
-                  `${JSON.stringify(modal)}`,
-                ),
             },
             {
               text: `删除`,
               type: 'del',
               click: (record, modal, comp) => {
                 this.http.delete(`sys/role/delete?id=${record.id}`).subscribe(res => {
-                  this.message.success((res as any).message);
                   this.st.reload()
                 })
               }

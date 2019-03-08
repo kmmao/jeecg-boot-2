@@ -41,9 +41,6 @@ export class IsystemDictComponent implements OnInit {
             component: IsystemDictEditComponent,
           },
           click: (record: any, modal: any) => {
-            this.message.success(
-              `${JSON.stringify(modal)}`,
-            )
             this.st.reload();
           }
         },
@@ -54,17 +51,12 @@ export class IsystemDictComponent implements OnInit {
             title: '编辑',
             component: IsystemDictItemComponent,
           },
-          click: (record: any, modal: any) =>
-            this.message.success(
-              `${JSON.stringify(modal)}`,
-            ),
         },
         {
           text: `删除`,
           type: 'del',
           click: (record, modal, comp) => {
             this.http.delete(`sys/dict/delete?id=${record.id}`).subscribe(res => {
-              this.message.success((res as any).message);
               this.st.reload()
             })
           }

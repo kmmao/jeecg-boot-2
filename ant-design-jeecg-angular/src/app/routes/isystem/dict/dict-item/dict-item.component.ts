@@ -40,9 +40,6 @@ export class IsystemDictItemComponent implements OnInit {
             component: IsystemDictItemEditComponent,
           },
           click: (record: any, modal: any) => {
-            this.message.success(
-              `${JSON.stringify(modal)}`,
-            )
             this.st.reload();
           }
         },
@@ -51,7 +48,6 @@ export class IsystemDictItemComponent implements OnInit {
           type: 'del',
           click: (record, modal, comp) => {
             this.http.delete(`sys/dictItem/delete?id=${record.id}`).subscribe(res => {
-              this.message.success((res as any).message);
               this.st.reload()
             })
           }
@@ -76,7 +72,6 @@ export class IsystemDictItemComponent implements OnInit {
 
   ngOnInit(): void {
     this.url=`sys/dictItem/list?dictId=${this.record.id}&delFlag=1&column=createTime&order=asc&field=id,,sortOrder,itemText,itemValue,description,status,createTime,action`;
-    console.log(this.record)
   }
   add() {
     this.modal

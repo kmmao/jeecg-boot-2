@@ -61,12 +61,7 @@ export class IsystemUserComponent implements OnInit {
           modal: {
             component: IsystemUserEditComponent,
           },
-          click: (record: any, modal: any) => {
-            this.message.success(
-              `${JSON.stringify(modal)}`,
-            )
-            this.st.reload();
-          }
+          click: (record: any, modal: any) => this.st.reload()
         },
         {
           text: '更多',
@@ -77,10 +72,6 @@ export class IsystemUserComponent implements OnInit {
               modal: {
                 component: IsystemUserViewComponent,
               },
-              click: (record: any, modal: any) =>
-                this.message.success(
-                  `${JSON.stringify(modal)}`,
-                ),
             },
             {
               text: `修改密码`,
@@ -88,20 +79,11 @@ export class IsystemUserComponent implements OnInit {
               modal: {
                 component: IsystemUserPasswordUpdateComponent,
               },
-              click: (record: any, modal: any) =>
-                this.message.success(
-                  `${JSON.stringify(modal)}`,
-                ),
             },
             {
               text: `删除`,
               type: 'del',
-              click: (record, modal, comp) => {
-                this.http.delete(`sys/user/delete?id=${record.id}`).subscribe(res => {
-                  this.message.success((res as any).message);
-                  this.st.reload()
-                })
-              }
+              click: (record) => this.http.delete(`sys/user/delete?id=${record.id}`).subscribe(res =>this.st.reload())
             },
             {
               text: `冻结`,
@@ -110,7 +92,6 @@ export class IsystemUserComponent implements OnInit {
               popTitle:'确认冻结吗？',
               click: (record, modal, comp) => {
                 this.http.post(`sys/user/frozenBatch`,{'ids':record.id,'status':2}).subscribe(res => {
-                  this.message.success((res as any).message);
                   this.st.reload()
                 })
               }

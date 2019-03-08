@@ -51,9 +51,6 @@ export class IsystemAnnountCementComponent implements OnInit {
             component: IsystemAnnountEditComponent,
           },
           click: (record: any, modal: any) => {
-            this.message.success(
-              `${JSON.stringify(modal)}`,
-            )
             this.st.reload();
           }
         },
