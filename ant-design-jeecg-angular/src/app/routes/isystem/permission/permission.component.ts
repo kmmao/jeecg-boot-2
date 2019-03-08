@@ -63,7 +63,7 @@ export class IsystemPermissionComponent implements OnInit {
   }
   add() {
     this.modal
-      .createStatic(IsystemPermissionAddComponent, { i: { parentName: `一级菜单` } })
+      .createStatic(IsystemPermissionAddComponent, { i: { type: `一级菜单` } })
       .subscribe(() => this.getMenus());
   }
   addsub() {
@@ -76,9 +76,9 @@ export class IsystemPermissionComponent implements OnInit {
       .subscribe(() => this.getMenus());
   }
   save(value) {
-    this.http.put(`sysdepart/sysDepart/edit`, value).subscribe(res => {
-      this.message.info((res as any).message)
-      this.getMenus()
-    })
+    this.http.put(`sys/permission/edit`, value).subscribe(res => this.getMenus())
+  }
+  delete(){
+    this.http.delete(`sys/permission/delete?id=${this.i.key}`).subscribe(res=>this.getMenus())
   }
 }

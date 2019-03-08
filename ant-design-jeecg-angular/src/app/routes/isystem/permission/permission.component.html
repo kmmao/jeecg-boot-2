@@ -9,9 +9,9 @@
     <nz-card>
         <button nz-button nzType="primary" (click)="addsub()">添加子菜单</button>
         <button nz-button nzType="default" (click)="add()">添加一级菜单</button>
-        <button nz-button nzType="danger">删除菜单</button>
-        <button nz-button nzType="dashed">刷新</button>
-        <nz-alert nzType="info" nzMessage="当前选中：{{i.departName}}" nzShowIcon></nz-alert>
+        <button nz-button nzType="danger" (click)="delete()">删除菜单</button>
+        <button nz-button nzType="dashed" (click)="getMenus()">刷新</button>
+        <nz-alert nzType="info" nzMessage="当前选中：{{i.title}}" nzShowIcon></nz-alert>
         <nz-input-group [nzSuffix]="suffixIcon">
             <input type="text" nz-input placeholder="Search" [(ngModel)]="searchValue">
           </nz-input-group>
