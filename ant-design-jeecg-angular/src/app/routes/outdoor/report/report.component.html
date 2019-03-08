@@ -1,0 +1,37 @@
+<page-header [title]="'环境问题报告'"></page-header>
+
+<form nz-form #f="ngForm" se-container="2">
+  <nz-card [nzBordered]="false">
+    <se label="问题分类">
+      <app-dict-select name="questionClassify" [(ngModel)]="i.questionClassify" dictCode="quesflcode"></app-dict-select>
+    </se>
+    <se label="问题描述">
+      <app-dict-select name="questionRemark" url="jeecg/standingBookInfoController.do?dict2&_allow_anonymous=true"
+        dynamicDict="true" [(ngModel)]="i.questionRemark" [dictCode]="i.questionClassify"></app-dict-select>
+    </se>
+    <se label="辖区名称">
+      <app-dict-select name="cityName" [(ngModel)]="i.cityName" dictCode="areacode"></app-dict-select>
+    </se>
+    <se label="问题地点">
+      <input nz-input [(ngModel)]="i.questionAddr" name="questionAddr" maxlength="10">
+    </se>
+    <se label="环境属性">
+      <input nz-input [(ngModel)]="i.enviromentProperty" name="enviromentProperty" maxlength="10">
+    </se>
+    <se label="备注">
+      <input nz-input [(ngModel)]="i.remark" name="remark">
+    </se>
+    <se label="街道名称">
+      <app-dict-select name="streetName" [(ngModel)]="i.streetName" dictCode="streetcode"></app-dict-select>
+    </se>
+    <se label="位置描述">
+      <input nz-input [(ngModel)]="i.location" name="location">
+    </se>
+    <se label="问题图片">
+      <app-upload #u1 nzListType="picture-card" nzFileType="image/png,image/jpeg,image/gif,image/bmp"></app-upload>
+    </se>
+  </nz-card>
+  <footer-toolbar errorCollect>
+    <button nz-button nzType="primary" [disabled]="f.invalid" (click)="submit(f)" [nzLoading]="http.loading">保存</button>
+  </footer-toolbar>
+</form>

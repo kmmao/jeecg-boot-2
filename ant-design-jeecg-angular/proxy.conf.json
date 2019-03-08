@@ -1,0 +1,6 @@
+{
+    "/jeecg-boot": {
+      "target": "http://localhost:7080/",
+      "secure": false
+    }
+  }

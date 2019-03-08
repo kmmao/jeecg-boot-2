@@ -1,0 +1,24 @@
+<page-header [action]="phActionTpl">
+  <ng-template #phActionTpl>
+    <button (click)="add()" nz-button nzType="primary">
+        <i nz-icon type="edit" theme="outline"></i>
+      新增
+    </button>
+
+    <nz-dropdown [nzPlacement]="'bottomLeft'">
+        <button nz-button nz-dropdown>
+          批量操作
+          <i nz-icon type="down"></i>
+        </button>
+        <ul nz-menu>
+          <li nz-menu-item (click)="remove()">
+              <i nz-icon type="delete" theme="outline"></i>
+            删除</li>
+        </ul>
+      </nz-dropdown>
+  </ng-template>
+</page-header>
+<nz-card>
+  <sf mode="search" [schema]="searchSchema" (formSubmit)="st.reset($event)" (formReset)="st.reset($event)"></sf>
+  <st #st [data]="url" [columns]="columns"></st>
+</nz-card>

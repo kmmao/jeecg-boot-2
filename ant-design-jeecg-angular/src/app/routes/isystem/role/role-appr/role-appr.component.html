@@ -1,0 +1,20 @@
+<!-- <p style="height: 1000px">参数：{{data | json}}</p>
+ --><nz-tree #nz_tree
+ [nzData]="data"
+ nzCheckable
+ nzMultiple
+ [nzCheckedKeys]="defaultSelectedKeys"
+ (nzClick)="nzEvent($event)"
+ (nzExpandChange)="nzEvent($event)"
+ nzExpandAll="true"
+ (nzCheckBoxChange)="nzEvent($event)">
+ 
+</nz-tree>
+<div class="drawer-footer">
+<button nz-button [nzType]="'default'" (click)="cancel()">
+   取消
+</button>
+<button nz-button [nzType]="'primary'" (click)="ok()">
+   提交
+</button>
+</div>
