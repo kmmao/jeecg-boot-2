@@ -23,6 +23,7 @@ import { IsystemDictItemEditComponent } from './dict/dict-item/dict-item-edit/di
 import { IsystemAnnountAddComponent } from './annount-cement/annount-add/annount-add.component';
 import { IsystemAnnountEditComponent } from './annount-cement/annount-edit/annount-edit.component';
 import { IsystemDepartAddComponent } from './depart/depart-add/depart-add.component';
+import { IsystemPermissionAddComponent } from './permission/permission-add/permission-add.component';
 
 const COMPONENTS = [
   IsystemUserComponent,
@@ -47,7 +48,8 @@ const COMPONENTS_NOROUNT = [
   IsystemDictItemEditComponent,
   IsystemAnnountAddComponent,
   IsystemAnnountEditComponent,
-  IsystemDepartAddComponent];
+  IsystemDepartAddComponent,
+  IsystemPermissionAddComponent];
 
 @NgModule({
   imports: [

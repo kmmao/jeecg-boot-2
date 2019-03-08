@@ -1,9 +1,41 @@
 <page-header [action]="phActionTpl">
   <ng-template #phActionTpl>
-    <button (click)="add()" nz-button nzType="primary">新建</button>
-  </ng-template>
+<!--     <button (click)="add()" nz-button nzType="primary">新建</button>
+ -->  </ng-template>
 </page-header>
-<nz-card>
-  <sf mode="search" [schema]="searchSchema" (formSubmit)="st.reset($event)" (formReset)="st.reset($event)"></sf>
-  <st #st [data]="url" [columns]="columns"></st>
-</nz-card>
+
+<div sg-container="2">
+  <sg>
+    <nz-card>
+        <button nz-button nzType="primary" (click)="addsub()">添加子菜单</button>
+        <button nz-button nzType="default" (click)="add()">添加一级菜单</button>
+        <button nz-button nzType="danger">删除菜单</button>
+        <button nz-button nzType="dashed">刷新</button>
+        <nz-alert nzType="info" nzMessage="当前选中：{{i.departName}}" nzShowIcon></nz-alert>
+        <nz-input-group [nzSuffix]="suffixIcon">
+            <input type="text" nz-input placeholder="Search" [(ngModel)]="searchValue">
+          </nz-input-group>
+          <ng-template #suffixIcon>
+            <i nz-icon type="search"></i>
+          </ng-template>
+      <nz-tree
+       [nzData]="nodes"
+       [nzSearchValue]="searchValue"
+       (nzClick)="nzEvent($event)"
+       (nzSearchValueChange)="nzSearchValueChange($event)"
+       nzExpandAll=false
+       >
+      </nz-tree>
+    </nz-card>
+  </sg>
+  <sg>
+    <nz-card>
+        <sf *ngIf="i" #sf mode="edit" [schema]="schema" [ui]="ui" [formData]="i" button="none">
+            <div class="modal-footer">
+              <button nz-button type="button" (click)="close()">关闭</button>
+              <button nz-button type="submit" nzType="primary" (click)="save(sf.value)" [disabled]="!sf.valid" [nzLoading]="http.loading">保存</button>
+            </div>
+          </sf>
+    </nz-card>
+  </sg>
+</div>
