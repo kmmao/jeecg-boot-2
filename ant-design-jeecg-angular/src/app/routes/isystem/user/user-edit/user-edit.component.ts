@@ -1,8 +1,9 @@
-import { Component, OnInit, ViewChild, Input } from '@angular/core';
-import { NzModalRef, NzMessageService } from 'ng-zorro-antd';
+import { Component, Input, OnInit } from '@angular/core';
+import { SFSchema, SFUISchema } from '@delon/form';
 import { _HttpClient } from '@delon/theme';
-import { SFSchema, SFUISchema, SFSchemaEnumType } from '@delon/form';
+import { NzMessageService, NzModalRef } from 'ng-zorro-antd';
 import { Observable } from 'rxjs';
+import { DictService } from '@shared';
 
 @Component({
   selector: 'app-isystem-user-edit',
@@ -11,27 +12,20 @@ import { Observable } from 'rxjs';
 export class IsystemUserEditComponent implements OnInit {
   @Input()
   record: any = {};
-  i: any;
+  i: any={sex:2};
   schema: SFSchema = {
     properties: {
       username: { type: 'string', title: '用户名' },
       realname: { type: 'string', title: '用户姓名' },
-      selectedroles: { type: 'string', title: '用户角色' ,
-      enum: [
-        { label: '人力资源部', value: 'hr' },
-        { label: '临时角色', value: 'test' },
-        { label: '管理员', value: 'admin' }
-    ] },
+      selectedroles: {
+        type: 'string', title: '用户角色'
+      },
       avatar: { type: 'string', title: '头像' },
       birthday: { type: 'string', title: '生日' },
       sex: {
-       type: 'number',
-       title: '性别',
-       enum: [
-        { label: '男', value: 1 },
-        { label: '女', value: 2 },
-    ] 
-     },
+        type: 'number',
+        title: '性别',
+      },
       email: { type: 'string', title: '邮箱' },
       phone: { type: 'string', title: '电话' },
     },
@@ -45,12 +39,14 @@ export class IsystemUserEditComponent implements OnInit {
     $selectedroles: {
       widget: 'select',
       mode: 'tags',
+      asyncData: () => this.dictService.getDictByTable('sys_role','role_name','id')
     },
     $birthday: {
       widget: 'date',
     },
     $sex: {
       widget: 'select',
+      asyncData:()=>this.dictService.getDict('sex')
     },
   };
 
@@ -58,6 +54,7 @@ export class IsystemUserEditComponent implements OnInit {
     private modal: NzModalRef,
     private msgSrv: NzMessageService,
     public http: _HttpClient,
+    private dictService:DictService
   ) { }
 
   ngOnInit(): void {
@@ -65,15 +62,13 @@ export class IsystemUserEditComponent implements OnInit {
   }
 
   save(value: any) {
+    value['selectedroles'] = value.selectedroles.join(",");
     this.http.put(`sys/user/edit`, value).subscribe(res => {
-      this.modal.close((res as any).message);
+      this.modal.close(true);
     });
   }
 
   close() {
     this.modal.destroy();
-  }
-  getRoles():Observable<any> {
-    return this.http.get('sys/role/queryall');
   }
 }
