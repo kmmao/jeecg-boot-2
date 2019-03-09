@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Slf4j
 @RestController
@@ -75,5 +76,33 @@ public class NgAlainController {
         result.setSuccess(true);
         result.setResult(pageList);
         return result;
+    }
+
+    @RequestMapping(value = "/getDictItems/{dictCode}", method = RequestMethod.GET)
+    public Object getDictItems(@PathVariable String dictCode) {
+        log.info(" dictCode : "+ dictCode);
+        Result<List<Map<String,String>>> result = new Result<List<Map<String,String>>>();
+        List<Map<String,String>> ls = null;
+        try {
+            ls = sysDictService.queryDictItemsByCode(dictCode);
+            result.setSuccess(true);
+            result.setResult(ls);
+        } catch (Exception e) {
+            log.info(e.getMessage());
+            result.error500("操作失败");
+            return result;
+        }
+        List<JSONObject> dictlist=new ArrayList<>();
+        for (Map<String, String> l : ls) {
+            JSONObject dict=new JSONObject();
+            dict.put("value",l.get("value"));
+            dict.put("label",l.get("text"));
+            dictlist.add(dict);
+        }
+        return dictlist;
+    }
+    @RequestMapping(value = "/getDictItemsByTable/{table}/{key}/{value}", method = RequestMethod.GET)
+    public Object getDictItemsByTable(@PathVariable String table,@PathVariable String key,@PathVariable String value) {
+        return this.ngAlainService.getDictByTable(table,key,value);
     }
 }
