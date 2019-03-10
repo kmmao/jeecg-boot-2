@@ -51,7 +51,7 @@ export class DefaultInterceptor implements HttpInterceptor {
     );
   }
 
-  private handleData(ev: HttpResponseBase): Observable<any> {
+  private handleData(ev: HttpResponseBase,req:HttpRequest<any>): Observable<any> {
     // 可能会因为 `throw` 导出无法执行 `_HttpClient` 的 `end()` 操作
     if (ev.status > 0) {
       this.injector.get(_HttpClient).end();
@@ -74,7 +74,7 @@ export class DefaultInterceptor implements HttpInterceptor {
                 // this.http.get('/').subscribe() 并不会触发
                 //return throwError({});
             } else {
-              if(body.message){
+              if(req.method!=='GET'){
                 this.msg.success(body.message);
               }
                 // 重新修改 `body` 内容为 `response` 内容，对于绝大多数场景已经无须再关心业务状态码
@@ -125,11 +125,11 @@ export class DefaultInterceptor implements HttpInterceptor {
       mergeMap((event: any) => {
         // 允许统一对请求错误处理
         if (event instanceof HttpResponseBase)
-          return this.handleData(event);
+          return this.handleData(event,newReq);
         // 若一切都正常，则后续操作
         return of(event);
       }),
-      catchError((err: HttpErrorResponse) => this.handleData(err)),
+      catchError((err: HttpErrorResponse) => this.handleData(err,newReq)),
     );
   }
 }
