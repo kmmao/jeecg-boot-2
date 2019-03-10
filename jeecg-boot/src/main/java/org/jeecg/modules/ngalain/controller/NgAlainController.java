@@ -1,6 +1,5 @@
 package org.jeecg.modules.ngalain.controller;
 
-import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -12,7 +11,6 @@ import org.jeecg.common.util.oConvertUtils;
 import org.jeecg.modules.ngalain.service.NgAlainService;
 import org.jeecg.modules.system.entity.SysDict;
 import org.jeecg.modules.system.entity.SysUser;
-import org.jeecg.modules.system.model.SysDictTree;
 import org.jeecg.modules.system.service.ISysDictService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -95,7 +93,11 @@ public class NgAlainController {
         List<JSONObject> dictlist=new ArrayList<>();
         for (Map<String, String> l : ls) {
             JSONObject dict=new JSONObject();
-            dict.put("value",l.get("value"));
+                try {
+                    dict.put("value",Integer.parseInt(l.get("value")));
+                } catch (NumberFormatException e) {
+                    dict.put("value",l.get("value"));
+                }
             dict.put("label",l.get("text"));
             dictlist.add(dict);
         }
