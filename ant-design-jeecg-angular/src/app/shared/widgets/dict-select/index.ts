@@ -1,11 +1,13 @@
 import { Component, Input, Output, EventEmitter, OnInit, forwardRef, OnChanges, SimpleChanges } from '@angular/core';
 import { _HttpClient } from '@delon/theme';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { CacheService } from '@delon/cache';
+import { DictService } from '@shared/service/dict.service';
 
 @Component({
   selector: 'app-dict-select',
   template: `
-    <nz-select nz_input [(ngModel)]="model" [name]="name" (ngModelChange)="modelChange($event)">
+    <nz-select nz_input [(ngModel)]="model" [name]="name" [nzMode]="nzMode" (ngModelChange)="modelChange($event)">
         <nz-option *ngFor="let dict of dictList" [nzValue]="dict.value" [nzLabel]="dict.label"></nz-option>
       </nz-select>
     `,
@@ -17,12 +19,12 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
   styleUrls: ['./index.less']
 })
 export class DictSelectComponent implements OnInit, ControlValueAccessor, OnChanges {
-  url2 = 'ngAlainController.do?dict&_allow_anonymous=true';
-   model: any;
+  model: any;
   @Input() name;
   @Input() url;
-  @Input() dictCode;
+  @Input() dictCode: string;
   @Input() dynamicDict = false;
+  @Input() nzMode='default';
   @Output() ngModelChange = new EventEmitter();
   dictList;
   public onModelChange: Function = () => { };
@@ -43,17 +45,22 @@ export class DictSelectComponent implements OnInit, ControlValueAccessor, OnChan
     this.ngModelChange.emit(value);
   }
 
-  constructor(public http: _HttpClient) { }
+  constructor(public http: _HttpClient, private dictService: DictService) { }
   ngOnInit(): void {
-    if (this.url == null) {
-      this.url = this.url2;
-    }
-    this.http.get(this.url, { 'code': this.dictCode }).subscribe((res) => (this.dictList = res));
+    this.getDict();
   }
   ngOnChanges(changes: SimpleChanges) {
     if (!changes.dictCode.firstChange && this.dictCode != null && this.dynamicDict) {
       this.model = '';
-      this.http.get(this.url, { 'code': this.dictCode }).subscribe((res) => (this.dictList = res));
+      this.getDict();
+    }
+  }
+  getDict() {
+    const dict = this.dictCode.split(',');
+    if (dict.length === 1) {
+      this.dictService.getDict(dict[0]).subscribe((res) => (this.dictList = res));
+    } else if (dict.length === 3) {
+      this.dictService.getDictByTable(dict[0], dict[1], dict[2]).subscribe((res) => (this.dictList = res));
     }
   }
 }

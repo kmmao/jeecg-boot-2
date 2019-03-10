@@ -26,6 +26,7 @@ import { IsystemDepartAddComponent } from './depart/depart-add/depart-add.compon
 import { IsystemPermissionAddComponent } from './permission/permission-add/permission-add.component';
 import { IsystemQuartzJobAddComponent } from './quartz-job-list/quartz-job-add/quartz-job-add.component';
 import { IsystemQuartzJobEditComponent } from './quartz-job-list/quartz-job-edit/quartz-job-edit.component';
+import { IsystemUserAddComponent } from './user/user-add/user-add.component';
 
 const COMPONENTS = [
   IsystemUserComponent,
@@ -53,7 +54,8 @@ const COMPONENTS_NOROUNT = [
   IsystemDepartAddComponent,
   IsystemPermissionAddComponent,
   IsystemQuartzJobAddComponent,
-  IsystemQuartzJobEditComponent];
+  IsystemQuartzJobEditComponent,
+  IsystemUserAddComponent];
 
 @NgModule({
   imports: [

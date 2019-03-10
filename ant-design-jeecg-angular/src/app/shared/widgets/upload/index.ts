@@ -23,9 +23,9 @@ export class UpLoadComponent implements OnInit {
   private model: any = [];
   fileList = [];
   @Input() nzFileType;
-  @Input() nzAction = 'systemController/filedeal.do?isup=1&_allow_anonymous=true';
+  @Input() nzAction = 'sys/common/upload';
   @Input() nzListType;
-  @Input() maxLength = 3;
+  @Input() maxLength = 1;
   @Input() nzWidth = 800;
   previewImage = '';
   previewVisible = false;

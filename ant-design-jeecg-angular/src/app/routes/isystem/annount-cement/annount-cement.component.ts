@@ -54,6 +54,22 @@ export class IsystemAnnountCementComponent implements OnInit {
             this.st.reload();
           }
         },
+        {
+          text: `删除`,
+          type: 'del',
+          click: (record) => this.http.delete(`sys/annountCement/delete?id=${record.id}`).subscribe(res =>this.st.reload())
+        },
+        {
+          text: `发布`,
+          type: 'none',
+          pop:true,
+          popTitle:'确认发布吗？',
+          click: (record, modal, comp) => {
+            this.http.get(`sys/annountCement/doReleaseData`,{'id':record.id}).subscribe(res => {
+              this.st.reload()
+            })
+          }
+        },
       ]
     }
   ];

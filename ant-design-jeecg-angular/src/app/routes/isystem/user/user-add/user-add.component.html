@@ -1,0 +1,35 @@
+<div class="modal-header">
+  <div class="modal-title">新建用户</div>
+</div>
+
+<form nz-form #f="ngForm" se-container="1">
+  <se required  label="用户名">
+    <input nz-input [(ngModel)]="i.username" name="username" required>
+  </se>
+  <se required  label="用户姓名">
+    <input nz-input [(ngModel)]="i.realname" name="realname" required>
+  </se>
+  <se required  label="角色">
+    <app-dict-select name="selectedroles" nzMode="multiple" [(ngModel)]="i.selectedroles" dictCode="sys_role,role_name,id" required></app-dict-select>
+  </se>
+  <se label="头像">
+    <app-upload #u1 nzListType="picture-card" nzFileType="image/png,image/jpeg,image/gif,image/bmp"></app-upload>
+  </se>
+  <se label="生日">
+    <nz-date-picker [(ngModel)]="i.birthday" name="birthday"></nz-date-picker>
+  </se>
+  <se label="性别">
+    <app-dict-select name="sex" [(ngModel)]="i.sex" dictCode="sex"></app-dict-select>
+  </se>
+  <se label="邮箱">
+    <input nz-input [(ngModel)]="i.email" name="email">
+  </se>
+  <se label="电话">
+    <input nz-input [(ngModel)]="i.phone" name="phone">
+  </se>
+</form>
+
+<div class="modal-footer">
+  <button nz-button type="button" (click)="close()">关闭</button>
+  <button nz-button type="submit" nzType="primary" (click)="save(f.value)" [disabled]="!f.valid" [nzLoading]="http.loading">保存</button>
+</div>

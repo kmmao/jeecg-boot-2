@@ -6,6 +6,7 @@ import { IsystemUserEditComponent } from './user-edit/user-edit.component';
 import { NzMessageService } from 'ng-zorro-antd';
 import { IsystemUserPasswordUpdateComponent } from './user-password-update/user-password-update.component';
 import { IsystemUserViewComponent } from './user-view/user-view.component';
+import { IsystemUserAddComponent } from './user-add/user-add.component';
 
 @Component({
   selector: 'app-isystem-user',
@@ -107,9 +108,9 @@ export class IsystemUserComponent implements OnInit {
   ngOnInit() { }
 
   add() {
-    // this.modal
-    //   .createStatic(FormEditComponent, { i: { id: 0 } })
-    //   .subscribe(() => this.st.reload());
+     this.modal
+       .createStatic(IsystemUserAddComponent)
+       .subscribe(() => this.st.reload());
   }
 
 }

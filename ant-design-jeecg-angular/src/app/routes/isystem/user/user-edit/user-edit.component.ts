@@ -1,9 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { SFSchema, SFUISchema } from '@delon/form';
 import { _HttpClient } from '@delon/theme';
-import { NzMessageService, NzModalRef } from 'ng-zorro-antd';
-import { Observable } from 'rxjs';
 import { DictService } from '@shared';
+import { NzMessageService, NzModalRef } from 'ng-zorro-antd';
 
 @Component({
   selector: 'app-isystem-user-edit',
@@ -34,12 +33,18 @@ export class IsystemUserEditComponent implements OnInit {
   ui: SFUISchema = {
     '*': {
       spanLabelFixed: 100,
-      grid: { span: 12 },
     },
     $selectedroles: {
       widget: 'select',
       mode: 'tags',
       asyncData: () => this.dictService.getDictByTable('sys_role','role_name','id')
+    },
+    $avatar: {
+      widget: 'upload',
+      action:'sys/common/upload',
+      listType:'picture-card',
+      limit:'1',
+      resReName:'message',
     },
     $birthday: {
       widget: 'date',
