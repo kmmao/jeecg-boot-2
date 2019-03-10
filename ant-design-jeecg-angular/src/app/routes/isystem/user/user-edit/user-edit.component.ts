@@ -12,7 +12,7 @@ import { DictService } from '@shared';
 export class IsystemUserEditComponent implements OnInit {
   @Input()
   record: any = {};
-  i: any={sex:2};
+  i: any={};
   schema: SFSchema = {
     properties: {
       username: { type: 'string', title: '用户名' },
@@ -23,7 +23,7 @@ export class IsystemUserEditComponent implements OnInit {
       avatar: { type: 'string', title: '头像' },
       birthday: { type: 'string', title: '生日' },
       sex: {
-        type: 'number',
+        type: 'integer',
         title: '性别',
       },
       email: { type: 'string', title: '邮箱' },
@@ -58,7 +58,11 @@ export class IsystemUserEditComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+   this.http.get(`sys/user/queryUserRole?userid=${this.record.id}`).subscribe(res=>{
     this.i = this.record;
+    this.i['selectedroles']=(res as any).result
+    console.log(this.i)
+   })
   }
 
   save(value: any) {
@@ -71,4 +75,5 @@ export class IsystemUserEditComponent implements OnInit {
   close() {
     this.modal.destroy();
   }
+
 }

@@ -13,6 +13,7 @@ import { ReuseTabService, ResultComponent } from '@delon/abc';
 import { environment } from '@env/environment';
 import { StartupService } from '@core';
 import { timingSafeEqual } from 'crypto';
+import { CacheService } from '@delon/cache';
 @Component({
   selector: 'passport-login',
   templateUrl: './login.component.html',
@@ -25,6 +26,7 @@ export class UserLoginComponent implements OnDestroy ,OnInit {
   constructor(
     fb: FormBuilder,
     modalSrv: NzModalService,
+    private cacheSrv:CacheService,
     private router: Router,
     private settingsService: SettingsService,
     private socialService: SocialService,
@@ -137,6 +139,7 @@ export class UserLoginComponent implements OnDestroy ,OnInit {
         // 清空路由复用信息
         this.reuseTabService.clear();
         // 设置用户Token信息
+        this.cacheSrv.clear()
         const user = {
           token: res.result.token,
           name: res.result.userInfo.username,

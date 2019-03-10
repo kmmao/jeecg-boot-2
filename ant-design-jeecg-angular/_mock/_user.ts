@@ -91,7 +91,7 @@ export const USERS = {
         key: '330000',
       },
       city: {
-        label: '市辖区',
+        label: '市辖区', 
         key: '330100',
       },
     },
@@ -121,4 +121,9 @@ export const USERS = {
   'POST /register': {
     msg: 'ok',
   },
+  'GET /dict': [{
+    label:'男',value:1
+  },{
+    label:'女',value:2
+  }],
 };
