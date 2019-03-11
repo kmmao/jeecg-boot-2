@@ -53,7 +53,7 @@ Jeecg-Boot 快速开发平台(前后端分离版本 ng-alain版本)
 
 #### 技术文档
 
-- 在线演示 ：  [http://boot.jeecg.org](http://boot.jeecg.org)
+- 在线演示 ：  [http://47.104.204.117:7080/jeecg-boot/admin/index.html ](http://47.104.204.117:7080/jeecg-boot/admin/index.html)
 
 - 官方文档 ：  [http://jeecg-boot.mydoc.io](http://jeecg-boot.mydoc.io)
 
