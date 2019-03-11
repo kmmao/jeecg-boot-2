@@ -25,7 +25,6 @@ export class IsystemDictItemEditComponent implements OnInit {
         ],
         ui: {
           widget: 'radio',
-          styleType: 'button',
         },
       },
 
