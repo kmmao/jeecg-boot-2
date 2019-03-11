@@ -44,6 +44,11 @@ export class DefaultInterceptor implements HttpInterceptor {
   private checkStatus(ev: HttpResponseBase) {
     if (ev.status >= 200 && ev.status < 300) return;
 
+    if (ev instanceof HttpErrorResponse) {
+      if(ev.error.message==='Token失效，请重新登录'){
+       return;
+      }
+    }
     const errortext = CODEMESSAGE[ev.status] || ev.statusText;
     this.injector.get(NzNotificationService).error(
       `请求错误 ${ev.status}: ${ev.url}`,
@@ -69,13 +74,21 @@ export class DefaultInterceptor implements HttpInterceptor {
             const body: any = ev.body;
             if (body.success===false) {
               console.log(body.message)
-                this.msg.error(body.message);
+                //this.msg.error(body.message);
+                this.injector.get(NzNotificationService).error(
+                  `失败`,
+                  body.message
+                );
                 // 继续抛出错误中断后续所有 Pipe、subscribe 操作，因此：
                 // this.http.get('/').subscribe() 并不会触发
                 //return throwError({});
             } else {
               if(req.method!=='GET'){
-                this.msg.success(body.message);
+                this.injector.get(NzNotificationService).success(
+                  `成功`,
+                  body.message
+                );
+                //this.msg.success(body.message);
               }
                 // 重新修改 `body` 内容为 `response` 内容，对于绝大多数场景已经无须再关心业务状态码
                // return of(new HttpResponse(Object.assign(event, { body: body.response })));
@@ -97,6 +110,10 @@ export class DefaultInterceptor implements HttpInterceptor {
       if (ev instanceof HttpErrorResponse) {
         if(ev.error.message==='Token失效，请重新登录'){
           (this.injector.get(DA_SERVICE_TOKEN) as ITokenService).clear();
+          this.injector.get(NzNotificationService).error(
+            `提示`,
+            '会话失效请重新登录'
+          );
           this.goTo('/passport/login'); 
           break;
         }
