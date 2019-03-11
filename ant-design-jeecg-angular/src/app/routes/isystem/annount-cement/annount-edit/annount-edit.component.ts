@@ -63,7 +63,6 @@ export class IsystemAnnountEditComponent implements OnInit {
 
   save(value: any) {
     this.http.put(`sys/annountCement/edit`, value).subscribe(res => {
-      this.msgSrv.success((res as any).message);
       this.modal.close(true);
     });
   }

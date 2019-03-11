@@ -61,7 +61,6 @@ export class IsystemAnnountAddComponent implements OnInit {
 
   save(value: any) {
     this.http.post(`sys/annountCement/add`, value).subscribe(res => {
-      this.msgSrv.success((res as any).message);
       this.modal.close(true);
     });
   }
