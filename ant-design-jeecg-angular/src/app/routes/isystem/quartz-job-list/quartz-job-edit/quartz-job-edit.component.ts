@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { NzModalRef, NzMessageService } from 'ng-zorro-antd';
 import { _HttpClient } from '@delon/theme';
 import { SFSchema, SFUISchema } from '@delon/form';
@@ -8,32 +8,31 @@ import { SFSchema, SFUISchema } from '@delon/form';
   templateUrl: './quartz-job-edit.component.html',
 })
 export class IsystemQuartzJobEditComponent implements OnInit {
+  @Input()
   record: any = {};
-  i: any;
+  i: any={};
   schema: SFSchema = {
     properties: {
-      no: { type: 'string', title: '编号' },
-      owner: { type: 'string', title: '姓名', maxLength: 15 },
-      callNo: { type: 'number', title: '调用次数' },
-      href: { type: 'string', title: '链接', format: 'uri' },
-      description: { type: 'string', title: '描述', maxLength: 140 },
+      jobClassName: { type: 'string', title: '类名' },
+      cronExpression: { type: 'string', title: 'cron表达式' },
+      parameter: { type: 'string', title: '参数' },
+      description: { type: 'string', title: '描述' },
+      status: {
+        type: 'string',
+        title: '状态',
+        enum: [
+          { label: '开启', value: 0 },
+          { label: '关闭', value: -1 },
+        ],
+        default:'-1'
+      },
     },
-    required: ['owner', 'callNo', 'href', 'description'],
+    required: ['jobClassName', 'cronExpression', 'status'],
   };
   ui: SFUISchema = {
-    '*': {
-      spanLabelFixed: 100,
-      grid: { span: 12 },
-    },
-    $no: {
-      widget: 'text'
-    },
-    $href: {
-      widget: 'string',
-    },
-    $description: {
-      widget: 'textarea',
-      grid: { span: 24 },
+
+    $status: {
+      widget: 'radio',
     },
   };
 
@@ -41,17 +40,15 @@ export class IsystemQuartzJobEditComponent implements OnInit {
     private modal: NzModalRef,
     private msgSrv: NzMessageService,
     public http: _HttpClient,
-  ) {}
+  ) { }
 
   ngOnInit(): void {
-    if (this.record.id > 0)
-    this.http.get(`/user/${this.record.id}`).subscribe(res => (this.i = res));
+    this.i=this.record
   }
 
   save(value: any) {
-    this.http.post(`/user/${this.record.id}`, value).subscribe(res => {
-      this.msgSrv.success('保存成功');
-      this.modal.close(true);
+    this.http.put(`sys/quartzJob/edit`, value).subscribe(res => {
+      this.close()
     });
   }
 
