@@ -1,7 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { SFSchema, SFUISchema } from '@delon/form';
 import { _HttpClient } from '@delon/theme';
-import { DictService } from '@shared';
+import { DictService, UpLoadComponent } from '@shared';
 import { NzMessageService, NzModalRef } from 'ng-zorro-antd';
 
 @Component({
@@ -9,52 +9,11 @@ import { NzMessageService, NzModalRef } from 'ng-zorro-antd';
   templateUrl: './user-edit.component.html',
 })
 export class IsystemUserEditComponent implements OnInit {
+  @ViewChild('f') f;
+  @ViewChild('u1') u1: UpLoadComponent;
   @Input()
   record: any = {};
   i: any={};
-  schema: SFSchema = {
-    properties: {
-      username: { type: 'string', title: '用户名' },
-      realname: { type: 'string', title: '用户姓名' },
-      selectedroles: {
-        type: 'string', title: '用户角色'
-      },
-      avatar: { type: 'string', title: '头像' },
-      birthday: { type: 'string', title: '生日' },
-      sex: {
-        type: 'integer',
-        title: '性别',
-      },
-      email: { type: 'string', title: '邮箱' },
-      phone: { type: 'string', title: '电话' },
-    },
-    required: ['username', 'realname', 'selectedroles'],
-  };
-  ui: SFUISchema = {
-    '*': {
-      spanLabelFixed: 100,
-    },
-    $selectedroles: {
-      widget: 'select',
-      mode: 'tags',
-      asyncData: () => this.dictService.getDictByTable('sys_role','role_name','id')
-    },
-    $avatar: {
-      widget: 'upload',
-      action:'sys/common/upload',
-      listType:'picture-card',
-      limit:'1',
-      resReName:'message',
-    },
-    $birthday: {
-      widget: 'date',
-    },
-    $sex: {
-      widget: 'select',
-      asyncData:()=>this.dictService.getDict('sex')
-    },
-  };
-
   constructor(
     private modal: NzModalRef,
     private msgSrv: NzMessageService,
@@ -63,16 +22,19 @@ export class IsystemUserEditComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-   this.http.get(`sys/user/queryUserRole?userid=${this.record.id}`).subscribe(res=>{
     this.i = this.record;
+   this.http.get(`sys/user/queryUserRole?userid=${this.record.id}`).subscribe(res=>{
     this.i['selectedroles']=(res as any).result
-    console.log(this.i)
    })
   }
 
   save(value: any) {
-    value['selectedroles'] = value.selectedroles.join(",");
-    this.http.put(`sys/user/edit`, value).subscribe(res => {
+    if (this.u1.fileList[0]) {
+      console.log(this.u1.fileList[0])
+      this.i['avatar'] = this.u1.fileList[0].response.message
+    }
+    this.i['selectedroles'] = this.i.selectedroles.join(",");
+    this.http.put(`sys/user/edit`, this.i).subscribe(res => {
       this.modal.close(true);
     });
   }

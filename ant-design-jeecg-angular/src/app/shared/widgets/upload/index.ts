@@ -21,6 +21,7 @@ import { UploadFile } from 'ng-zorro-antd';
 })
 export class UpLoadComponent implements OnInit {
   private model: any = [];
+  @Input() files;
   fileList = [];
   @Input() nzFileType;
   @Input() nzAction = 'sys/common/upload';
@@ -35,5 +36,26 @@ export class UpLoadComponent implements OnInit {
   }
   constructor(public http: _HttpClient) { }
   ngOnInit(): void {
+    console.log(this.files)
+    if(this.files){
+      this.files.split(",").forEach(item => {
+        const value={
+          uid: -1,
+          name: item,
+          status: 'done',
+          url: item,
+          response:{
+            message:item
+          }
+        }
+      console.log(item)
+        this.fileList = [ ...this.fileList, value]; // 正确使用方式
+      })
+    }
+   
+
+
+
+    
   }
 }

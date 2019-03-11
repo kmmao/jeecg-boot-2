@@ -5,7 +5,7 @@
       <nz-form-item>
         <nz-form-control>
           <nz-input-group nzSize="large" nzPrefixIcon="anticon anticon-user">
-            <input nz-input formControlName="userName" placeholder="请输入用户名">
+            <input nz-input formControlName="userName" placeholder="请输入用户名 :jeecg">
           </nz-input-group>
           <nz-form-explain *ngIf="userName.dirty && userName.errors">
             请输入用户名!
@@ -15,7 +15,7 @@
       <nz-form-item>
         <nz-form-control>
           <nz-input-group nzSize="large" nzPrefixIcon="anticon anticon-lock">
-            <input nz-input type="password" formControlName="password" placeholder="请输入密码">
+            <input nz-input type="password" formControlName="password" placeholder="请输入密码 :123456">
           </nz-input-group>
           <nz-form-explain *ngIf="password.dirty && password.errors">
             请输入密码!
