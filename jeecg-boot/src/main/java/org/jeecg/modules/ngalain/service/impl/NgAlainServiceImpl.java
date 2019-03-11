@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Base64;
 import java.util.List;
 import java.util.Map;
 
@@ -127,6 +128,10 @@ public class NgAlainServiceImpl implements NgAlainService {
             json.put("id", permission.getId());
             if(permission.getUrl()!=null&&(permission.getUrl().startsWith("http://")||permission.getUrl().startsWith("https://"))) {
                 json.put("path", MD5Util.MD5Encode(permission.getUrl(), "utf-8"));
+                String url= new String(Base64.getUrlEncoder().encode(permission.getUrl().getBytes()));
+                System.out.println(permission.getUrl());
+                System.out.println(url);
+                json.put("path", "/sys/link/" +url);
             }else {
                 json.put("path", permission.getUrl());
             }
