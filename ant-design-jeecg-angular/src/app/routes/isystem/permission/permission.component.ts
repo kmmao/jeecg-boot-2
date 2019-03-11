@@ -38,7 +38,14 @@ export class IsystemPermissionComponent implements OnInit {
     required: ['name'],
   };
   ui: SFUISchema = {
-
+    $hidden: {
+      checkedChildren: '是',
+      unCheckedChildren: '否'
+    },
+    $alwaysShow: {
+      checkedChildren: '是',
+      unCheckedChildren: '否'
+    }
   };
 
 
