@@ -21,8 +21,10 @@ import java.util.Map;
  */
 @Configuration
 public class WebMvcConfiguration implements WebMvcConfigurer {
-    @Value("${jeecg.path}")
-    private Map<String,String> paths;
+    @Value("${jeecg.path.upload}")
+    private String upLoadPath;
+    @Value("${jeecg.path.webapp}")
+    private String webAppPath;
     @Bean
     public CorsFilter corsFilter() {
         final UrlBasedCorsConfigurationSource urlBasedCorsConfigurationSource = new UrlBasedCorsConfigurationSource();
@@ -40,11 +42,7 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
     }
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        ResourceHandlerRegistration resourceHandlerRegistration=registry.addResourceHandler("/**");
-        for (String path : paths.keySet()) {
-            resourceHandlerRegistration.addResourceLocations("file:"+path+"//");
-        }
-
+        registry.addResourceHandler("/**").addResourceLocations("file:"+upLoadPath+"//","file:"+webAppPath+"//");
     }
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
