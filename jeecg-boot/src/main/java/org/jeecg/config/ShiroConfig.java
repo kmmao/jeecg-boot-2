@@ -46,16 +46,18 @@ public class ShiroConfig {
 		filterChainDefinitionMap.put("/sys/common/view/**", "anon");//图片预览不限制token
 		filterChainDefinitionMap.put("/api/auth/logout", "anon");//退出登录
 		filterChainDefinitionMap.put("/auth/2step-code", "anon");//退出登录
-		
-		filterChainDefinitionMap.put("/**.js", "anon");
-		filterChainDefinitionMap.put("/**.css", "anon");
+		filterChainDefinitionMap.put("/", "anon");
+		filterChainDefinitionMap.put("/**/*.js", "anon");
+		filterChainDefinitionMap.put("/**/*.css", "anon");
+		filterChainDefinitionMap.put("/**/*.html", "anon");
+		filterChainDefinitionMap.put("/**/*.svg", "anon");
+		filterChainDefinitionMap.put("/**/*.jpg", "anon");
+		filterChainDefinitionMap.put("/**/*.ico", "anon");
 		filterChainDefinitionMap.put("/druid/**", "anon");
 		filterChainDefinitionMap.put("/swagger-ui.html", "anon");
 		filterChainDefinitionMap.put("/swagger**/**", "anon");
 		filterChainDefinitionMap.put("/webjars/**", "anon");
 		filterChainDefinitionMap.put("/v2/**", "anon");
-		filterChainDefinitionMap.put("/admin/**", "anon");
-
 		filterChainDefinitionMap.put("/processInstance/**", "anon");
 		filterChainDefinitionMap.put("/task/**", "anon");
 		
