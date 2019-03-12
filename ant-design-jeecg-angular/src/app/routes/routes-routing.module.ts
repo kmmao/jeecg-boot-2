@@ -28,7 +28,8 @@ const routes: Routes = [
       { path: 'exception', loadChildren: './exception/exception.module#ExceptionModule' },
       { path: 'enviroment', loadChildren: './enviroment/enviroment.module#EnviromentModule' },
       { path: 'sys', loadChildren: './sys/sys.module#SysModule' },
-      { path: 'isystem', loadChildren: './isystem/isystem.module#IsystemModule' }
+      { path: 'isystem', loadChildren: './isystem/isystem.module#IsystemModule' },
+      { path: 'jeecg', loadChildren: './jeecg/jeecg.module#JeecgModule' }
       // 业务子模块
       // { path: 'widgets', loadChildren: './widgets/widgets.module#WidgetsModule' }
     ]
