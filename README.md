@@ -11,7 +11,8 @@ ng-alain spring-boot jeecg-boot
 
 1. 前端运行 ant-design-jeecg-angular 目录下运行npm run-script build  会编译文件到D:\\webapp
 2. 数据库脚本执行sys-init-20190225.sql 数据库名称 jeecg-boot
-2. 服务端直接运行 start工程里面的 JeecgApplication
+
+2. 服务端直接运行 start工程里面的 JeecgApplication (reids 要安装并且配置文件地址配置正确)
 3. 访问地址http://localhost:7080/jeecg-boot
 4. 在线演示地址：http://47.104.204.117:7080/jeecg-boot
 
