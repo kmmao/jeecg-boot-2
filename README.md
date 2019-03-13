@@ -56,7 +56,7 @@ Jeecg-Boot 快速开发平台(前后端分离版本 ng-alain版本)
 - [ant-design-angular](https://ng.ant.design/docs/introduce/zh)
 - [webpack](https://www.webpackjs.com/),[yarn](https://yarnpkg.com/zh-Hans/)
 - [@antv/g2](https://antv.alipay.com/zh-cn/index.html) - Alipay AntV 数据可视化图表
-- eslint，[@vue/cli 3.2.1](https://cli.vuejs.org/zh/guide)
+- eslint，[@angular/cli](https://cli.angular.io/)
 
 
 #### 开发环境
