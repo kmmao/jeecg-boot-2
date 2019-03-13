@@ -13,6 +13,7 @@ ng-alain spring-boot jeecg-boot
 2. 数据库脚本执行sys-init-20190225.sql 数据库名称 jeecg-boot
 2. 服务端直接运行 start工程里面的 JeecgApplication
 3. 访问地址http://localhost:7080/jeecg-boot
+4. 在线演示地址：http://47.104.204.117:7080/jeecg-boot
 
 
 #### 使用说明
