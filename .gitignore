@@ -2,3 +2,19 @@ jeecg-boot/.idea/
 jeecg-boot/target/
 logs/
 
+.idea/
+jeecg-boot.iml
+common/target/
+system/target/
+demo/target/
+ngalain/target/
+quartz/target/
+shiro/target/
+start/start.iml
+shiro/shiro.iml
+ngalain/ngalain.iml
+demo/demo.iml
+common/common.iml
+quartz/quartz.iml
+start/target/
+system/system.iml

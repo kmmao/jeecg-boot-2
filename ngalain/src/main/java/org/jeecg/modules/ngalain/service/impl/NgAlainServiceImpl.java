@@ -131,7 +131,7 @@ public class NgAlainServiceImpl implements NgAlainService {
                 String url= new String(Base64.getUrlEncoder().encode(permission.getUrl().getBytes()));
                 System.out.println(permission.getUrl());
                 System.out.println(url);
-                json.put("path", "/sys/link/" +url);
+                json.put("path", "/sys/link/" +url.replaceAll("=",""));
             }else {
                 json.put("path", permission.getUrl());
             }
