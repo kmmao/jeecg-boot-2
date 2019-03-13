@@ -94,9 +94,9 @@ mybatis-plus:
 jeecg :
   path :
     #文件上传根目录 设置
-    upload: D://upFiles
+    upload: /home/upFiles
     #webapp文件路径
-    webapp: D://webapp
+    webapp: /home/webapp
 logging:
   level:
     org.jeecg.modules.system.mapper : debug
