@@ -17,9 +17,9 @@ ng-alain spring-boot jeecg-boot
 4. 在线演示地址：http://47.104.204.117:7080/jeecg-boot
 
 #### 项目部署
-修改服务端相关配置文件
-服务端  打包项目 start项目会有一个start.jar 
-客户端 直接拷贝 客户端打包出来的文件 D:\\webapp 拷贝到服务器 /home/webapp 路径下
+1. 修改服务端相关配置文件
+2. 服务端  打包项目 start项目会有一个start.jar 
+3. 客户端 直接拷贝 客户端打包出来的文件 D:\\webapp 拷贝到服务器 /home/webapp 路径下
 
 
 #### 使用说明
