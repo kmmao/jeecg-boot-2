@@ -37,7 +37,7 @@ public class NgAlainController {
         SysUser user = (SysUser) SecurityUtils.getSubject().getPrincipal();
         JSONObject userObjcet = new JSONObject();
         userObjcet.put("name", user.getUsername());
-        userObjcet.put("avatar", "./assets/tmp/img/avatar.jpg");
+        userObjcet.put("avatar", user.getAvatar());
         userObjcet.put("email", user.getEmail());
         userObjcet.put("token", token);
         j.put("user", userObjcet);
