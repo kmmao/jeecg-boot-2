@@ -4,10 +4,10 @@ import { _HttpClient } from '@delon/theme';
 import { SFSchema, SFUISchema } from '@delon/form';
 
 @Component({
-  selector: 'app-jeecg-demo-list-add',
+  selector: 'app-demo-demo-list-add',
   templateUrl: './demo-list-add.component.html',
 })
-export class JeecgDemoListAddComponent implements OnInit {
+export class DemoDemoListAddComponent implements OnInit {
   record: any = {};
   i: any;
   schema: SFSchema = {

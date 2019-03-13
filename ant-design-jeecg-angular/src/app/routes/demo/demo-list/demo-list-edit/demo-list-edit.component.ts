@@ -5,10 +5,10 @@ import { SFSchema, SFUISchema } from '@delon/form';
 import { DictService } from '@shared';
 
 @Component({
-  selector: 'app-jeecg-demo-list-edit',
+  selector: 'app-demo-demo-list-edit',
   templateUrl: './demo-list-edit.component.html',
 })
-export class JeecgDemoListEditComponent implements OnInit {
+export class DemoDemoListEditComponent implements OnInit {
   @Input()
   record: any = {};
   i: any;

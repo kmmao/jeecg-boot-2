@@ -2,14 +2,14 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { _HttpClient, ModalHelper } from '@delon/theme';
 import { STColumn, STComponent } from '@delon/abc';
 import { SFSchema } from '@delon/form';
-import { JeecgDemoListEditComponent } from './demo-list-edit/demo-list-edit.component';
-import { JeecgDemoListAddComponent } from './demo-list-add/demo-list-add.component';
+import { DemoDemoListEditComponent } from './demo-list-edit/demo-list-edit.component';
+import { DemoDemoListAddComponent } from './demo-list-add/demo-list-add.component';
 
 @Component({
-  selector: 'app-jeecg-jeecg-demo-list',
-  templateUrl: './jeecg-demo-list.component.html',
+  selector: 'app-demo-demo-list',
+  templateUrl: './demo-list.component.html',
 })
-export class JeecgJeecgDemoListComponent implements OnInit {
+export class DemoDemoListComponent implements OnInit {
   url = `test/jeecgDemo/list?field=id,name,keyWord,punchTime,sex,age,birthday,email,content,act`;
   searchSchema: SFSchema = {
     properties: {
@@ -33,7 +33,7 @@ export class JeecgJeecgDemoListComponent implements OnInit {
       title: '操作',
       buttons: [
          { text: '查看', click: (item: any) => `/form/${item.id}` },
-         { text: '编辑', type: 'modal', component: JeecgDemoListEditComponent, click: 'reload' },
+         { text: '编辑', type: 'modal', component: DemoDemoListEditComponent, click: 'reload' },
       ]
     }
   ];
@@ -44,7 +44,7 @@ export class JeecgJeecgDemoListComponent implements OnInit {
 
   add() {
     this.modal
-      .createStatic(JeecgDemoListAddComponent, { i: { id: 0 } })
+      .createStatic(DemoDemoListAddComponent, { i: { id: 0 } })
       .subscribe(() => this.st.reload());
   }
 

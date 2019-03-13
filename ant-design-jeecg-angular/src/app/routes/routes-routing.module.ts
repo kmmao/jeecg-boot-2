@@ -29,7 +29,7 @@ const routes: Routes = [
       { path: 'enviroment', loadChildren: './enviroment/enviroment.module#EnviromentModule' },
       { path: 'sys', loadChildren: './sys/sys.module#SysModule' },
       { path: 'isystem', loadChildren: './isystem/isystem.module#IsystemModule' },
-      { path: 'jeecg', loadChildren: './jeecg/jeecg.module#JeecgModule' }
+      { path: 'jeecg', loadChildren: './demo/demo.module#DemoModule' }
       // 业务子模块
       // { path: 'widgets', loadChildren: './widgets/widgets.module#WidgetsModule' }
     ]

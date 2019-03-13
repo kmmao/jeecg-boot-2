@@ -1,0 +1,48 @@
+
+
+
+<nz-card>
+
+  <div nz-row class="gutter-box">
+    <div nz-col nzSpan="2">
+      <nz-select [ngModel]="method" nzPlaceHolder="请选择方法" style="width:100%">
+        <nz-option nzValue="get" nzLabel="GET"></nz-option>
+        <nz-option nzValue="post" nzLabel="POST"></nz-option>
+        <nz-option nzValue="delete" nzLabel="DELETE"></nz-option>
+        <nz-option nzValue="put" nzLabel="PUT"></nz-option>
+      </nz-select>
+    </div>
+
+    <div nz-col nzSpan="22">
+      <nz-input-group nzSearch nzSize="defalut" style="width:100%" [nzAddOnBefore]="addOnBeforeTemplate" [nzAddOnAfter]="suffixButton">
+        <input type="text" [(ngModel)]="url" nz-input placeholder="地址栏">
+      </nz-input-group>
+      <ng-template #suffixButton>
+        <button nz-button nzType="primary" nzSize="defalut" (click)="doit()" nzSearch>提交</button>
+      </ng-template>
+    </div>
+  </div>
+
+  <div nz-row class="gutter-box">
+    <div nz-col nzSpan="24">
+      <nz-tabset>
+        <nz-tab nzTitle="请求">
+          <textarea rows="8" nz-input [(ngModel)]="param" placeholder="请求内容"></textarea>
+        </nz-tab>
+      </nz-tabset>
+
+    </div>
+  </div>
+  <div nz-row class="gutter-box">
+    <div nz-col nzSpan="24">
+      <nz-tabset>
+        <nz-tab nzTitle="响应">
+                <textarea rows="15" nz-input [(ngModel)]="resp" placeholder="请求内容"></textarea>
+            </nz-tab>
+      </nz-tabset>
+
+    </div>
+  </div>
+
+
+</nz-card>
