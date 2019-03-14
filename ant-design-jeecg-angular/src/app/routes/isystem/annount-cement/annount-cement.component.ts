@@ -11,7 +11,7 @@ import { NzMessageService } from 'ng-zorro-antd';
   templateUrl: './annount-cement.component.html',
 })
 export class IsystemAnnountCementComponent implements OnInit {
-  url = `sys/annountCement/list?field=id,,,titile,startTime,endTime,sender,priority,msgType,sendStatus,sendTime,cancelTime,action`;
+  url = `sys/annountCement/list`;
   searchSchema: SFSchema = {
     properties: {
       titile: {

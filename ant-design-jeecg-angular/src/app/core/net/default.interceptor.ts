@@ -104,7 +104,7 @@ export class DefaultInterceptor implements HttpInterceptor {
         break;
       case 403:
       case 404:
-      this.goTo(`/exception/${ev.status}`);
+      //this.goTo(`/exception/${ev.status}`);
       break;
       case 500:
       if (ev instanceof HttpErrorResponse) {
@@ -118,7 +118,7 @@ export class DefaultInterceptor implements HttpInterceptor {
           break;
         }
       }
-      this.goTo(`/exception/${ev.status}`);
+      //this.goTo(`/exception/${ev.status}`);
       break;
       default:
         if (ev instanceof HttpErrorResponse) {

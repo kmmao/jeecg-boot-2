@@ -7,7 +7,6 @@ import { LayoutDefaultComponent } from '../layout/default/default.component';
 import { LayoutFullScreenComponent } from '../layout/fullscreen/fullscreen.component';
 import { LayoutPassportComponent } from '../layout/passport/passport.component';
 // dashboard pages
-import { DashboardComponent } from './dashboard/dashboard.component';
 // passport pages
 import { UserLoginComponent } from './passport/login/login.component';
 import { UserRegisterComponent } from './passport/register/register.component';
@@ -24,9 +23,8 @@ const routes: Routes = [
     canActivate: [SimpleGuard],
     children: [
       { path: '', redirectTo: 'dashboard/analysis', pathMatch: 'full' },
-      { path: 'dashboard/analysis', component: DashboardComponent, data: { title: '仪表盘', titleI18n: 'dashboard' } },
+      { path: 'dashboard', loadChildren: './dashboard/dashboard.module#DashboardModule' },
       { path: 'exception', loadChildren: './exception/exception.module#ExceptionModule' },
-      { path: 'enviroment', loadChildren: './enviroment/enviroment.module#EnviromentModule' },
       { path: 'sys', loadChildren: './sys/sys.module#SysModule' },
       { path: 'isystem', loadChildren: './isystem/isystem.module#IsystemModule' },
       { path: 'jeecg', loadChildren: './demo/demo.module#DemoModule' }

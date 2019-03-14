@@ -8,7 +8,7 @@ import { SFSchema } from '@delon/form';
   templateUrl: './log.component.html',
 })
 export class IsystemLogComponent implements OnInit {
-  url = `sys/log/list?logType=1&field=id,,,logContent,userid,username,ip,costTime,logType,createTime`;
+  url = `sys/log/list?logType=1`;
   searchSchema: SFSchema = {
     properties: {
       keyWord: {

@@ -11,7 +11,7 @@ import { NzMessageService } from 'ng-zorro-antd';
   templateUrl: './quartz-job-list.component.html',
 })
 export class IsystemQuartzJobListComponent implements OnInit {
-  url = `sys/quartzJob/list?field=id,jobClassName,cronExpression,parameter,description,status,action`;
+  url = `sys/quartzJob/list`;
   searchSchema: SFSchema = {
     properties: {
       jobClassName: {

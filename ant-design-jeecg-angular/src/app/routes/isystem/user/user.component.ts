@@ -13,7 +13,7 @@ import { IsystemUserAddComponent } from './user-add/user-add.component';
   templateUrl: './user.component.html',
 })
 export class IsystemUserComponent implements OnInit {
-  url = `sys/user/list?field=id,,username,realname,avatar,sex,birthday,phone,email,status,createTime,action`;
+  url = `sys/user/list`;
   searchSchema: SFSchema = {
     properties: {
       username: {

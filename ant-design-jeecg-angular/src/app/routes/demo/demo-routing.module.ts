@@ -6,6 +6,7 @@ import { DemoOneToManyTabComponent } from './one-to-many-tab/one-to-many-tab.com
 import { DemoOneToManyComponent } from './one-to-many/one-to-many.component';
 import { DemoPrintDemoListComponent } from './print-demo-list/print-demo-list.component';
 import { DemoHelloworldComponent } from './helloworld/helloworld.component';
+import { DemoOnlineComponent } from './online/online.component';
 
 const routes: Routes = [
 
@@ -14,7 +15,8 @@ const routes: Routes = [
   { path: 'JeecgOrderDMainList', component: DemoOneToManyTabComponent },
   { path: 'JeecgOrderMainList', component: DemoOneToManyComponent },
   { path: 'PrintDemoList', component: DemoPrintDemoListComponent },
-  { path: 'helloworld', component: DemoHelloworldComponent }];
+  { path: 'helloworld', component: DemoHelloworldComponent },
+  { path: 'online/:id', component: DemoOnlineComponent }];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

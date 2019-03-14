@@ -9,6 +9,9 @@ import { DemoOneToManyTabComponent } from './one-to-many-tab/one-to-many-tab.com
 import { DemoOneToManyComponent } from './one-to-many/one-to-many.component';
 import { DemoPrintDemoListComponent } from './print-demo-list/print-demo-list.component';
 import { DemoHelloworldComponent } from './helloworld/helloworld.component';
+import { DemoOnlineComponent } from './online/online.component';
+import { DemoOnlineEditComponent } from './online/online-edit/online-edit.component';
+import { DemoOnlineAddComponent } from './online/online-add/online-add.component';
 
 const COMPONENTS = [
   DemoDemoListComponent,
@@ -16,10 +19,13 @@ const COMPONENTS = [
   DemoOneToManyTabComponent,
   DemoOneToManyComponent,
   DemoPrintDemoListComponent,
-  DemoHelloworldComponent];
+  DemoHelloworldComponent,
+  DemoOnlineComponent];
 const COMPONENTS_NOROUNT = [
   DemoDemoListAddComponent,
-  DemoDemoListEditComponent];
+  DemoDemoListEditComponent,
+  DemoOnlineEditComponent,
+  DemoOnlineAddComponent];
 
 @NgModule({
   imports: [

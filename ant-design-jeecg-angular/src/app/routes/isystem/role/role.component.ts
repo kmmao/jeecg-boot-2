@@ -13,7 +13,7 @@ import { DeleteFill } from '@ant-design/icons-angular/icons/public_api';
   templateUrl: './role.component.html',
 })
 export class IsystemRoleComponent implements OnInit {
-  url = `sys/role/list?field=id,roleName,roleCode,description,createTime,updateTime,action`;
+  url = `sys/role/list`;
   searchSchema: SFSchema = {
     properties: {
       roleName: {
