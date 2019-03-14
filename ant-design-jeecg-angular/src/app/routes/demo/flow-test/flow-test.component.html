@@ -5,7 +5,7 @@
 
   <div nz-row class="gutter-box">
     <div nz-col nzSpan="2">
-      <nz-select [ngModel]="method" nzPlaceHolder="请选择方法" style="width:100%">
+      <nz-select [(ngModel)]="method" nzPlaceHolder="请选择方法" style="width:100%">
         <nz-option nzValue="get" nzLabel="GET"></nz-option>
         <nz-option nzValue="post" nzLabel="POST"></nz-option>
         <nz-option nzValue="delete" nzLabel="DELETE"></nz-option>
@@ -27,7 +27,7 @@
     <div nz-col nzSpan="24">
       <nz-tabset>
         <nz-tab nzTitle="请求">
-          <textarea rows="8" nz-input [(ngModel)]="param" placeholder="请求内容"></textarea>
+          <textarea rows="8" nz-input [(ngModel)]="param" [placeholder]="reqplaceholder"></textarea>
         </nz-tab>
       </nz-tabset>
 
@@ -37,7 +37,7 @@
     <div nz-col nzSpan="24">
       <nz-tabset>
         <nz-tab nzTitle="响应">
-                <textarea rows="15" nz-input [(ngModel)]="resp" placeholder="响应内容"></textarea>
+                <textarea rows="15" nz-input [(ngModel)]="resp" readonly="readonly" placeholder="响应内容"></textarea>
             </nz-tab>
       </nz-tabset>
 
