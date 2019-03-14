@@ -4,6 +4,14 @@ import { SettingsService } from '@delon/theme';
 @Component({
   selector: 'layout-header',
   templateUrl: './header.component.html',
+  styles:[
+    `
+    .gutter-box {
+      
+      
+    }
+  `
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HeaderComponent {

@@ -1,6 +1,20 @@
 <div class="alain-default__header-logo">
   <a [routerLink]="['/']" class="alain-default__header-logo-link">
-    <img class="alain-default__header-logo-expanded" src="./assets/logo-full.svg" alt="{{settings.app.name}}" style="max-height:40px;" />
+    <div class="alain-default__header-logo-expanded">
+        <div nz-row  class="gutter-box" style="padding-left: 7px;">
+            <div nz-col nzSpan="5"  >
+                <img class="" src="./assets/logo.svg" alt="{{settings.app.name}}" style="max-height:40px;" />
+            </div>
+            <div  style="color:white;font-size:larger;font-weight:bold;vertical-align: middle;display: table-cell;height:40px;padding-left: 10px;">
+                Jeecg-Boot Pro
+                </div>
+          <!--   <div  style="height:40px;vertical-align: middle;display: table-cell;" nz-col nzSpan="19">
+               
+            </div> -->
+          </div>
+       
+    </div>
+ 
     <img class="alain-default__header-logo-collapsed" src="./assets/logo.svg" alt="{{settings.app.name}}" style="max-height:30px;" />
   </a>
 </div>
