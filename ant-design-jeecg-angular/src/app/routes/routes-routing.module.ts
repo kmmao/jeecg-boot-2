@@ -14,8 +14,6 @@ import { UserRegisterResultComponent } from './passport/register-result/register
 // single pages
 import { CallbackComponent } from './callback/callback.component';
 import { UserLockComponent } from './passport/lock/lock.component';
-import { LayoutOutdoorComponent } from 'app/layout/outdoor/outdoor.component';
-
 const routes: Routes = [
   {
     path: '',
@@ -48,13 +46,6 @@ const routes: Routes = [
       { path: 'register', component: UserRegisterComponent, data: { title: '注册', titleI18n: 'pro-register' } },
       { path: 'register-result', component: UserRegisterResultComponent, data: { title: '注册结果', titleI18n: 'pro-register-result' } },
       { path: 'lock', component: UserLockComponent, data: { title: '锁屏', titleI18n: 'lock' } },
-    ]
-  },
-  {
-    path: 'outdoor',
-    component: LayoutOutdoorComponent,
-    children: [
-      { path: 'outdoor', loadChildren: './outdoor/outdoor.module#OutdoorModule' },
     ]
   },
   // 单页不包裹Layout

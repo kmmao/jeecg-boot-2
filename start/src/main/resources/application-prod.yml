@@ -1,7 +1,10 @@
 server:
-    port: 7080
-    servlet:
-       context-path: /jeecg-boot
+  port: 7080
+  servlet:
+    context-path: /jeecg-boot
+  compression:
+    enabled: true
+    mime-types: application/javascript
 spring:
   ## quartz定时任务,采用数据库方式
   quartz:

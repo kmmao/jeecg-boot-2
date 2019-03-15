@@ -21,7 +21,6 @@ const SETTINGDRAWER = [SettingDrawerComponent, SettingDrawerItemComponent];
 const COMPONENTS = [
   LayoutDefaultComponent,
   LayoutFullScreenComponent,
-  LayoutOutdoorComponent,
   HeaderComponent,
   SidebarComponent,
   ...SETTINGDRAWER
@@ -39,7 +38,6 @@ const HEADERCOMPONENTS = [
 
 // passport
 import { LayoutPassportComponent } from './passport/passport.component';
-import { LayoutOutdoorComponent } from './outdoor/outdoor.component';
 const PASSPORT = [
   LayoutPassportComponent
 ];
