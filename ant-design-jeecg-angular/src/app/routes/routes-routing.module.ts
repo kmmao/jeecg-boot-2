@@ -25,7 +25,8 @@ const routes: Routes = [
       { path: 'exception', loadChildren: './exception/exception.module#ExceptionModule' },
       { path: 'sys', loadChildren: './sys/sys.module#SysModule' },
       { path: 'isystem', loadChildren: './isystem/isystem.module#IsystemModule' },
-      { path: 'jeecg', loadChildren: './demo/demo.module#DemoModule' }
+      { path: 'jeecg', loadChildren: './demo/demo.module#DemoModule' },
+      { path: 'online', loadChildren: './online/online.module#OnlineModule' }
       // 业务子模块
       // { path: 'widgets', loadChildren: './widgets/widgets.module#WidgetsModule' }
     ]

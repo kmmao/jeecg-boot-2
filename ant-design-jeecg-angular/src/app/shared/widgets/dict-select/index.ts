@@ -7,7 +7,7 @@ import { DictService } from '@shared/service/dict.service';
 @Component({
   selector: 'app-dict-select',
   template: `
-    <nz-select nz_input [(ngModel)]="model" [name]="name" [nzMode]="nzMode" (ngModelChange)="modelChange($event)">
+    <nz-select style="width: 100%;" nzPlaceHolder="请选择" nzShowSearch nzAllowClear nz_input [disabled]="disabled" [(ngModel)]="model" [name]="name" [nzMode]="nzMode" (ngModelChange)="modelChange($event)">
         <nz-option *ngFor="let dict of dictList" [nzValue]="dict.value" [nzLabel]="dict.label"></nz-option>
       </nz-select>
     `,
@@ -25,6 +25,9 @@ export class DictSelectComponent implements OnInit, ControlValueAccessor, OnChan
   @Input() dictCode: string;
   @Input() dynamicDict = false;
   @Input() nzMode='default';
+  @Input() disabled=false;
+
+
   @Output() ngModelChange = new EventEmitter();
   dictList;
   public onModelChange: Function = () => { };
