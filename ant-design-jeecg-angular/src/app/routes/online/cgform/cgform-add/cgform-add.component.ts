@@ -147,7 +147,9 @@ export class OnlineCgformAddComponent implements OnInit {
   ngOnInit(): void {
 
   }
-
+  checkAll(event){
+    console.log(event)
+  }
   save(value: any) {
     
     this.http.post(`sys/user/add`, value).subscribe(res => {

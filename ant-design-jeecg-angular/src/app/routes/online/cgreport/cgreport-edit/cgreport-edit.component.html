@@ -1,0 +1,144 @@
+<div class="modal-header">
+    <div class="modal-title">编辑表单</div>
+  </div>
+  
+  <form nz-form #f="ngForm" se-container="3">
+    <se required label="编码">
+      <input nz-input [(ngModel)]="i.code" name="code" required>
+    </se>
+    <se required label="名称">
+      <input nz-input [(ngModel)]="i.name" name="name" required>
+    </se>
+    <se required label="数据源">
+      <app-dict-select name="dbSource" [(ngModel)]="i.dbSource" dictCode="db_source" required></app-dict-select>
+    </se>
+    <se col="1" required label="查询SQL">
+      <textarea nz-input [(ngModel)]="i.cgrSql" id="cgrSql" name="cgrSql" rows="8" [placeholder]="sqlDesc"></textarea>
+    </se>
+    <se col="1"  label="描述">
+      <textarea nz-input [(ngModel)]="i.content" id="content" name="content" nzAutosize="false" placeholder="请输入描述"></textarea>
+    </se>
+  
+    <se  label="返回值字段">
+      <input nz-input [(ngModel)]="i.code"  name="code" >
+    </se>
+    <se  label="返回文本字段">
+      <input nz-input [(ngModel)]="i.returnTxtField"  name="returnTxtField" >
+    </se>
+    <se  label="返回类型">
+      <app-dict-select name="returnType" [(ngModel)]="i.returnType" dictCode="return_type" ></app-dict-select>
+    </se>
+  
+  </form>
+  <nz-tabset>
+    <nz-tab nzTitle="动态报表配置明细">
+      <button nz-button (click)="addRow()" nzType="primary">新增</button>
+      <nz-table nzShowPagination="false" nzFrontPagination="false" nzBordered="false" #dbTable [nzData]="items" nzSize="middle" [nzScroll]="{ y: '275px' }">
+        <thead>
+          <tr>
+            <th nzWidth="5%" nzShowCheckbox (nzCheckedChange)="checkAll($event)"></th>
+            <th nzWidth="10%">字段名</th>
+            <th nzWidth="10%">排序</th>
+            <th nzWidth="10%">字段文本</th>
+            <th nzWidth="10%">类型</th>
+            <th nzAlign="center" nzWidth="5%">是否显示</th>
+            <th nzWidth="10%">字段href</th>
+            <th nzWidth="10%">查询模式</th>
+            <th nzWidth="10%">取值表达式</th>
+            <th nzWidth="10%">字典code</th>
+            <th nzAlign="center" nzWidth="5%">是否查询</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let data of dbTable.data ; let i = index">
+            <td nzAlign="center">
+              <label nz-checkbox [(ngModel)]="data.select"></label>
+            </td>
+            <td nzAlign="center">
+              <input nz-input [(ngModel)]="data.fieldName"  id="dbFieldName" name="dbFieldName"
+                placeholder="字段名">
+            </td>
+            <td>
+              <input nz-input [(ngModel)]="data.orderNum"  id="orderNum" name="orderNum"
+                placeholder="排序">
+            </td>
+            <td>
+              <input nz-input [(ngModel)]="data.fieldTxt"  id="fieldTxt" name="fieldTxt"
+                placeholder="字段文本">
+            </td>
+            <td>
+                <app-dict-select name="fieldType"  [(ngModel)]="data.fieldType" dictCode="field_type"></app-dict-select>
+            </td>
+            <td nzAlign="center">
+                <label nz-checkbox [(ngModel)]="data.isShow" ></label>
+              </td>
+            <td>
+              <input nz-input [(ngModel)]="data.fieldHref"  id="fieldHref" name="fieldHref"
+                placeholder="字段href">
+            </td>
+            <td>
+                <app-dict-select name="searchMode"  [(ngModel)]="data.searchMode" dictCode="query_mode"></app-dict-select>
+            </td>
+  
+            <td>
+                <input nz-input [(ngModel)]="data.replaceVal"  id="replaceVal" name="replaceVal"
+                  placeholder="取值表达式">
+              </td>
+            
+            <td>
+                <input nz-input [(ngModel)]="data.dictCode"  id="dictCode" name="dictCode"
+                  placeholder="字典code">
+              </td>
+            <td nzAlign="center">
+              <label nz-checkbox [(ngModel)]="data.isSearch" ></label>
+            </td>
+          </tr>
+        </tbody>
+      </nz-table>
+    </nz-tab>
+  
+  
+  
+    <nz-tab nzTitle="报表参数">
+      <button nz-button (click)="addIndex()" nzType="primary">新增</button>
+  
+      <nz-table nzShowPagination="false" nzFrontPagination="false" #indexTable [nzData]="indexs" nzSize="middle"
+        [nzScroll]="{ y: '275px' }">
+        <thead>
+          <tr>
+            <th nzWidth="5%" nzShowCheckbox (nzCheckedChange)="checkAll($event)"></th>
+            <th nzWidth="10%">参数</th>
+            <th nzWidth="10%">参数文本</th>
+            <th nzWidth="10%">默认值</th>
+            <th nzWidth="10%">排序</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let data of indexTable.data ; let i = index">
+            <td nzAlign="center">
+              <label nz-checkbox [(ngModel)]="data.select"></label>
+            </td>
+            <td>
+              <input nz-input [(ngModel)]="data.paramName" id="paramName" name="paramName" placeholder="参数">
+            </td>
+            <td>
+              <input nz-input [(ngModel)]="data.paramTxt" id="paramTxt" name="paramTxt" placeholder="参数文本">
+            </td>
+            <td>
+              <input nz-input [(ngModel)]="data.paramValue" id="paramValue" name="paramValue" placeholder="默认值">
+            </td>
+            <td>
+              <input nz-input [(ngModel)]="data.orderNum" id="orderNum" name="orderNum" placeholder="排序">
+            </td>
+           
+  
+          </tr>
+        </tbody>
+      </nz-table>
+    </nz-tab>
+  </nz-tabset>`
+  <div class="modal-footer">
+    <button nz-button type="button" (click)="close()">关闭</button>
+    <button nz-button type="submit" nzType="primary" (click)="save(f.value)" [disabled]="!f.valid" [nzLoading]="http.loading">保存</button>
+  </div>
+  
