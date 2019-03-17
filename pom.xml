@@ -24,7 +24,8 @@
 		<module>shiro</module>
 		<module>system</module>
 		<module>start</module>
-	</modules>
+        <module>online</module>
+    </modules>
 
 	<repositories>
 		<repository>
