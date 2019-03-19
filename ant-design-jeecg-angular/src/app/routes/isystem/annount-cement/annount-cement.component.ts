@@ -37,7 +37,7 @@ export class IsystemAnnountCementComponent implements OnInit {
       index: 'priority',
       format:this.getDict
     },
-    { title: '公告类型', index: 'msgType',format:this.getDict },
+    { title: '公告类型', index: 'msgType_dictText'},
     { title: '发布状态', index: 'sendStatus',format:this.getDict },
     { title: '发布时间', type: 'date', index: 'sendTime' },
     { title: '撤销时间', type: 'date', index: 'cancelTime' },

@@ -87,6 +87,11 @@ export const DICT={
     {value:'String',label:'字符类型'},
     {value:'Long',label:'长整型'},
   ],
+  dict_type:[
+    {value:0,label:'String'},
+    {value:1,label:'Integer'},
+    {value:2,label:'Boolean'},
+  ],
 }
 /* 
                      <a-select-option value="Integer">数值类型</a-select-option>
