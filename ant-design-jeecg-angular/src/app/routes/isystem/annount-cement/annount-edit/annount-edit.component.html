@@ -1,10 +1,35 @@
 <div class="modal-header">
-  <div class="modal-title">编辑公告信息</div>
+  <div class="modal-title">编辑公告</div>
 </div>
-<nz-spin *ngIf="!i" class="modal-spin"></nz-spin>
-<sf *ngIf="i" #sf mode="edit" [schema]="schema" [ui]="ui" [formData]="i" button="none">
-  <div class="modal-footer">
-    <button nz-button type="button" (click)="close()">关闭</button>
-    <button nz-button type="submit" nzType="primary" (click)="save(sf.value)" [disabled]="!sf.valid" [nzLoading]="http.loading">保存</button>
-  </div>
-</sf>
+
+<form nz-form #f="ngForm" se-container="1">
+  <se required  label="标题">
+    <input nz-input [(ngModel)]="i.titile" name="titile" required>
+  </se>
+  <se required  label="内容">
+    <textarea nz-input [(ngModel)]="i.msgContent" name="msgContent" rows="6" placeholder="" required ></textarea>
+  
+  </se>
+  <se required="required" label="开始时间">
+      <nz-date-picker [(ngModel)]="i.startTime" name="startTime" required ></nz-date-picker>
+    </se>
+    <se required="required" label="结束时间">
+        <nz-date-picker [(ngModel)]="i.endTime" name="endTime" required></nz-date-picker>
+      </se>
+
+      <se required  label="优先级">
+          <app-dict-select name="priority"  [(ngModel)]="i.priority" dictCode="priority" required></app-dict-select>
+        </se>
+      <se required  label="公告对象类型">
+          <app-dict-select name="msgType"  [(ngModel)]="i.msgType" dictCode="msg_type" required></app-dict-select>
+        </se>
+
+        <se *ngIf="i.msgType=='M'" required  label="用户">
+            <app-dict-select name="userIds"  [(ngModel)]="i.userIds" dictCode="sys_user,username,id" ></app-dict-select>
+          </se>
+</form>
+
+<div class="modal-footer">
+  <button nz-button type="button" (click)="close()">关闭</button>
+  <button nz-button type="submit" nzType="primary" (click)="save(f.value)" [disabled]="!f.valid" [nzLoading]="http.loading">保存</button>
+</div>

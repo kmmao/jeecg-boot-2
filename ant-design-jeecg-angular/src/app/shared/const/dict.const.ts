@@ -92,6 +92,11 @@ export const DICT={
     {value:1,label:'Integer'},
     {value:2,label:'Boolean'},
   ],
+  priority:[
+    {value:'L',label:'低'},
+    {value:'M',label:'中'},
+    {value:'H',label:'高'},
+  ],
 }
 /* 
                      <a-select-option value="Integer">数值类型</a-select-option>
