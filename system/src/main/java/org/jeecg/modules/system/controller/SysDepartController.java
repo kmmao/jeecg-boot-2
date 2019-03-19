@@ -80,7 +80,7 @@ public class SysDepartController {
 	 */
 	@RequestMapping(value = "/edit", method = RequestMethod.PUT)
 	@RequiresRoles({"admin"})
-	public Result<SysDepart> eidt(@RequestBody SysDepart sysDepart, HttpServletRequest request) {
+	public Result<SysDepart> edit(@RequestBody SysDepart sysDepart, HttpServletRequest request) {
 
 		String username = JwtUtil.getUserNameByToken(request);
 		sysDepart.setUpdateBy(username);
@@ -112,7 +112,7 @@ public class SysDepartController {
        if(sysDepart==null) {
            result.error500("未找到对应实体");
        }else {
-           boolean ok = sysDepartService.removeById(id);
+           boolean ok = sysDepartService.delete(id);
            if(ok) {
                result.success("删除成功!");
            }
@@ -146,13 +146,19 @@ public class SysDepartController {
 	 * 
 	 * @return
 	 */
-
 	  @RequestMapping(value = "/queryIdTree", method = RequestMethod.GET) 
 	  public Result<List<DepartIdModel>> queryIdTree() {	  
 		 Result<List<DepartIdModel>> result = new Result<List<DepartIdModel>>(); 
+		 List<DepartIdModel> idList;
 		 try {
-		 List<DepartIdModel> idList = FindsDepartsChildrenUtil.wrapDepartIdModel();
+			 idList = FindsDepartsChildrenUtil.wrapDepartIdModel();
+		 if(idList != null && idList.size() > 0) {
 		 result.setResult(idList); result.setSuccess(true);
+		 }else {
+			 sysDepartService.queryTreeList();
+			 idList = FindsDepartsChildrenUtil.wrapDepartIdModel();
+			 result.setResult(idList); result.setSuccess(true);
+		 }
 		 return result; 
 		 } catch(Exception e) {
 			  e.printStackTrace(); result.setSuccess(false); 

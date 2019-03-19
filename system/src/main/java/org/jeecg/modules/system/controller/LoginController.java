@@ -5,10 +5,10 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.jeecg.common.api.vo.Result;
 import org.jeecg.common.constant.CommonConstant;
-import org.jeecg.modules.system.api.ISysBaseAPI;
 import org.jeecg.common.util.JwtUtil;
 import org.jeecg.common.util.PasswordUtil;
 import org.jeecg.common.util.RedisUtil;
+import org.jeecg.modules.system.api.ISysBaseAPI;
 import org.jeecg.modules.system.entity.SysUser;
 import org.jeecg.modules.system.model.SysLoginModel;
 import org.jeecg.modules.system.service.ISysLogService;
@@ -66,6 +66,19 @@ public class LoginController {
 			result.success("登录成功");
 			sysBaseAPI.addLog("用户名: "+username+",登录成功！", CommonConstant.LOG_TYPE_1, null);
 		}
+		return result;
+	}
+	
+	/**
+	 * 退出登录
+	 * @param username
+	 * @return
+	 */
+	@RequestMapping(value = "/logout", method = RequestMethod.POST)
+	public Result<JSONObject> logout(@RequestParam(name = "username") String username) {
+		Result<JSONObject> result = new Result<JSONObject>();
+		//清空用户Token缓存
+		//TODO
 		return result;
 	}
 	

@@ -18,6 +18,6 @@ public interface ISysRolePermissionService extends IService<SysRolePermission> {
 	 * @param roleId
 	 * @param permissionIds
 	 */
-	public void saveRolePermission(String roleId,String permissionIds);
+	public void saveRolePermission(String roleId, String permissionIds);
 
 }

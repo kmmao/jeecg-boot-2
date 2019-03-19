@@ -34,16 +34,12 @@ public class TreeModel implements Serializable {
 		this.title = title;
 	}
 
-	public static long getSerialVersionUID() {
-		return serialVersionUID;
-	}
-
 	public boolean getIsLeaf() {
 		return isLeaf;
 	}
 
-	public void setIsLeaf(boolean isleaf) {
-		isLeaf = this.isLeaf;
+	public void setIsLeaf(boolean isLeaf) {
+		this.isLeaf = isLeaf;
 	}
 
 	public String getIcon() {
@@ -74,8 +70,8 @@ public class TreeModel implements Serializable {
     	this.parentId = permission.getParentId();
     	this.title = permission.getName();
     	this.value = permission.getId();
-    	this.isLeaf=permission.getIsLeaf()==0?false:true;
-    	if(permission.getIsLeaf()==0) {
+    	this.isLeaf = permission.isLeaf();
+    	if(!permission.isLeaf()) {
     		this.children = new ArrayList<TreeModel>();
     	}
     }

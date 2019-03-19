@@ -15,6 +15,10 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface ISysDictService extends IService<SysDict> {
 	public List<Map<String,String>> queryDictItemsByCode(String code);
-	
-	public String queryDictTextByKey(String code,String key);
+
+    List<Map<String, String>> queryTableDictItemsByCode(String table, String text, String code);
+
+    public String queryDictTextByKey(String code, String key);
+
+    String queryTableDictTextByKey(String table, String text, String code, String key);
 }

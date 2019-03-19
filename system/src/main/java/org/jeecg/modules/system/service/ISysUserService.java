@@ -21,7 +21,7 @@ public interface ISysUserService extends IService<SysUser> {
 	 * @param user
 	 * @param roles
 	 */
-	public void addUserWithRole(SysUser user,String roles);
+	public void addUserWithRole(SysUser user, String roles);
 	
 	
 	/**
@@ -29,7 +29,7 @@ public interface ISysUserService extends IService<SysUser> {
 	 * @param user
 	 * @param roles
 	 */
-	public void editUserWithRole(SysUser user,String roles);
+	public void editUserWithRole(SysUser user, String roles);
 
 	/**
 	 * 获取用户的授权角色

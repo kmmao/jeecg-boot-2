@@ -34,14 +34,7 @@ export class IsystemUserComponent implements OnInit {
     },
     {
       title: '性别',
-      index: 'sex',
-      filter: {
-        menus: [
-          { text: '男', value: '1' },
-          { text: '女', value: '2' },
-        ]
-      },
-      format: (item: any) => `${item.sex === 1 ? '男' : "女"}`,
+      index: 'sex_dictText',
     },
     { title: '生日', type: 'date', dateFormat: 'YYYY-MM-DD', index: 'birthday' },
     {

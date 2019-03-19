@@ -12,7 +12,7 @@ import { IsystemDictAddComponent } from './dict-add/dict-add.component';
   templateUrl: './dict.component.html',
 })
 export class IsystemDictComponent implements OnInit {
-  url = `/sys/ng-alain/treeList?delFlag=1`;
+  url = `/sys/dict/list?delFlag=1`;
   searchSchema: SFSchema = {
     properties: {
       dictName: {

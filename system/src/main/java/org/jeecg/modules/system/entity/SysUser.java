@@ -3,6 +3,7 @@ package org.jeecg.modules.system.entity;
 import java.time.LocalDateTime;
 import java.util.Date;
 
+import org.jeecg.modules.system.aspect.annotation.Dict;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.baomidou.mybatisplus.annotation.IdType;
@@ -70,6 +71,7 @@ public class SysUser implements Serializable {
     /**
      * 性别（1：男 2：女）
      */
+    @Dict(dicCode = "sex")
     private Integer sex;
 
     /**
@@ -85,11 +87,13 @@ public class SysUser implements Serializable {
     /**
      * 状态(1：正常  2：冻结 ）
      */
+    @Dict(dicCode = "user_status")
     private Integer status;
 
     /**
      * 删除状态（0，正常，1已删除）
      */
+    @Dict(dicCode = "del_flag")
     private String delFlag;
 
     /**

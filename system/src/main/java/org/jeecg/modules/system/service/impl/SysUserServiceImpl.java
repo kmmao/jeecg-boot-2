@@ -38,13 +38,11 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
 	
 	@Override
 	public void addUserWithRole(SysUser user, String roles) {
-		String id =UUID.randomUUID().toString().replace("-", "");
-		user.setId(id);
 		this.save(user);
 		if(oConvertUtils.isNotEmpty(roles)) {
 			String[] arr = roles.split(",");
 			for (String roleId : arr) {
-				SysUserRole userRole = new SysUserRole(id, roleId);
+				SysUserRole userRole = new SysUserRole(user.getId(), roleId);
 				sysUserRoleMapper.insert(userRole);
 			}
 		}

@@ -22,49 +22,49 @@ public class SysAnnouncement implements Serializable {
     
 	/**id*/
 	@TableId(type = IdType.UUID)
-	private java.lang.String id;
+	private String id;
 	/**标题*/
-	private java.lang.String titile;
+	private String titile;
 	/**内容*/
-	private java.lang.Object msgContent;
+	private Object msgContent;
 	/**开始时间*/
 	@JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd HH:mm:ss")
     @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
-	private java.util.Date startTime;
+	private Date startTime;
 	/**结束时间*/
 	@JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd HH:mm:ss")
     @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
-	private java.util.Date endTime;
+	private Date endTime;
 	/**发布人*/
-	private java.lang.String sender;
+	private String sender;
 	/**优先级（L低，M中，H高）*/
-	private java.lang.String priority;
+	private String priority;
 	/**通告对象类型（USER:指定用户，ALL:全体用户）*/
-	private java.lang.String msgType;
+	private String msgType;
 	/**发布状态（0未发布，1已发布，2已撤销）*/
-	private java.lang.String sendStatus;
+	private String sendStatus;
 	/**发布时间*/
 	@JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd HH:mm:ss")
     @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
-	private java.util.Date sendTime;
+	private Date sendTime;
 	/**撤销时间*/
 	@JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd HH:mm:ss")
     @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
-	private java.util.Date cancelTime;
+	private Date cancelTime;
 	/**删除状态（0，正常，1已删除）*/
-	private java.lang.String delFlag;
+	private String delFlag;
 	/**创建人*/
-	private java.lang.String createBy;
+	private String createBy;
 	/**创建时间*/
 	@JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd HH:mm:ss")
     @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
-	private java.util.Date createTime;
+	private Date createTime;
 	/**更新人*/
-	private java.lang.String updateBy;
+	private String updateBy;
 	/**更新时间*/
 	@JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd HH:mm:ss")
     @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
-	private java.util.Date updateTime;
+	private Date updateTime;
 	/**指定用户**/
-	private java.lang.String userIds;
+	private String userIds;
 }

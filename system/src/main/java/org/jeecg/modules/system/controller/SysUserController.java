@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -13,7 +14,11 @@ import org.jeecg.common.api.vo.Result;
 import org.jeecg.common.util.PasswordUtil;
 import org.jeecg.common.util.oConvertUtils;
 import org.jeecg.modules.system.entity.SysUser;
+import org.jeecg.modules.system.entity.SysUserDepart;
 import org.jeecg.modules.system.entity.SysUserRole;
+import org.jeecg.modules.system.model.DepartIdModel;
+import org.jeecg.modules.system.model.SysUserDepartsVO;
+import org.jeecg.modules.system.service.ISysUserDepartService;
 import org.jeecg.modules.system.service.ISysUserRoleService;
 import org.jeecg.modules.system.service.ISysUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,6 +56,9 @@ public class SysUserController {
 	
 	@Autowired
 	private ISysUserRoleService sysUserRoleService;
+	
+	@Autowired
+	private ISysUserDepartService sysUserDepartService;
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public Result<IPage<SysUser>> queryPageList(SysUser user,@RequestParam(name="pageNo", defaultValue="1") Integer pageNo,
@@ -105,7 +113,7 @@ public class SysUserController {
 	
 	@RequestMapping(value = "/edit", method = RequestMethod.PUT)
 	@RequiresRoles({"admin"})
-	public Result<SysUser> eidt(@RequestBody JSONObject jsonObject) {
+	public Result<SysUser> edit(@RequestBody JSONObject jsonObject) {
 		Result<SysUser> result = new Result<SysUser>();
 		try {
 			SysUser sysUser = sysUserService.getById(jsonObject.getString("id"));
@@ -132,11 +140,16 @@ public class SysUserController {
 	@RequiresRoles({"admin"})
 	public Result<SysUser> delete(@RequestParam(name="id",required=true) String id) {
 		Result<SysUser> result = new Result<SysUser>();
+		// 定义SysUserDepart实体类的数据库查询LambdaQueryWrapper
+		LambdaQueryWrapper<SysUserDepart> query = new LambdaQueryWrapper<SysUserDepart>();
 		SysUser sysUser = sysUserService.getById(id);
 		if(sysUser==null) {
 			result.error500("未找到对应实体");
 		}else {
+			// 当某个用户被删除时,删除其ID下对应的部门数据
+			query.eq(SysUserDepart::getUserId, id);
 			boolean ok = sysUserService.removeById(id);
+			sysUserDepartService.remove(query);
 			if(ok) {
 				result.success("删除成功!");
 			}
@@ -148,11 +161,19 @@ public class SysUserController {
 	@RequestMapping(value = "/deleteBatch", method = RequestMethod.DELETE)
 	@RequiresRoles({"admin"})
 	public Result<SysUser> deleteBatch(@RequestParam(name="ids",required=true) String ids) {
+		// 定义SysUserDepart实体类的数据库查询对象LambdaQueryWrapper
+		LambdaQueryWrapper<SysUserDepart> query = new LambdaQueryWrapper<SysUserDepart>();
+		String[] idArry = ids.split(",");
 		Result<SysUser> result = new Result<SysUser>();
 		if(ids==null || "".equals(ids.trim())) {
 			result.error500("参数不识别！");
 		}else {
 			this.sysUserService.removeByIds(Arrays.asList(ids.split(",")));
+			// 当批量删除时,删除在SysUserDepart中对应的所有部门数据
+			for(String id : idArry) {
+				query.eq(SysUserDepart::getUserId, id);
+				this.sysUserDepartService.remove(query);
+			}
 			result.success("删除成功!");
 		}
 		return result;
@@ -278,6 +299,93 @@ public class SysUserController {
 		}
 		return result;
 	}
-
+	
+	/**
+	 * 查询指定用户和部门关联的数据
+	 * @param userId
+	 * @return
+	 */
+	@RequestMapping(value = "/userDepartList", method = RequestMethod.GET)
+	public Result<List<DepartIdModel>> getUserDepartsList(@RequestParam(name = "userId", required = true) String userId){
+		Result<List<DepartIdModel>> result = new Result<>();
+		try {
+			List<DepartIdModel> depIdModelList = this.sysUserDepartService.queryDepartIdsOfUser(userId);
+			if(depIdModelList != null || depIdModelList.size() > 0) {
+				result.setSuccess(true);
+				result.setMessage("查找成功");
+				result.setResult(depIdModelList);
+			}else {
+				result.setSuccess(false);
+				result.setMessage("查找失败");
+			}
+			return result;
+		}catch(Exception e) {
+			e.fillInStackTrace();
+			result.setSuccess(false);
+			result.setMessage("查找过程中出现了异常: " + e.getMessage());
+			return result;
+		}
+		
+	}
+	
+	/**
+	 * 给指定用户添加对应的部门
+	 * @param sysUserDepartsVO
+	 * @return
+	 */
+	@RequestMapping(value = "/addUDepartIds", method = RequestMethod.POST)
+	public Result<String> addSysUseWithrDepart(@RequestBody SysUserDepartsVO sysUserDepartsVO){
+		boolean ok = this.sysUserDepartService.addSysUseWithrDepart(sysUserDepartsVO);
+		Result<String> result = new Result<String>();
+		try {
+			if(ok) {	
+			result.setMessage("添加成功!");
+			result.setSuccess(true);
+			}else {
+				throw new Exception("添加失败!");
+			}
+			return result;
+		}catch(Exception e) {
+			e.fillInStackTrace();
+			result.setSuccess(true);
+			result.setMessage("添加数据的过程中出现市场了: " + e.getMessage());
+			return result;
+		}
+		
+	}
+	
+	/**
+	 * 根据用户id编辑对应的部门信息
+	 * @param sysUserDepartsVO
+	 * @return
+	 */
+	@RequestMapping(value = "/editUDepartIds", method = RequestMethod.PUT)
+	public Result<String> editSysUserWithDepart(@RequestBody SysUserDepartsVO sysUserDepartsVO){
+		Result<String> result = new Result<String>();
+		boolean ok = sysUserDepartService.editSysUserWithDepart(sysUserDepartsVO);
+		if(ok) {
+			result.setMessage("更新成功!");
+			result.setSuccess(true);
+			return result;
+		}
+		result.setMessage("更新失败!");
+		result.setSuccess(false);
+		return result;
+	}
+	
+	/**
+	 * 生成在添加用户情况下没有主键的问题,返回给前端,根据该id绑定部门数据
+	 * @return
+	 */
+	@RequestMapping(value = "/generateUserId", method = RequestMethod.GET)
+	public Result<String> generateUserId(){
+		Result<String> result = new Result<>();
+		System.out.println("我执行了,生成用户ID==============================");
+		String userId = UUID.randomUUID().toString().replace("-","");
+		result.setSuccess(true);
+		result.setResult(userId);
+		return result;
+	}
+	
 
 }

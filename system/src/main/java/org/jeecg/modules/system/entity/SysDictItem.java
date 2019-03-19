@@ -10,6 +10,7 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+import org.jeecg.modules.system.aspect.annotation.Dict;
 
 /**
  * <p>
@@ -57,9 +58,11 @@ public class SysDictItem implements Serializable {
      */
     private BigDecimal sortOrder;
 
+
     /**
      * 状态（1启用 0不启用）
      */
+    @Dict(dicCode = "dict_item_status")
     private Integer status;
 
     private String createBy;

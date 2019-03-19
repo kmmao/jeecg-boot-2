@@ -3,10 +3,12 @@ package org.jeecg.modules.system.entity;
 import java.io.Serializable;
 import java.util.Date;
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+import org.jeecg.modules.system.aspect.annotation.Dict;
 
 /**
  * <p>
@@ -71,12 +73,14 @@ public class SysPermission implements Serializable {
 	/**
 	 * 类型（0：一级菜单；1：子菜单 ；2：按钮权限）
 	 */
+	@Dict(dicCode = "menu_type")
 	private Integer menuType;
 
 	/**
-	 * 是否叶子节点: 1:是 0:不是
+	 * 是否叶子节点: 1:是  0:不是
 	 */
-	private Integer isLeaf;
+	@TableField(value="is_leaf")
+	private boolean leaf;
 
 	/**
 	 * 描述

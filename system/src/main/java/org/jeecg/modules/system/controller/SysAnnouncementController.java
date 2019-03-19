@@ -101,7 +101,7 @@ public class SysAnnouncementController {
 	 * @return
 	 */
 	@RequestMapping(value = "/edit", method = RequestMethod.PUT)
-	public Result<SysAnnouncement> eidt(@RequestBody SysAnnouncement sysAnnouncement) {
+	public Result<SysAnnouncement> edit(@RequestBody SysAnnouncement sysAnnouncement) {
 		Result<SysAnnouncement> result = new Result<SysAnnouncement>();
 		SysAnnouncement sysAnnouncementEntity = sysAnnouncementService.getById(sysAnnouncement.getId());
 		if(sysAnnouncementEntity==null) {

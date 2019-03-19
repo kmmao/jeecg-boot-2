@@ -68,10 +68,6 @@ public class SysRoleController {
 		//TODO 一个强大的功能，前端传一个字段字符串，后台只返回这些字符串对应的字段
 		//创建时间/创建人的赋值
 		IPage<SysRole> pageList = sysRoleService.page(page, queryWrapper);
-		log.info("查询当前页："+pageList.getCurrent());
-		log.info("查询当前页数量："+pageList.getSize());
-		log.info("查询结果数量："+pageList.getRecords().size());
-		log.info("数据总数："+pageList.getTotal());
 		result.setSuccess(true);
 		result.setResult(pageList);
 		return result;
@@ -104,7 +100,7 @@ public class SysRoleController {
 	 */
 	@RequestMapping(value = "/edit", method = RequestMethod.PUT)
 	@RequiresRoles({"admin"})
-	public Result<SysRole> eidt(@RequestBody SysRole role) {
+	public Result<SysRole> edit(@RequestBody SysRole role) {
 		Result<SysRole> result = new Result<SysRole>();
 		SysRole sysrole = sysRoleService.getById(role.getId());
 		if(sysrole==null) {

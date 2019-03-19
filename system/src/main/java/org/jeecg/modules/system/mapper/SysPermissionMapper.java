@@ -17,7 +17,11 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @since 2018-12-21
  */
 public interface SysPermissionMapper extends BaseMapper<SysPermission> {
-	
+	/**
+	   * 通过父菜单ID查询子菜单
+	 * @param parentId
+	 * @return
+	 */
 	public List<TreeModel> queryListByParentId(@Param("parentId") String parentId);
 	
 	/**

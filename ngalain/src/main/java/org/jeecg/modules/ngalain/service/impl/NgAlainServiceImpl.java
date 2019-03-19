@@ -86,7 +86,7 @@ public class NgAlainServiceImpl implements NgAlainService {
             JSONObject json = getPermissionJsonObject(permission);
             if(parentJson==null && oConvertUtils.isEmpty(tempPid)) {
                 jsonArray.add(json);
-                if(permission.getIsLeaf()==0) {
+                if(!permission.isLeaf()) {
                     getPermissionJsonArray(jsonArray, metaList, json);
                 }
             }else if(parentJson!=null && oConvertUtils.isNotEmpty(tempPid) && tempPid.equals(parentJson.getString("id"))){
@@ -109,7 +109,7 @@ public class NgAlainServiceImpl implements NgAlainService {
                         parentJson.put("children", children);
                     }
 
-                    if(permission.getIsLeaf()==0) {
+                    if(!permission.isLeaf()) {
                         getPermissionJsonArray(jsonArray, metaList, json);
                     }
                 }
@@ -127,10 +127,7 @@ public class NgAlainServiceImpl implements NgAlainService {
         }else if(permission.getMenuType()==0||permission.getMenuType()==1) {
             json.put("id", permission.getId());
             if(permission.getUrl()!=null&&(permission.getUrl().startsWith("http://")||permission.getUrl().startsWith("https://"))) {
-                json.put("path", MD5Util.MD5Encode(permission.getUrl(), "utf-8"));
                 String url= new String(Base64.getUrlEncoder().encode(permission.getUrl().getBytes()));
-                System.out.println(permission.getUrl());
-                System.out.println(url);
                 json.put("path", "/sys/link/" +url.replaceAll("=",""));
             }else {
                 json.put("path", permission.getUrl());

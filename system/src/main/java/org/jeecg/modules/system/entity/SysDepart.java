@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
-import org.jeecg.modules.system.model.SysDepartTreeModel;
+import org.jeecg.modules.system.aspect.annotation.Dict;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
@@ -54,8 +54,11 @@ public class SysDepart implements Serializable {
 	/**备注*/
 	private String memo;
 	/**状态（1启用，0不启用）*/
+	@Dict(dicCode = "depart_status")
 	private String status;
+
 	/**删除状态（0，正常，1已删除）*/
+	@Dict(dicCode = "del_flag")
 	private String delFlag;
 	/**创建人*/
 	private String createBy;
@@ -75,9 +78,15 @@ public class SysDepart implements Serializable {
 	 */
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        if (!super.equals(o)) return false;
+        if (this == o) {
+			return true;
+		}
+        if (o == null || getClass() != o.getClass()) {
+			return false;
+		}
+        if (!super.equals(o)) {
+			return false;
+		}
         SysDepart depart = (SysDepart) o;
         return Objects.equals(id, depart.id) &&
                 Objects.equals(parentId, depart.parentId) &&
