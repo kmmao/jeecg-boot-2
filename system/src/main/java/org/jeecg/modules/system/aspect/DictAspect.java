@@ -2,6 +2,8 @@ package org.jeecg.modules.system.aspect;
 
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -76,7 +78,16 @@ public class DictAspect {
             if (((Result) result).getResult() instanceof IPage) {
                 List<JSONObject> items = new ArrayList<>();
                 for (Object record : ((IPage) ((Result) result).getResult()).getRecords()) {
-                    JSONObject item = JSONObject.parseObject(JSONObject.toJSONString(record));
+                    ObjectMapper mapper = new ObjectMapper();
+                    String json="{}";
+                    try {
+                        //解决@JsonFormat注解解析不了的问题详见SysAnnouncement类的@JsonFormat
+                         json = mapper.writeValueAsString(record);
+                    } catch (JsonProcessingException e) {
+                        logger.error("json解析失败"+e.getMessage());
+                        e.printStackTrace();
+                    }
+                    JSONObject item = JSONObject.parseObject(json);
                     for (Field field : record.getClass().getDeclaredFields()) {
                         if (field.getAnnotation(Dict.class) != null) {
                             String code = field.getAnnotation(Dict.class).dicCode();
