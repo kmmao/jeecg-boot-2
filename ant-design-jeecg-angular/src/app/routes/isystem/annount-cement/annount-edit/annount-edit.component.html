@@ -24,8 +24,8 @@
           <app-dict-select name="msgType"  [(ngModel)]="i.msgType" dictCode="msg_type" required></app-dict-select>
         </se>
 
-        <se *ngIf="i.msgType=='M'" required  label="用户">
-            <app-dict-select name="userIds"  [(ngModel)]="i.userIds" dictCode="sys_user,username,id" ></app-dict-select>
+        <se *ngIf="i.msgType==='USER'" required  label="用户">
+            <app-dict-select name="userIds" nzMode='multiple'  [(ngModel)]="i.userIds" dictCode="sys_user,username,id" required></app-dict-select>
           </se>
 </form>
 

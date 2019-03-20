@@ -7,7 +7,7 @@ import { UploadFile } from 'ng-zorro-antd';
   selector: 'app-upload',
   template: `
   <nz-upload [nzAction]="nzAction" [nzListType]="nzListType" [(nzFileList)]="fileList"
-  [nzShowButton]="fileList.length < maxLength" [nzPreview]="handlePreview" [nzFileType]= "nzFileType" >
+  [nzShowButton]="fileList.length < maxLength" [nzPreview]="handlePreview" (nzChange)=handleChange($event) [nzFileType]= "nzFileType" >
   <i nz-icon type="plus"></i>
   <div class="ant-upload-text">点击上传</div>
 </nz-upload>
@@ -17,6 +17,11 @@ import { UploadFile } from 'ng-zorro-antd';
   </ng-template>
 </nz-modal>
     `,
+    providers: [{
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => UpLoadComponent),
+      multi: true
+    }],
   styleUrls: ['./index.less']
 })
 export class UpLoadComponent implements OnInit {
@@ -30,16 +35,15 @@ export class UpLoadComponent implements OnInit {
   @Input() nzWidth = 800;
   previewImage = '';
   previewVisible = false;
-  handlePreview = (file: UploadFile) => {
-    this.previewImage = file.url || file.thumbUrl;
-    this.previewVisible = true;
-  }
-  constructor(public http: _HttpClient) { }
-  ngOnInit(): void {
-    console.log(this.files)
-    if(this.files){
-      this.files.split(",").forEach(item => {
-        const value={
+
+  @Output() ngModelChange = new EventEmitter();
+  public onModelChange: Function = () => { };
+  public onModelTouched: Function = () => { };
+
+  writeValue(value: any) {
+    if(value){
+      value.split(",").forEach(item => {
+        this.fileList = [ ...this.fileList, {
           uid: -1,
           name: item,
           status: 'done',
@@ -47,15 +51,42 @@ export class UpLoadComponent implements OnInit {
           response:{
             message:item
           }
-        }
-      console.log(item)
-        this.fileList = [ ...this.fileList, value]; // 正确使用方式
+        }]; // 正确使用方式
       })
     }
-   
+
+    this.model = value;
+  }
+  registerOnChange(fn: Function): void {
+    this.onModelChange = fn;
+  }
+  registerOnTouched(fn: Function): void {
+    this.onModelTouched = fn;
+  }
+  handleChange(event){
+    if(event.type==="success"){
+      let value=""
+      event.fileList.forEach(element => {
+        value=value+","+element.response.message
+      });
+      this.ngModelChange.emit(value);
+      this.onModelChange(this.model); // 主要是要调用这个去重置绑定的model的值
+    }
+  }
+  modelChange(value) {
+    this.onModelChange(this.model); // 主要是要调用这个去重置绑定的model的值
+    console.log()
+    this.ngModelChange.emit(this.fileList[0].response.message);
+  }
 
 
-
+  handlePreview = (file: UploadFile) => {
+    this.previewImage = file.url || file.thumbUrl;
+    this.previewVisible = true;
+  }
+  constructor(public http: _HttpClient) { }
+  ngOnInit(): void {
+    console.log(this.files)
     
   }
 }

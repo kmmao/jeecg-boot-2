@@ -33,7 +33,12 @@ export class DictSelectComponent implements OnInit, ControlValueAccessor, OnChan
   public onModelChange: Function = () => { };
   public onModelTouched: Function = () => { };
   writeValue(value: any) {
-    this.model = value;
+    if(value&&typeof(value) === 'string'){
+    this.model=value.split(",")
+    }else{
+      this.model = value;
+    }
+   
   }
   registerOnChange(fn: Function): void {
     this.onModelChange = fn;
@@ -43,8 +48,16 @@ export class DictSelectComponent implements OnInit, ControlValueAccessor, OnChan
   }
 
   modelChange(value) {
-    this.model = value;
+    if(value&&!(value instanceof Array)){
+      console.log(value)
+      this.model=value.join(",")
+    }else{
+      this.model = value;
+    }
     this.onModelChange(this.model); // 主要是要调用这个去重置绑定的model的值
+    if(value&&value instanceof Array){
+      value=value.join(",")
+    }
     this.ngModelChange.emit(value);
   }
 

@@ -17,11 +17,10 @@ export class IsystemAnnountEditComponent implements OnInit {
 
   ngOnInit(): void {
     this.i=this.record;
-    console.log(this.i)
   }
 
   save(value: any) {
-    this.http.put(`sys/annountCement/edit`, value).subscribe(res => {
+    this.http.put(`sys/annountCement/edit`, this.i).subscribe(res => {
       this.modal.close(true);
     });
   }

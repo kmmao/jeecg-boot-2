@@ -13,7 +13,7 @@
     <app-dict-select name="selectedroles" nzMode="multiple" [(ngModel)]="i.selectedroles" dictCode="sys_role,role_name,id" required></app-dict-select>
   </se>
   <se label="头像">
-    <app-upload #u1 nzListType="picture-card"  [files]="i.avatar" nzFileType="image/png,image/jpeg,image/gif,image/bmp"></app-upload>
+    <app-upload  nzListType="picture-card" [(ngModel)]="i.avatar" name="avatar"  nzFileType="image/png,image/jpeg,image/gif,image/bmp"></app-upload>
   </se>
   <se label="生日">
     <nz-date-picker [(ngModel)]="i.birthday" name="birthday"></nz-date-picker>

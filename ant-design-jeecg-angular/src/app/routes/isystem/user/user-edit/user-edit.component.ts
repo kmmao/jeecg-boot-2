@@ -24,16 +24,12 @@ export class IsystemUserEditComponent implements OnInit {
   ngOnInit(): void {
     this.i = this.record;
    this.http.get(`sys/user/queryUserRole?userid=${this.record.id}`).subscribe(res=>{
-    this.i['selectedroles']=(res as any).result
+    this.i['selectedroles']=(res as any).result.join(",")
    })
   }
 
   save(value: any) {
-    if (this.u1.fileList[0]) {
-      console.log(this.u1.fileList[0])
-      this.i['avatar'] = this.u1.fileList[0].response.message
-    }
-    this.i['selectedroles'] = this.i.selectedroles.join(",");
+    console.log(this.i)
     this.http.put(`sys/user/edit`, this.i).subscribe(res => {
       this.modal.close(true);
     });
