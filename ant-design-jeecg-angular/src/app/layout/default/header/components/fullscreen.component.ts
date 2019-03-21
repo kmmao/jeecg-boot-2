@@ -1,5 +1,5 @@
 import { Component, HostListener, ChangeDetectionStrategy } from '@angular/core';
-import * as screenfull from 'screenfull';
+import Screenfull  from 'screenfull';
 
 @Component({
   selector: 'header-fullscreen',
@@ -17,13 +17,13 @@ export class HeaderFullScreenComponent {
 
   @HostListener('window:resize')
   _resize() {
-    this.status = screenfull.isFullscreen;
+   // this.status = Screenfull
   }
 
   @HostListener('click')
   _click() {
-    if (screenfull.enabled) {
+    /* if (screenfull.enabled) {
       screenfull.toggle();
-    }
+    } */
   }
 }
