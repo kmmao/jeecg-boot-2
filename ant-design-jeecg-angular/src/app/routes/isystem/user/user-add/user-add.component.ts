@@ -20,10 +20,7 @@ export class IsystemUserAddComponent implements OnInit {
   }
 
   save(value: any) {
-    value['selectedroles'] = value.selectedroles.join(",");
-    if (this.u1.fileList[0]) {
-      value['avatar'] = this.u1.fileList[0].response.message
-    }
+   
     this.http.post(`sys/user/add`, value).subscribe(res => {
       this.modal.close(true);
     });

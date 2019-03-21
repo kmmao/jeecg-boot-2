@@ -74,9 +74,15 @@ export function fnSTConfig(): STConfig {
       },
       req:{
         reName:{
-          pi:'current',
+          pi:'pageNo',
           ps:'pageSize'
         }
+      }
+      ,
+      page:{
+        showSize:true,
+        showQuickJumper:true,
+        total:true
       }
 
     } as STConfig
