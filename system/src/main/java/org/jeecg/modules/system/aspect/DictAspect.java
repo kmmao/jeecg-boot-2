@@ -1,9 +1,11 @@
 package org.jeecg.modules.system.aspect;
 
-import com.alibaba.fastjson.JSONObject;
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import java.lang.reflect.Field;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -17,24 +19,23 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
-import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.List;
+import com.alibaba.fastjson.JSONObject;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import lombok.extern.slf4j.Slf4j;
 
 /**
- * @ProjectName: jeecg-boot
- * @Package: org.jeecg.common.aspect
- * @ClassName: DictAspect
  * @Description: 字典aop类
  * @Author: dangzhenghui
- * @CreateDate: 2019-3-17 21:50
- * @UpdateUser: 更新者
- * @UpdateDate: 2019-3-17 21:50
- * @UpdateRemark: 更新说明
+ * @Date: 2019-3-17 21:50
  * @Version: 1.0
  */
 @Aspect
 @Component
+@Slf4j
 public class DictAspect {
     private static final Logger logger = LoggerFactory.getLogger(DictAspect.class);
     @Autowired
@@ -46,8 +47,14 @@ public class DictAspect {
 
     @Around("excudeService()")
     public Object doAround(ProceedingJoinPoint pjp) throws Throwable {
+        long time1=System.currentTimeMillis();
         Object result = pjp.proceed();
+        long time2=System.currentTimeMillis();
+        log.info("获取JSON数据 耗时："+(time2-time1)+"ms");
+        long start=System.currentTimeMillis();
         parseDictText(result);
+        long end=System.currentTimeMillis();
+        log.info("解析注入JSON数据  耗时"+(end-start)+"ms");
         return result;
     }
 
@@ -82,7 +89,7 @@ public class DictAspect {
                     String json="{}";
                     try {
                         //解决@JsonFormat注解解析不了的问题详见SysAnnouncement类的@JsonFormat
-                         json = mapper.writeValueAsString(record);
+                        json = mapper.writeValueAsString(record);
                     } catch (JsonProcessingException e) {
                         logger.error("json解析失败"+e.getMessage());
                         e.printStackTrace();
@@ -101,6 +108,11 @@ public class DictAspect {
                                 textValue = dictService.queryDictTextByKey(code, key);
                             }
                             item.put(field.getName() + "_dictText", textValue);
+                        }
+                        //date类型默认转换string格式化日期
+                        if (field.getType().getName().equals("java.util.Date")&&field.getAnnotation(JsonFormat.class)==null&&item.get(field.getName())!=null){
+                            SimpleDateFormat aDate=new SimpleDateFormat("yyyy-mm-dd HH:mm:ss");
+                            item.put(field.getName(), aDate.format(new Date((Long) item.get(field.getName()))));
                         }
                     }
                     items.add(item);
