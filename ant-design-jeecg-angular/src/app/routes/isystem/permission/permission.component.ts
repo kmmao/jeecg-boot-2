@@ -70,7 +70,7 @@ export class IsystemPermissionComponent implements OnInit {
   }
   add() {
     this.modal
-      .createStatic(IsystemPermissionAddComponent, { i: { type: `一级菜单` } })
+      .createStatic(IsystemPermissionAddComponent, { i: { type: `一级菜单` ,menuType:0} })
       .subscribe(() => this.getMenus());
   }
   addsub() {
@@ -79,7 +79,7 @@ export class IsystemPermissionComponent implements OnInit {
       return;
     }
     this.modal
-      .createStatic(IsystemPermissionAddComponent, { i: { parentId: this.i.key, parentName: this.i.title } })
+      .createStatic(IsystemPermissionAddComponent, { i: { parentId: this.i.key, parentName: this.i.title,menuType:1 } })
       .subscribe(() => this.getMenus());
   }
   save(value) {
