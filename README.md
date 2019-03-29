@@ -9,16 +9,17 @@ ng-alain spring-boot jeecg-boot
 
 #### 安装教程
 
-1. 前端运行 ant-design-jeecg-angular 目录下运行npm run-script build  会编译文件到D:\\webapp
+1. 前端运行 ant-design-jeecg-angular 目录下运行npm run-script build(或 npm start 运行 不会编译到目录中)  会编译文件到D:\\webapp
+
 2. 数据库脚本执行sys-init-20190225.sql 数据库名称 jeecg-boot
 
-2. 服务端直接运行 start工程里面的 JeecgApplication (reids 要安装并且配置文件地址配置正确)
+2. 服务端直接运行 system工程里面的 JeecgApplication (reids 要安装并且配置文件地址配置正确)
 3. 访问地址http://localhost:7080/jeecg-boot
 4. 在线演示地址：http://47.104.204.117:7080/jeecg-boot
 
 #### 项目部署
 1. 修改服务端相关配置文件
-2. 服务端  打包项目 start项目会有一个start.jar 
+2. 服务端  打包项目 system项目会有一个system.jar 
 3. 客户端 直接拷贝 客户端打包出来的文件 D:\\webapp 拷贝到服务器 /home/webapp 路径下
 
 
