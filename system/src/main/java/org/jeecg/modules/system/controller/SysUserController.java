@@ -5,12 +5,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.jeecg.common.api.vo.Result;
+import org.jeecg.common.system.query.QueryGenerator;
 import org.jeecg.common.util.PasswordUtil;
 import org.jeecg.common.util.oConvertUtils;
 import org.jeecg.modules.system.entity.SysUser;
@@ -60,27 +62,15 @@ public class SysUserController {
 	@Autowired
 	private ISysUserDepartService sysUserDepartService;
 
+	@Autowired
+	private ISysUserRoleService userRoleService;
+
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public Result<IPage<SysUser>> queryPageList(SysUser user,@RequestParam(name="pageNo", defaultValue="1") Integer pageNo,
 									  @RequestParam(name="pageSize", defaultValue="10") Integer pageSize,HttpServletRequest req) {
 		Result<IPage<SysUser>> result = new Result<IPage<SysUser>>();
-		QueryWrapper<SysUser> queryWrapper = new QueryWrapper<SysUser>(user);
-		Page<SysUser> page = new Page<SysUser>(pageNo,pageSize);
-		//排序逻辑 处理
-		String column = req.getParameter("column");
-		String order = req.getParameter("order");
-		if(oConvertUtils.isNotEmpty(column) && oConvertUtils.isNotEmpty(order)) {
-			if("asc".equals(order)) {
-				queryWrapper.orderByAsc(oConvertUtils.camelToUnderline(column));
-			}else {
-				queryWrapper.orderByDesc(oConvertUtils.camelToUnderline(column));
-			}
-		}
-		//TODO 多字段排序
-		//TODO 过滤逻辑处理
-		//TODO begin、end逻辑处理
-		//TODO 一个强大的功能，前端传一个字段字符串，后台只返回这些字符串对应的字段
-		//创建时间/创建人的赋值
+		QueryWrapper<SysUser> queryWrapper = QueryGenerator.initQueryWrapper(user, req.getParameterMap());
+		Page<SysUser> page = new Page<SysUser>(pageNo, pageSize);
 		IPage<SysUser> pageList = sysUserService.page(page, queryWrapper);
 		result.setSuccess(true);
 		result.setResult(pageList);
@@ -179,10 +169,12 @@ public class SysUserController {
 		return result;
 	}
 	
-	@RequestMapping(value = "/frozenBatch", method = {RequestMethod.POST,RequestMethod.GET})
-	public Result<SysUser> frozenBatch(@RequestParam(name="ids",required=true) String ids,@RequestParam(name="status",required=true) String status) {
+	@RequestMapping(value = "/frozenBatch", method = RequestMethod.PUT)
+	public Result<SysUser> frozenBatch(@RequestBody JSONObject jsonObject) {
 		Result<SysUser> result = new Result<SysUser>();
 		try {
+			String ids = jsonObject.getString("ids");
+			String status = jsonObject.getString("status");
 			String[] arr = ids.split(",");
 			for (String id : arr) {
 				if(oConvertUtils.isNotEmpty(id)) {
@@ -196,6 +188,7 @@ public class SysUserController {
 		}
 		result.success("操作成功!");
 		return result;
+
 	}
 	
 	
@@ -384,6 +377,39 @@ public class SysUserController {
 		String userId = UUID.randomUUID().toString().replace("-","");
 		result.setSuccess(true);
 		result.setResult(userId);
+		return result;
+	}
+	
+	/**
+	 * 根据部门id查询用户信息
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(value = "/queryUserByDepId", method = RequestMethod.GET)
+	public Result<List<SysUser>> queryUserByDepId(@RequestParam(name="id",required=true) String id) {
+	Result<List<SysUser>> result = new Result<>();
+	List<SysUser> userList = sysUserDepartService.queryUserByDepId(id);
+	try {
+		result.setSuccess(true);
+		result.setResult(userList);
+		return result;
+	}catch(Exception e) {
+		e.fillInStackTrace();
+		result.setSuccess(false);
+		return result;
+	}
+	}
+	
+	/**
+	 * 查询所有用户所对应的角色信息
+	 * @return
+	 */
+	@RequestMapping(value = "/queryUserRoleMap", method = RequestMethod.GET)
+	public Result<Map<String,String>> queryUserRole(){
+		Result<Map<String,String>> result = new Result<>();
+		Map<String,String> map = userRoleService.queryUserRole();
+		result.setResult(map);
+		result.setSuccess(true);
 		return result;
 	}
 	

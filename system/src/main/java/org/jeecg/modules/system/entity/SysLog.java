@@ -2,7 +2,7 @@ package org.jeecg.modules.system.entity;
 
 import java.util.Date;
 
-import org.jeecg.modules.system.aspect.annotation.Dict;
+import org.jeecg.common.aspect.annotation.Dict;
 import org.springframework.format.annotation.DateTimeFormat;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;

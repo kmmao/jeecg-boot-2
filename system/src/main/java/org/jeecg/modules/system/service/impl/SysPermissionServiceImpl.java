@@ -15,7 +15,6 @@ import org.jeecg.modules.system.service.ISysPermissionService;
 import org.springframework.stereotype.Service;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 
 /**
@@ -50,7 +49,7 @@ public class SysPermissionServiceImpl extends ServiceImpl<SysPermissionMapper, S
 		int count = this.count(new QueryWrapper<SysPermission>().lambda().eq(SysPermission::getParentId, pid));
 		if(count==1) {
 			//若父节点无其他子节点，则该父节点是叶子节点
-			this.update(new SysPermission().setLeaf(true),new UpdateWrapper<SysPermission>().eq("id",pid));
+			this.sysPermissionMapper.setMenuLeaf(pid, 1);
 		}
 		sysPermissionMapper.deleteById(id);
 	}
@@ -68,7 +67,7 @@ public class SysPermissionServiceImpl extends ServiceImpl<SysPermissionMapper, S
 		int count = this.count(new QueryWrapper<SysPermission>().lambda().eq(SysPermission::getParentId, pid));
 		if(count==1) {
 			//若父节点无其他子节点，则该父节点是叶子节点
-			this.update(new SysPermission().setLeaf(true),new UpdateWrapper<SysPermission>().eq("id",pid));
+			this.sysPermissionMapper.setMenuLeaf(pid, 1);
 		}
 		sysPermission.setDelFlag(1);
 		this.updateById(sysPermission);
@@ -85,7 +84,7 @@ public class SysPermissionServiceImpl extends ServiceImpl<SysPermissionMapper, S
 		String pid = sysPermission.getParentId();
 		if(oConvertUtils.isNotEmpty(pid)) {
 			//设置父节点不为叶子节点
-			this.update(new SysPermission().setLeaf(false),new UpdateWrapper<SysPermission>().eq("id",pid));
+			this.sysPermissionMapper.setMenuLeaf(pid, 0);
 		}
 		sysPermission.setCreateTime(new Date());
 		sysPermission.setDelFlag(0);
@@ -118,11 +117,11 @@ public class SysPermissionServiceImpl extends ServiceImpl<SysPermissionMapper, S
 			String pid = sysPermission.getParentId();
 			if((oConvertUtils.isNotEmpty(pid) && !pid.equals(p.getParentId())) || oConvertUtils.isEmpty(pid)&&oConvertUtils.isNotEmpty(p.getParentId())) {
 				//a.设置新的父菜单不为叶子节点
-				this.update(new SysPermission().setLeaf(false),new UpdateWrapper<SysPermission>().eq("id",pid));
+				this.sysPermissionMapper.setMenuLeaf(pid, 0);
 				//b.判断老的菜单下是否还有其他子菜单，没有的话则设置为叶子节点
 				int cc = this.count(new QueryWrapper<SysPermission>().lambda().eq(SysPermission::getParentId, p.getParentId()));
 				if(cc==0) {
-					this.update(new SysPermission().setLeaf(true),new UpdateWrapper<SysPermission>().eq("id",p.getParentId()));
+					this.sysPermissionMapper.setMenuLeaf(p.getParentId(), 1);
 				}
 				
 			}

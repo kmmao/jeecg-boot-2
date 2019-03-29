@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.jeecg.modules.online.cgform.mapper.OnlCgformFieldMapper">
+
+	<!-- 执行select list语句 -->
+	<select id="queryListBySql" parameterType="java.lang.String" resultType="java.util.HashMap">
+		${sqlStr}
+	</select>
+
+	<!-- 执行select count语句 -->
+	<select id="queryCountBySql" parameterType="java.lang.String" resultType="java.lang.Integer">
+		${sqlStr}
+	</select>
+	
+	<!-- 执行保存语句 -->
+	<insert id="saveFormData" parameterType="java.lang.String">
+		${sqlStr}
+	</insert>
+	
+	<!-- 执行编辑语句 -->
+	<update id="editFormData" parameterType="java.lang.String">
+		${sqlStr}
+	</update>
+	
+	<!-- 执行select form语句 -->
+	<select id="queryFormData" parameterType="java.lang.String" resultType="java.util.HashMap">
+		${sqlStr}
+	</select>
+	
+	<delete id="deleteAutoList" parameterType="java.lang.String">
+		${sqlStr}
+	</delete>
+	
+
+</mapper>

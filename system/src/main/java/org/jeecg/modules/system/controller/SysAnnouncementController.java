@@ -7,8 +7,9 @@ import javax.servlet.http.HttpServletRequest;
 import org.jeecg.common.api.vo.Result;
 import org.jeecg.common.constant.CommonConstant;
 import org.jeecg.common.constant.CommonSendStatus;
-import org.jeecg.common.util.JwtUtil;
+import org.jeecg.common.system.query.QueryGenerator;
 import org.jeecg.common.util.oConvertUtils;
+import org.jeecg.modules.shiro.authc.util.JwtUtil;
 import org.jeecg.modules.system.entity.SysAnnouncement;
 import org.jeecg.modules.system.entity.SysDict;
 import org.jeecg.modules.system.service.ISysAnnouncementService;
@@ -52,23 +53,9 @@ public class SysAnnouncementController {
 									  HttpServletRequest req) {
 		Result<IPage<SysAnnouncement>> result = new Result<IPage<SysAnnouncement>>();
 		sysAnnouncement.setDelFlag(CommonConstant.DEL_FLAG_0.toString());
-		QueryWrapper<SysAnnouncement> queryWrapper = new QueryWrapper<SysAnnouncement>(sysAnnouncement);
-		Page<SysAnnouncement> page = new Page<SysAnnouncement>(pageNo,pageSize);
-		//排序逻辑 处理
-		String column = req.getParameter("column");
-		String order = req.getParameter("order");
-		if(oConvertUtils.isNotEmpty(column) && oConvertUtils.isNotEmpty(order)) {
-			if("asc".equals(order)) {
-				queryWrapper.orderByAsc(oConvertUtils.camelToUnderline(column));
-			}else {
-				queryWrapper.orderByDesc(oConvertUtils.camelToUnderline(column));
-			}
-		}
+		QueryWrapper<SysAnnouncement> queryWrapper = QueryGenerator.initQueryWrapper(sysAnnouncement, req.getParameterMap());
+		Page<SysAnnouncement> page = new Page<SysAnnouncement>(pageNo, pageSize);
 		IPage<SysAnnouncement> pageList = sysAnnouncementService.page(page, queryWrapper);
-		log.info("查询当前页："+pageList.getCurrent());
-		log.info("查询当前页数量："+pageList.getSize());
-		log.info("查询结果数量："+pageList.getRecords().size());
-		log.info("数据总数："+pageList.getTotal());
 		result.setSuccess(true);
 		result.setResult(pageList);
 		return result;

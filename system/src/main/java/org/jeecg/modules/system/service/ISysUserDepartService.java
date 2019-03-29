@@ -3,6 +3,7 @@ package org.jeecg.modules.system.service;
 
 import java.util.List;
 
+import org.jeecg.modules.system.entity.SysUser;
 import org.jeecg.modules.system.entity.SysUserDepart;
 import org.jeecg.modules.system.model.DepartIdModel;
 import org.jeecg.modules.system.model.SysUserDepartsVO;
@@ -38,4 +39,11 @@ public interface ISysUserDepartService extends IService<SysUserDepart> {
 	 * @return
 	 */
 	boolean editSysUserWithDepart(SysUserDepartsVO sysUserDepartsVO);
+	
+	/**
+	 * 根据部门id查询用户信息
+	 * @param depId
+	 * @return
+	 */
+	List<SysUser> queryUserByDepId(String depId);
 }

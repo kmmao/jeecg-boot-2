@@ -6,11 +6,11 @@ import java.util.List;
 import java.util.UUID;
 
 import org.jeecg.common.util.YouBianCodeUtil;
-import org.jeecg.modules.system.controller.FindsDepartsChildrenUtil;
 import org.jeecg.modules.system.entity.SysDepart;
 import org.jeecg.modules.system.mapper.SysDepartMapper;
 import org.jeecg.modules.system.model.SysDepartTreeModel;
 import org.jeecg.modules.system.service.ISysDepartService;
+import org.jeecg.modules.system.util.FindsDepartsChildrenUtil;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

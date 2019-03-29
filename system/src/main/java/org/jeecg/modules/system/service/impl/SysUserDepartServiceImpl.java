@@ -4,12 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.jeecg.modules.system.entity.SysDepart;
+import org.jeecg.modules.system.entity.SysUser;
 import org.jeecg.modules.system.entity.SysUserDepart;
 import org.jeecg.modules.system.mapper.SysUserDepartMapper;
 import org.jeecg.modules.system.model.DepartIdModel;
 import org.jeecg.modules.system.model.SysUserDepartsVO;
 import org.jeecg.modules.system.service.ISysDepartService;
 import org.jeecg.modules.system.service.ISysUserDepartService;
+import org.jeecg.modules.system.service.ISysUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,6 +32,8 @@ public class SysUserDepartServiceImpl extends ServiceImpl<SysUserDepartMapper, S
 	private ISysUserDepartService userDepartService;
 	@Autowired
 	private ISysDepartService sysDepartService;
+	@Autowired
+	private ISysUserService sysUserService;
 
 	/**
 	 *根据用户id添加部门信息
@@ -69,7 +73,6 @@ public class SysUserDepartServiceImpl extends ServiceImpl<SysUserDepartMapper, S
 			List<String> depIdList = new ArrayList<>();
 			List<DepartIdModel> depIdModelList = new ArrayList<>();
 			List<SysUserDepart> userDepList = userDepartService.list(queryUDep);
-			System.out.println("userDepList=============================>>>>" + userDepList.size());
 			if(userDepList != null && userDepList.size() > 0) {
 			for(SysUserDepart userDepart : userDepList) {
 					depIdList.add(userDepart.getDepId());
@@ -78,7 +81,6 @@ public class SysUserDepartServiceImpl extends ServiceImpl<SysUserDepartMapper, S
 			List<SysDepart> depList = sysDepartService.list(queryDep);
 			if(depList != null || depList.size() > 0) {
 				for(SysDepart depart : depList) {
-					System.out.println("depart=========================>>>" + depart.getId());
 					depIdModelList.add(new DepartIdModel().convertByUserDepart(depart));
 				}
 			}
@@ -86,7 +88,6 @@ public class SysUserDepartServiceImpl extends ServiceImpl<SysUserDepartMapper, S
 			}
 		}catch(Exception e) {
 			e.fillInStackTrace();
-			System.out.println("捕获的的异常============================>>>"+e.getMessage());
 		}
 		return null;
 		
@@ -113,6 +114,25 @@ public class SysUserDepartServiceImpl extends ServiceImpl<SysUserDepartMapper, S
 		queryDep.eq(SysUserDepart::getUserId, sysUserDepartsVO.getUserId());
 		boolean ok = userDepartService.remove(queryDep);
 		return ok;
+	}
+
+	/**
+	 * 根据部门id查询用户信息
+	 */
+	@Override
+	public List<SysUser> queryUserByDepId(String depId) {
+		LambdaQueryWrapper<SysUserDepart> queryUDep = new LambdaQueryWrapper<SysUserDepart>();
+		queryUDep.eq(SysUserDepart::getDepId, depId);
+		List<String> userIdList = new ArrayList<>();
+		List<SysUserDepart> uDepList = this.list(queryUDep);
+		if(uDepList != null && uDepList.size() > 0) {
+			for(SysUserDepart uDep : uDepList) {
+				userIdList.add(uDep.getUserId());
+			}
+			List<SysUser> userList = (List<SysUser>) sysUserService.listByIds(userIdList);
+			return userList;
+		}
+		return new ArrayList<SysUser>();
 	}
 	
 }

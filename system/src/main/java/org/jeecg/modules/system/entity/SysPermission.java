@@ -8,7 +8,7 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
-import org.jeecg.modules.system.aspect.annotation.Dict;
+import org.jeecg.common.aspect.annotation.Dict;
 
 /**
  * <p>
@@ -55,6 +55,11 @@ public class SysPermission implements Serializable {
 	 * 组件
 	 */
 	private String component;
+	
+	/**
+	 * 组件名字
+	 */
+	private String componentName;
 
 	/**
 	 * 路径
@@ -81,6 +86,12 @@ public class SysPermission implements Serializable {
 	 */
 	@TableField(value="is_leaf")
 	private boolean leaf;
+	
+	/**
+	 * 是否路由菜单: 0:不是  1:是（默认值1）
+	 */
+	@TableField(value="is_route")
+	private boolean route;
 
 	/**
 	 * 描述

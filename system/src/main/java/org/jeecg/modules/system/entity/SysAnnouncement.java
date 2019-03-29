@@ -7,7 +7,7 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import org.jeecg.modules.system.aspect.annotation.Dict;
+import org.jeecg.common.aspect.annotation.Dict;
 import org.springframework.format.annotation.DateTimeFormat;
 
 /**
@@ -19,56 +19,56 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Data
 @TableName("sys_announcement")
 public class SysAnnouncement implements Serializable {
-	private static final long serialVersionUID = 1L;
-
+    private static final long serialVersionUID = 1L;
+    
 	/**id*/
 	@TableId(type = IdType.UUID)
-	private java.lang.String id;
+	private String id;
 	/**标题*/
-	private java.lang.String titile;
+	private String titile;
 	/**内容*/
-	private java.lang.Object msgContent;
+	private Object msgContent;
 	/**开始时间*/
 	@JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd HH:mm:ss")
-	@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
-	private java.util.Date startTime;
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+	private Date startTime;
 	/**结束时间*/
 	@JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd HH:mm:ss")
-	@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
-	private java.util.Date endTime;
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+	private Date endTime;
 	/**发布人*/
-	private java.lang.String sender;
+	private String sender;
 	/**优先级（L低，M中，H高）*/
 	@Dict(dicCode = "priority")
-	private java.lang.String priority;
+	private String priority;
 	/**通告对象类型（USER:指定用户，ALL:全体用户）*/
 	@Dict(dicCode = "msg_type" )
-	private java.lang.String msgType;
+	private String msgType;
 	/**发布状态（0未发布，1已发布，2已撤销）*/
 	@Dict(dicCode ="send_status" )
-	private java.lang.String sendStatus;
+	private String sendStatus;
 	/**发布时间*/
 	@JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd HH:mm:ss")
-	@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
-	private java.util.Date sendTime;
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+	private Date sendTime;
 	/**撤销时间*/
 	@JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd HH:mm:ss")
-	@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
-	private java.util.Date cancelTime;
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+	private Date cancelTime;
 	/**删除状态（0，正常，1已删除）*/
-	private java.lang.String delFlag;
+	private String delFlag;
 	/**创建人*/
-	private java.lang.String createBy;
+	private String createBy;
 	/**创建时间*/
 	@JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd HH:mm:ss")
-	@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
-	private java.util.Date createTime;
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+	private Date createTime;
 	/**更新人*/
-	private java.lang.String updateBy;
+	private String updateBy;
 	/**更新时间*/
 	@JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd HH:mm:ss")
-	@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
-	private java.util.Date updateTime;
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+	private Date updateTime;
 	/**指定用户**/
-	private java.lang.String userIds;
+	private String userIds;
 }

@@ -102,7 +102,6 @@ public class SysPermissionController {
 	
 	
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
-	@RequiresRoles({"admin"})
 	public Result<SysPermission> add(@RequestBody SysPermission permission) {
 		Result<SysPermission> result = new Result<SysPermission>();
 		try {
@@ -243,6 +242,7 @@ public class SysPermissionController {
 	 * @return
 	 */
 	@RequestMapping(value = "/saveRolePermission", method = RequestMethod.POST)
+	@RequiresRoles({"admin"})
 	public Result<String> saveRolePermission(@RequestBody JSONObject json) {
 		Result<String> result = new Result<>();
 		try {
@@ -352,14 +352,24 @@ public class SysPermissionController {
 			json.put("describe", permission.getName());
 		}else if(permission.getMenuType()==0||permission.getMenuType()==1) {
 			json.put("id", permission.getId());
-			if(permission.getUrl()!=null&&(permission.getUrl().startsWith("http://")||permission.getUrl().startsWith("https://"))) {
+			if(permission.isRoute()) {
+				json.put("route", "1");//表示生成路由
+			}else {
+				json.put("route", "0");//表示不生成路由
+			}
+			
+			if(isWWWHttpUrl(permission.getUrl())) {
 				json.put("path", MD5Util.MD5Encode(permission.getUrl(), "utf-8"));
 			}else {
 				json.put("path", permission.getUrl());
 			}
 			
 			//重要规则：路由name (通过URL生成路由name,路由name供前端开发，页面跳转使用)
-			json.put("name", urlToRouteName(permission.getUrl()));
+			if(oConvertUtils.isNotEmpty(permission.getComponentName())) {
+				json.put("name", permission.getComponentName());
+			}else {
+				json.put("name", urlToRouteName(permission.getUrl()));
+			}
 			
 			//是否隐藏路由，默认都是显示的
 			if(permission.isHidden()) {
@@ -371,21 +381,41 @@ public class SysPermissionController {
 			}
 			json.put("component", permission.getComponent());
 			JSONObject meta = new JSONObject();
+			//默认所有的菜单都加路由缓存，提高系统性能
+			meta.put("keepAlive", "true");
 			meta.put("title", permission.getName());
 			if(oConvertUtils.isEmpty(permission.getParentId())) {
 				//一级菜单跳转地址
 				json.put("redirect",permission.getRedirect());
-				meta.put("icon", oConvertUtils.getString(permission.getIcon(), ""));
+				if(oConvertUtils.isNotEmpty(permission.getIcon())) {
+					meta.put("icon", permission.getIcon());
+				}
 			}else {
-				meta.put("icon", oConvertUtils.getString(permission.getIcon(), ""));
+				if(oConvertUtils.isNotEmpty(permission.getIcon())) {
+					meta.put("icon", permission.getIcon());
+				}
 			}
-			if(permission.getUrl()!=null&&(permission.getUrl().startsWith("http://")||permission.getUrl().startsWith("https://"))) {
+			if(isWWWHttpUrl(permission.getUrl())) {
 				meta.put("url", permission.getUrl());
 			}
 			json.put("meta", meta);
 		}
 		
 		return json;
+	}
+	
+	/**
+	 * 判断是否外网URL 例如： http://localhost:8080/jeecg-boot/swagger-ui.html#/
+	 *                 支持特殊格式：     {{ window._CONFIG['domianURL'] }}/druid/
+	 *                 {{ JS代码片段 }}，前台解析会自动执行JS代码片段
+	 * 
+	 * @return
+	 */
+	private boolean isWWWHttpUrl(String url) {
+		if (url != null && (url.startsWith("http://") || url.startsWith("https://") || url.startsWith("{{"))) {
+			return true;
+		}
+		return false;
 	}
 	
 	/**
@@ -400,6 +430,9 @@ public class SysPermissionController {
 				url = url.substring(1);
 			}
 			url = url.replace("/", "-");
+			
+			//特殊标记
+			url = url.replace(":", "@");
 			return url;
 		}else {
 			return null;

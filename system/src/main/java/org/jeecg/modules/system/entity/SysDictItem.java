@@ -10,7 +10,7 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
-import org.jeecg.modules.system.aspect.annotation.Dict;
+import org.jeecg.common.aspect.annotation.Dict;
 
 /**
  * <p>

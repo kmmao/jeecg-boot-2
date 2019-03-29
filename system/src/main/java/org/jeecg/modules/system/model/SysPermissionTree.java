@@ -67,6 +67,11 @@ public class SysPermissionTree implements Serializable {
 	 * 是否叶子节点: 1:是 0:不是
 	 */
 	private boolean isLeaf;
+	
+	/**
+	 * 是否路由菜单: 0:不是  1:是（默认值1）
+	 */
+	private boolean route;
 
 	/**
 	 * 描述
@@ -127,6 +132,7 @@ public class SysPermissionTree implements Serializable {
 		this.redirect = permission.getRedirect();
 		this.url = permission.getUrl();
 		this.hidden = permission.isHidden();
+		this.route = permission.isRoute();
 		this.alwaysShow= permission.isAlwaysShow();
 		this.title=permission.getName();
 		if (!permission.isLeaf()) {
@@ -245,6 +251,14 @@ public class SysPermissionTree implements Serializable {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public boolean isRoute() {
+		return route;
+	}
+
+	public void setRoute(boolean route) {
+		this.route = route;
 	}
 
 	public Integer getDelFlag() {

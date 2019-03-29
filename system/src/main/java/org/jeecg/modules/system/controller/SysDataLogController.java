@@ -6,6 +6,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.jeecg.common.api.vo.Result;
+import org.jeecg.common.system.query.QueryGenerator;
 import org.jeecg.common.util.oConvertUtils;
 import org.jeecg.modules.system.entity.SysDataLog;
 import org.jeecg.modules.system.service.ISysDataLogService;
@@ -32,19 +33,8 @@ public class SysDataLogController {
 	public Result<IPage<SysDataLog>> queryPageList(SysDataLog dataLog,@RequestParam(name="pageNo", defaultValue="1") Integer pageNo,
 									  @RequestParam(name="pageSize", defaultValue="10") Integer pageSize,HttpServletRequest req) {
 		Result<IPage<SysDataLog>> result = new Result<IPage<SysDataLog>>();
-		QueryWrapper<SysDataLog> queryWrapper = new QueryWrapper<SysDataLog>(dataLog);
-		Page<SysDataLog> page = new Page<SysDataLog>(pageNo,pageSize);
-		//排序逻辑 处理
-		String column = req.getParameter("column");
-		String order = req.getParameter("order");
-		if(oConvertUtils.isNotEmpty(column) && oConvertUtils.isNotEmpty(order)) {
-			if("asc".equals(order)) {
-				queryWrapper.orderByAsc(oConvertUtils.camelToUnderline(column));
-			}else {
-				queryWrapper.orderByDesc(oConvertUtils.camelToUnderline(column));
-			}
-		}
-		//创建时间/创建人的赋值
+		QueryWrapper<SysDataLog> queryWrapper = QueryGenerator.initQueryWrapper(dataLog, req.getParameterMap());
+		Page<SysDataLog> page = new Page<SysDataLog>(pageNo, pageSize);
 		IPage<SysDataLog> pageList = service.page(page, queryWrapper);
 		log.info("查询当前页："+pageList.getCurrent());
 		log.info("查询当前页数量："+pageList.getSize());

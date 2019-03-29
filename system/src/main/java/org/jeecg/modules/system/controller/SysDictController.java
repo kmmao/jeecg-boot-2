@@ -9,11 +9,13 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import org.jeecg.common.api.vo.Result;
+import org.jeecg.common.system.query.QueryGenerator;
 import org.jeecg.common.util.oConvertUtils;
 import org.jeecg.modules.system.entity.SysDict;
 import org.jeecg.modules.system.model.SysDictTree;
 import org.jeecg.modules.system.service.ISysDictService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -48,19 +50,8 @@ public class SysDictController {
 	public Result<IPage<SysDict>> queryPageList(SysDict sysDict,@RequestParam(name="pageNo", defaultValue="1") Integer pageNo,
 									  @RequestParam(name="pageSize", defaultValue="10") Integer pageSize,HttpServletRequest req) {
 		Result<IPage<SysDict>> result = new Result<IPage<SysDict>>();
-		QueryWrapper<SysDict> queryWrapper = new QueryWrapper<SysDict>(sysDict);
-		Page<SysDict> page = new Page<SysDict>(pageNo,pageSize);
-		//排序逻辑 处理
-		String column = req.getParameter("column");
-		String order = req.getParameter("order");
-		if(oConvertUtils.isNotEmpty(column) && oConvertUtils.isNotEmpty(order)) {
-			if("asc".equals(order)) {
-				queryWrapper.orderByAsc(oConvertUtils.camelToUnderline(column));
-			}else {
-				queryWrapper.orderByDesc(oConvertUtils.camelToUnderline(column));
-			}
-		}
-		//创建时间/创建人的赋值
+		QueryWrapper<SysDict> queryWrapper = QueryGenerator.initQueryWrapper(sysDict, req.getParameterMap());
+		Page<SysDict> page = new Page<SysDict>(pageNo, pageSize);
 		IPage<SysDict> pageList = sysDictService.page(page, queryWrapper);
 		log.info("查询当前页："+pageList.getCurrent());
 		log.info("查询当前页数量："+pageList.getSize());
@@ -104,18 +95,32 @@ public class SysDictController {
 	
 	/**
 	 * 获取字典数据
-	 * @param dictCode
+	 * @param dictCode 字典code
+	 * @param dictCode 表名,文本字段,code字段  | 举例：sys_user,realname,id
 	 * @return
 	 */
 	@RequestMapping(value = "/getDictItems/{dictCode}", method = RequestMethod.GET)
-	public Result<List<Map<String, String>>> getDictItems(@PathVariable String dictCode) {
+	public Result<List<Map<String, Object>>> getDictItems(@PathVariable String dictCode) {
 		log.info(" dictCode : "+ dictCode);
-		Result<List<Map<String,String>>> result = new Result<List<Map<String,String>>>();
-		List<Map<String,String>> ls = null;
+		Result<List<Map<String,Object>>> result = new Result<List<Map<String,Object>>>();
+		List<Map<String,Object>> ls = null;
 		try {
-			 ls = sysDictService.queryDictItemsByCode(dictCode);
+			if(dictCode.indexOf(",")!=-1) {
+				//关联表字典（举例：sys_user,realname,id）
+				String[] params = dictCode.split(",");
+				if(params.length!=3) {
+					result.error500("字典Code格式不正确！");
+					return result;
+				}
+				ls = sysDictService.queryTableDictItemsByCode(params[0],params[1],params[2]);
+			}else {
+				//字典表
+				 ls = sysDictService.queryDictItemsByCode(dictCode);
+			}
+			 
 			 result.setSuccess(true);
 			 result.setResult(ls);
+			 log.info(result.toString());
 		} catch (Exception e) {
 			log.info(e.getMessage());
 			result.error500("操作失败");
@@ -195,6 +200,7 @@ public class SysDictController {
 	 * @return
 	 */
 	@RequestMapping(value = "/delete", method = RequestMethod.DELETE)
+	@CacheEvict(value="dictCache", allEntries=true)
 	public Result<SysDict> delete(@RequestParam(name="id",required=true) String id) {
 		Result<SysDict> result = new Result<SysDict>();
 		SysDict sysDict = sysDictService.getById(id);
@@ -216,6 +222,7 @@ public class SysDictController {
 	 * @return
 	 */
 	@RequestMapping(value = "/deleteBatch", method = RequestMethod.DELETE)
+	@CacheEvict(value="dictCache", allEntries=true)
 	public Result<SysDict> deleteBatch(@RequestParam(name="ids",required=true) String ids) {
 		Result<SysDict> result = new Result<SysDict>();
 		if(ids==null || "".equals(ids.trim())) {
