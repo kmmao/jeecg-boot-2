@@ -2,8 +2,6 @@ import { Component, Input, Output, EventEmitter, OnInit, forwardRef, OnChanges, 
 import { _HttpClient } from '@delon/theme';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { UploadFile } from 'ng-zorro-antd';
-import { PeConsoleBundleListComponent } from 'app/routes/pe-console/bundle-list/bundle-list.component';
-
 @Component({
   selector: 'app-upload',
   template: `
