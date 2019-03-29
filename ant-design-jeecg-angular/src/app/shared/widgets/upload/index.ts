@@ -2,14 +2,16 @@ import { Component, Input, Output, EventEmitter, OnInit, forwardRef, OnChanges, 
 import { _HttpClient } from '@delon/theme';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { UploadFile } from 'ng-zorro-antd';
+import { PeConsoleBundleListComponent } from 'app/routes/pe-console/bundle-list/bundle-list.component';
 
 @Component({
   selector: 'app-upload',
   template: `
     <nz-upload [nzAction]="nzAction" [nzListType]="nzListType" [(nzFileList)]="fileList"
                [nzShowButton]="fileList.length < maxLength" [nzPreview]="handlePreview" (nzChange)=handleChange($event) [nzFileType]= "nzFileType" >
-      <i nz-icon type="plus"></i>
-      <div class="ant-upload-text">点击上传</div>
+      <button nz-button>
+        <i nz-icon type="upload"></i><span>点击上传</span>
+      </button>
     </nz-upload>
     <nz-modal [nzVisible]="previewVisible" [nzWidth]='nzWidth' [nzContent]="modalContent" [nzFooter]="null" (nzOnCancel)="previewVisible=false">
       <ng-template #modalContent>
@@ -34,6 +36,7 @@ export class UpLoadComponent implements OnInit {
   @Input() maxLength = 1;
   @Input() nzWidth = 800;
   previewImage = '';
+  type="upload"
   previewVisible = false;
 
   @Output() ngModelChange = new EventEmitter();
@@ -82,12 +85,17 @@ export class UpLoadComponent implements OnInit {
 
 
   handlePreview = (file: UploadFile) => {
-    this.previewImage = file.url || file.thumbUrl;
-    this.previewVisible = true;
+    if(this.nzListType!=='picture-card'){
+      window.open(this.model)
+    }else{
+      this.previewImage = file.url || file.thumbUrl;
+      this.previewVisible = true;
+    }
+
   }
   constructor(public http: _HttpClient) { }
   ngOnInit(): void {
-    console.log(this.files)
+    console.log(this.nzFileType==='text')
 
   }
 }
