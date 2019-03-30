@@ -1,12 +1,13 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { _HttpClient, ModalHelper } from '@delon/theme';
 import { STColumn, STComponent } from '@delon/abc';
-import { SFSchema } from '@delon/form';
+import { SFSchema, Widget } from '@delon/form';
 import { IsystemUserEditComponent } from './user-edit/user-edit.component';
 import { NzMessageService } from 'ng-zorro-antd';
 import { IsystemUserPasswordUpdateComponent } from './user-password-update/user-password-update.component';
 import { IsystemUserViewComponent } from './user-view/user-view.component';
 import { IsystemUserAddComponent } from './user-add/user-add.component';
+import { DictService } from '@shared';
 
 @Component({
   selector: 'app-isystem-user',
@@ -19,6 +20,16 @@ export class IsystemUserComponent implements OnInit {
       username: {
         type: 'string',
         title: '用户账号'
+      },
+      sex:{
+        type:'string',
+        title:'性别',
+        ui:{
+          widget:'select',
+          asyncData:()=>this.dictService.getDict('sex'),
+          width:250
+          
+        } 
       }
     }
   };
@@ -96,7 +107,7 @@ export class IsystemUserComponent implements OnInit {
     }
   ];
 
-  constructor(private http: _HttpClient, private modal: ModalHelper, private message: NzMessageService) { }
+  constructor(private http: _HttpClient, private modal: ModalHelper, private dictService:DictService, private message: NzMessageService) { }
 
   ngOnInit() { }
 
