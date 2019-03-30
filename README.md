@@ -13,13 +13,13 @@ ng-alain spring-boot jeecg-boot
 
 2. 数据库脚本执行sys-init-20190225.sql 数据库名称 jeecg-boot
 
-2. 服务端直接运行 system工程里面的 JeecgApplication (reids 要安装并且配置文件地址配置正确)
+2. 服务端直接运行 start工程里面的 JeecgApplication (reids 要安装并且配置文件地址配置正确)
 3. 访问地址http://localhost:7080/jeecg-boot
 4. 在线演示地址：http://47.104.204.117:7080/jeecg-boot
 
 #### 项目部署
 1. 修改服务端相关配置文件
-2. 服务端  打包项目 system项目会有一个system.jar 
+2. 服务端  打包项目 start项目会有一个start.jar 
 3. 客户端 直接拷贝 客户端打包出来的文件 D:\\webapp 拷贝到服务器 /home/webapp 路径下
 
 
@@ -154,10 +154,10 @@ import { DictService } from '@shared';
 import { NzMessageService, NzModalRef } from 'ng-zorro-antd';
 
 @Component({
-  selector: 'app-isystem-user-edit',
+  selector: 'app-istart-user-edit',
   templateUrl: './user-edit.component.html',
 })
-export class IsystemUserEditComponent implements OnInit {
+export class IstartUserEditComponent implements OnInit {
   @Input()
   record: any = {};
   i: any={};
@@ -242,17 +242,17 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { _HttpClient, ModalHelper } from '@delon/theme';
 import { STColumn, STComponent } from '@delon/abc';
 import { SFSchema } from '@delon/form';
-import { IsystemUserEditComponent } from './user-edit/user-edit.component';
+import { IstartUserEditComponent } from './user-edit/user-edit.component';
 import { NzMessageService } from 'ng-zorro-antd';
-import { IsystemUserPasswordUpdateComponent } from './user-password-update/user-password-update.component';
-import { IsystemUserViewComponent } from './user-view/user-view.component';
-import { IsystemUserAddComponent } from './user-add/user-add.component';
+import { IstartUserPasswordUpdateComponent } from './user-password-update/user-password-update.component';
+import { IstartUserViewComponent } from './user-view/user-view.component';
+import { IstartUserAddComponent } from './user-add/user-add.component';
 
 @Component({
-  selector: 'app-isystem-user',
+  selector: 'app-istart-user',
   templateUrl: './user.component.html',
 })
-export class IsystemUserComponent implements OnInit {
+export class IstartUserComponent implements OnInit {
   url = `sys/user/list?field=id,,username,realname,avatar,sex,birthday,phone,email,status,createTime,action`;
   searchSchema: SFSchema = {
     properties: {
@@ -300,7 +300,7 @@ export class IsystemUserComponent implements OnInit {
          {
           text: '编辑', icon: 'edit', type: 'modal',
           modal: {
-            component: IsystemUserEditComponent,
+            component: IstartUserEditComponent,
           },
           click: (record: any, modal: any) => this.st.reload()
         },
@@ -311,14 +311,14 @@ export class IsystemUserComponent implements OnInit {
               text: `查看`,
               type: 'modal',
               modal: {
-                component: IsystemUserViewComponent,
+                component: IstartUserViewComponent,
               },
             },
             {
               text: `修改密码`,
               type: 'modal',
               modal: {
-                component: IsystemUserPasswordUpdateComponent,
+                component: IstartUserPasswordUpdateComponent,
               },
             },
             {
@@ -349,7 +349,7 @@ export class IsystemUserComponent implements OnInit {
 
   add() {
      this.modal
-       .createStatic(IsystemUserAddComponent)
+       .createStatic(IstartUserAddComponent)
        .subscribe(() => this.st.reload());
   }
 

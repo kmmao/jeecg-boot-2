@@ -10,7 +10,8 @@
 	<modules>
 		<module>system</module>
         <module>demo</module>
-    </modules>
+		<module>start</module>
+	</modules>
 
 	<parent>
 	    <groupId>org.springframework.boot</groupId>
@@ -183,10 +184,6 @@
 
 	<build>
 		<plugins>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
 			<!-- 指定JDK编译版本 -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
