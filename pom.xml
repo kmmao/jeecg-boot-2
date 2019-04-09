@@ -164,13 +164,13 @@
 		<dependency>
 			<groupId>org.jeecgframework.boot</groupId>
 			<artifactId>codegenerate</artifactId>
-			<version>1.0.1</version>
+			<version>1.0.2</version>
 		</dependency>
 		<!-- autopoi Excel简易工具类-->
 		<dependency>
 			<groupId>org.jeecgframework</groupId>
 			<artifactId>autopoi-web</artifactId>
-			<version>1.0.0</version>
+			<version>1.0.1</version>
 		</dependency>
 
 		<!-- hibernate -->
@@ -178,6 +178,12 @@
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-core</artifactId>
 			<version>4.1.0.Final</version>
+			<exclusions>
+				<exclusion>
+					<groupId>commons-collections</groupId>
+					<artifactId>commons-collections</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 
 	</dependencies>
