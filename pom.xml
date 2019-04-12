@@ -11,6 +11,7 @@
 		<module>system</module>
         <module>demo</module>
 		<module>start</module>
+		<module>activiti</module>
 	</modules>
 
 	<parent>

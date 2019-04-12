@@ -90,6 +90,9 @@ spring:
        shutdown-timeout: 100ms
      password: ''
      port: 6379
+  servlet:
+    multipart:
+      max-file-size: 500MB
 #mybatis plus 设置
 mybatis-plus:
    mapper-locations: classpath*:org/jeecg/modules/**/xml/*Mapper.xml

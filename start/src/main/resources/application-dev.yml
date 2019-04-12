@@ -66,7 +66,7 @@ spring:
         connectionProperties: druid.stat.mergeSql\=true;druid.stat.slowSqlMillis\=5000
       datasource:
         master:
-          url: jdbc:mysql://127.0.0.1:3306/jeecg-boot?characterEncoding=UTF-8&useUnicode=true&useSSL=false
+          url: jdbc:mysql://10.111.23.198:3306/jeecg-boot?characterEncoding=UTF-8&useUnicode=true&useSSL=false
           username: root
           password: root
           driver-class-name: com.mysql.jdbc.Driver
@@ -79,7 +79,7 @@ spring:
   #redis 配置
   redis:
     database: 0
-    host: 127.0.0.1
+    host: 10.111.23.198
     lettuce:
       pool:
         max-active: 8   #最大连接数据库连接数,设 0 为没有限制
@@ -89,6 +89,9 @@ spring:
       shutdown-timeout: 100ms
     password: ''
     port: 6379
+  servlet:
+    multipart:
+      max-file-size: 500MB
 #mybatis plus 设置
 mybatis-plus:
   mapper-locations: classpath*:org/jeecg/modules/**/xml/*Mapper.xml
