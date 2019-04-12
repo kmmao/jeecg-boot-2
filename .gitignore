@@ -21,3 +21,5 @@ system/system.iml
 online/target/
 online/online.iml
 ant-design-jeecg-angular/src/assets/alain-default.less
+activiti/target/
+activiti/activiti.iml
