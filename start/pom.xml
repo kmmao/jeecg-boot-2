@@ -21,11 +21,11 @@
             <artifactId>system</artifactId>
             <version>1.0.1</version>
         </dependency>
-        <dependency>
+   <!--     <dependency>
             <groupId>org.jeecgframework.boot</groupId>
             <artifactId>activiti</artifactId>
             <version>1.0.1</version>
-        </dependency>
+        </dependency>-->
     </dependencies>
     <build>
         <plugins>
