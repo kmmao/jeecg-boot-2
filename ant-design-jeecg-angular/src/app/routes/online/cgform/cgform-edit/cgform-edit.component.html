@@ -44,6 +44,7 @@
 <nz-tabset>
   <nz-tab nzTitle="数据库属性">
     <button nz-button (click)="addRow()" nzType="primary">新增</button>
+    <button nz-button (click)="deleteRow()" nzType="primary">删除</button>
     <nz-table nzShowPagination="false" nzFrontPagination="false" #dbTable  [nzData]="items" nzSize="middle" [nzScroll]="{ y: '275px' }">
       <thead>
         <tr>

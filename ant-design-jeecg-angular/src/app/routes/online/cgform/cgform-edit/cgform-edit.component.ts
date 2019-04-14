@@ -10,6 +10,7 @@ import { SFSchema, SFUISchema } from '@delon/form';
 export class OnlineCgformEditComponent implements OnInit {
   record:any;
   @ViewChild('f') f;
+  @ViewChild('dbTable') dbTable;
   i: any = {
     tableType:1,
     formCategory:'bdfl_include',
@@ -38,9 +39,20 @@ export class OnlineCgformEditComponent implements OnInit {
       dbIsKey: false,
       dbIsNull: true,
       fieldShowType:'text',
-      queryMode:'single'
-
+      queryMode:'single',
+      select:true
     } ];
+  }
+  deleteRow(){
+    console.log(this.items)
+    for (let index = 0; index < this.items.length; index++) {
+      if(this.items[index].select){
+        console.log(this.items[index])
+        this.items.splice(index,index) 
+      }
+    }
+    this.items=[...this.items]
+    console.log(this.items)
   }
   
   addIndex(): void {
@@ -70,6 +82,7 @@ export class OnlineCgformEditComponent implements OnInit {
         if(item.dbFieldName==='id'||item.dbFieldName==='create_by'||item.dbFieldName==='create_time'||item.dbFieldName==='update_by'||item.dbFieldName==='update_time'){
           item['disabled']=true
         }
+        item['select']=false
         return item;
       }
       )

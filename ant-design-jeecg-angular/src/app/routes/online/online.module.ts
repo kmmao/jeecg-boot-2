@@ -10,6 +10,7 @@ import { OnlineCgreportEditComponent } from './cgreport/cgreport-edit/cgreport-e
 import { OnlineCgformListComponent } from './cgform-list/cgform-list.component';
 import { OnlineCgformListAddComponent } from './cgform-list/cgform-list-add/cgform-list-add.component';
 import { OnlineCgformListEditComponent } from './cgform-list/cgform-list-edit/cgform-list-edit.component';
+import { OnlineCgformSynDbComponent } from './cgform/cgform-syn-db/cgform-syn-db.component';
 
 const COMPONENTS = [
   OnlineCgformComponent,
@@ -21,7 +22,8 @@ const COMPONENTS_NOROUNT = [
   OnlineCgreportAddComponent,
   OnlineCgreportEditComponent,
   OnlineCgformListAddComponent,
-  OnlineCgformListEditComponent];
+  OnlineCgformListEditComponent,
+  OnlineCgformSynDbComponent];
 
 @NgModule({
   imports: [

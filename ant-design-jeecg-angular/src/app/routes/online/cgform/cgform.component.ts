@@ -1,9 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { _HttpClient, ModalHelper } from '@delon/theme';
-import { STColumn, STComponent, STColumnBadge, STColumnTag } from '@delon/abc';
+import { STColumn, STComponent, STColumnBadge, STColumnTag, STData } from '@delon/abc';
 import { SFSchema } from '@delon/form';
 import { OnlineCgformAddComponent } from './cgform-add/cgform-add.component';
 import { OnlineCgformEditComponent } from './cgform-edit/cgform-edit.component';
+import { OnlineCgformSynDbComponent } from './cgform-syn-db/cgform-syn-db.component';
+import { CacheService } from '@delon/cache';
 
 
 const TAG: STColumnTag = {
@@ -43,12 +45,31 @@ export class OnlineCgformComponent implements OnInit {
             component: OnlineCgformEditComponent,
             size: "xl"
           },
-          click: 'reload'
+          click: (record:STData)=>{
+              this.st.reload();
+              this.cacheService.remove(`online/cgform/api/getFormItem/${record.id}`)
+              this.cacheService.remove(`online/cgform/api/getColumns/${record.id}`)
+          }
         },
         {
           text: `功能测试`,
           type: 'link',
-          click: (item) => `online/cgformList/${item.id}`
+          click: (item) => `online/cgformList/${item.id}`,
+          iif:(item:STData)=>{
+            return item.isDbSynch==='Y'?true:false
+           }
+        },
+        {
+          text: `同步数据库`,
+          type: 'modal',
+          modal:{
+              component:OnlineCgformSynDbComponent,
+              size:'md'
+          },
+          click: () => this.st.reload(),
+          iif:(item:STData)=>{
+            return item.isDbSynch==='N'?true:false
+           }
         },
         {
           text: '更多',
@@ -59,6 +80,9 @@ export class OnlineCgformComponent implements OnInit {
              /*  modal: {
                 component: IsystemUserPasswordUpdateComponent,
               }, */
+              iif:(item:STData)=>{
+               return item.isDbSynch==='Y'?true:false
+              }
             },
             {
               text: `移除`,
@@ -82,9 +106,11 @@ export class OnlineCgformComponent implements OnInit {
       ]}
       ];
 
-      constructor(private http: _HttpClient, private modal: ModalHelper) { }
+      constructor(private http: _HttpClient, private modal: ModalHelper, private cacheService: CacheService ) { }
 
-  ngOnInit() { }
+  ngOnInit() { 
+    
+  }
 
   add() {
         this.modal
