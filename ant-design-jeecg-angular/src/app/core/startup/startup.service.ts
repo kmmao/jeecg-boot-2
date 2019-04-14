@@ -10,6 +10,7 @@ import { ACLService } from '@delon/acl';
 import { NzIconService } from 'ng-zorro-antd';
 import { ICONS_AUTO } from '../../../style-icons-auto';
 import { ICONS } from '../../../style-icons';
+import { CacheService } from '@delon/cache';
 
 /**
  * 用于应用启动时
@@ -25,6 +26,7 @@ export class StartupService {
     private titleService: TitleService,
     @Inject(DA_SERVICE_TOKEN) private tokenService: ITokenService,
     private httpClient: HttpClient,
+    private cacheService: CacheService,
     private injector: Injector
   ) {
     iconSrv.addIcon(...ICONS_AUTO, ...ICONS);
@@ -32,7 +34,7 @@ export class StartupService {
 
   private viaHttp(resolve: any, reject: any) {
     zip(
-      this.httpClient.get('sys/ng-alain/getAppData')
+      this.cacheService.get('sys/ng-alain/getAppData')
     ).pipe(
       // 接收其他拦截器后产生的异常消息
       catchError(([appData]) => {
