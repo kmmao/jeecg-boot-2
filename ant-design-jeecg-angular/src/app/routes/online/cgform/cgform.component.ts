@@ -3,6 +3,7 @@ import { _HttpClient, ModalHelper } from '@delon/theme';
 import { STColumn, STComponent, STColumnBadge, STColumnTag } from '@delon/abc';
 import { SFSchema } from '@delon/form';
 import { OnlineCgformAddComponent } from './cgform-add/cgform-add.component';
+import { OnlineCgformEditComponent } from './cgform-edit/cgform-edit.component';
 
 
 const TAG: STColumnTag = {
@@ -39,7 +40,7 @@ export class OnlineCgformComponent implements OnInit {
         {
           text: '编辑', type: 'modal',
           modal: {
-            component: OnlineCgformAddComponent,
+            component: OnlineCgformEditComponent,
             size: "xl"
           },
           click: 'reload'
