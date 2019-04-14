@@ -5,8 +5,8 @@
 <form nz-form #f="ngForm" se-container="1">
   <se required  label="选择同步方式">
     <nz-radio-group [(ngModel)]="synMethod" name="synMethod">
-      <label nz-radio [ngStyle]="style" nzValue="normal">普通同步(保留表数据)</label>
-      <label nz-radio [ngStyle]="style" nzValue="force">强制同步(删除表,重新生成)</label>
+      <label nz-radio  nzValue="normal">普通同步(保留表数据)</label>
+      <label nz-radio  nzValue="force">强制同步(删除表,重新生成)</label>
     </nz-radio-group>
   </se>
 </form>
