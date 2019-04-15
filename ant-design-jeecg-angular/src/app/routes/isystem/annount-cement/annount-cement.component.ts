@@ -66,9 +66,25 @@ export class IsystemAnnountCementComponent implements OnInit {
           popTitle:'确认发布吗？',
           click: (record, modal, comp) => {
             this.http.get(`sys/annountCement/doReleaseData`,{'id':record.id}).subscribe(res => {
+              this.message.success("发布成功！")
               this.st.reload()
             })
-          }
+          },
+          iif:(item:STData)=>  item.sendStatus==="0"?true:false
+        },
+        {
+          text: `撤销`,
+          type: 'none',
+          pop:true,
+          popTitle:'确认撤销吗？',
+          click: (record, modal, comp) => {
+            this.http.get(`sys/annountCement/doReovkeData`,{'id':record.id}).subscribe(res => {
+              this.message.success("撤销成功！")
+              this.st.reload()
+            })
+          },
+          iif:(item:STData)=>  item.sendStatus==="1"?true:false
+
         },
       ]
     }

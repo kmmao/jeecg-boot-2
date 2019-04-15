@@ -11,10 +11,10 @@
   
   </se>
   <se required="required" label="开始时间">
-      <nz-date-picker [(ngModel)]="i.startTime" name="startTime" required ></nz-date-picker>
+      <nz-date-picker nzFormat="yyyy-MM-dd HH:mm:ss" [(ngModel)]="i.startTime" name="startTime" required ></nz-date-picker>
     </se>
     <se required="required" label="结束时间">
-        <nz-date-picker [(ngModel)]="i.endTime" name="endTime" required></nz-date-picker>
+        <nz-date-picker nzFormat="yyyy-MM-dd HH:mm:ss" [(ngModel)]="i.endTime" name="endTime" required></nz-date-picker>
       </se>
 
       <se required  label="优先级">
