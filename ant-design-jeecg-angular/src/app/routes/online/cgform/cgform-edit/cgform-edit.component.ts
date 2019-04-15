@@ -12,16 +12,6 @@ export class OnlineCgformEditComponent implements OnInit {
   @ViewChild('f') f;
   @ViewChild('dbTable') dbTable;
   i: any = {
-    tableType:1,
-    formCategory:'bdfl_include',
-    idType:'UUID',
-    formTemplate:'ledefault',
-    formTemplateMobile:'ledefault',
-    queryMode:'single',
-    isCheckbox:'N',
-    isPage:'N',
-    isTree:'N',
-
   };
   indexs=[];
   items=[];
@@ -35,24 +25,17 @@ export class OnlineCgformEditComponent implements OnInit {
       fieldLength:120,
       dbPointLength: 0,
       dbDefaultVal: '',
-      dbType: 'string',
+      dbType: 'String',
       dbIsKey: false,
       dbIsNull: true,
       fieldShowType:'text',
       queryMode:'single',
-      select:true
+      select:false
     } ];
   }
+
   deleteRow(){
-    console.log(this.items)
-    for (let index = 0; index < this.items.length; index++) {
-      if(this.items[index].select){
-        console.log(this.items[index])
-        this.items.splice(index,index) 
-      }
-    }
-    this.items=[...this.items]
-    console.log(this.items)
+    this.items = this.items.filter(d => !d.select);
   }
   
   addIndex(): void {
