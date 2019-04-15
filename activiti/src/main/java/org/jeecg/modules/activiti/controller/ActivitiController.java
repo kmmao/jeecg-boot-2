@@ -30,7 +30,6 @@ public class ActivitiController {
     public String demo(){
         // Using Security Util to simulate a logged in user
         securityUtil.logInAs("salaboy");
-
         // Let's create a Group Task (not assigned, all the members of the group can claim it)
         //  Here 'salaboy' is the owner of the created task
         log.info("> Creating a Group Task for 'activitiTeam'");
