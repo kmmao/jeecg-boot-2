@@ -20,8 +20,11 @@ export const DICT={
     {value:'SEQUENCE',label:'SEQUENCE(序列方式)'},
   ],
   form_template:[
-    {value:'ledefault',label:'ACE默认模板'},
-    {value:'default',label:'EASY默认模板'},
+    {value:'1',label:'一列'},
+    {value:'2',label:'二列'},
+    {value:'3',label:'三列'},
+    {value:'4',label:'四列'},
+    {value:'99',label:'自适应'},
   ],
   form_template_mobile:[
     {value:'ledefault',label:'ACE默认模板'},
@@ -32,7 +35,7 @@ export const DICT={
     {value:'group',label:'组合查询'}
   ],
   db_type:[
-    {value:'string',label:'String'},
+    {value:'String',label:'String'},
     {value:'int',label:'Integer'},
     {value:'double',label:'Double'},
     {value:'Date',label:'Date'},

@@ -1,0 +1,17 @@
+<div class="modal-header">
+  <div class="modal-title">同步数据库</div>
+</div>
+
+<form nz-form #f="ngForm" se-container="1">
+  <se required  label="选择同步方式">
+    <nz-radio-group [(ngModel)]="synMethod" name="synMethod">
+      <label nz-radio  nzValue="normal">普通同步(保留表数据)</label>
+      <label nz-radio  nzValue="force">强制同步(删除表,重新生成)</label>
+    </nz-radio-group>
+  </se>
+</form>
+
+<div class="modal-footer">
+  <button nz-button type="button" (click)="close()">关闭</button>
+  <button nz-button type="submit" nzType="primary" (click)="save(f.value)" [disabled]="!f.valid" [nzLoading]="http.loading">保存</button>
+</div>

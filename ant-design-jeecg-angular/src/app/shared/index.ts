@@ -12,3 +12,6 @@ export * from './shared.module';
 
 // Service
 export * from './service/dict.service';
+// const
+export * from './const/dict.const'
+export * from './const/viewtowidget.const'

@@ -14,7 +14,7 @@
 
 
     <properties>
-        <activiti-dependencies.version>7.1.10</activiti-dependencies.version>
+        <activiti-dependencies.version>7.0.0.SR1</activiti-dependencies.version>
     </properties>
 
     <dependencyManagement>
