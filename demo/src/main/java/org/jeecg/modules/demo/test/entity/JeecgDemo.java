@@ -24,38 +24,44 @@ public class JeecgDemo implements Serializable {
 
 	/** 主键ID */
 	@TableId(type = IdType.UUID)
-	private String id;
+	private java.lang.String id;
 	/** 姓名 */
-	@Excel(name="姓名",width=15)
-	private String name;
+	@Excel(name="姓名",width=25)
+	private java.lang.String name;
 	/** 关键词 */
 	@Excel(name="关键词",width=15)
-	private String keyWord;
+	private java.lang.String keyWord;
 	/** 打卡时间 */
 	@JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-	@Excel(name="生日",format="yyyy-MM-dd")
-	private Date punchTime;
+	@Excel(name="打卡时间",width=20,format="yyyy-MM-dd HH:mm:ss")
+	private java.util.Date punchTime;
 	/** 工资 */
+	@Excel(name="工资",width=15)
 	private java.math.BigDecimal salaryMoney;
 	/** 奖金 */
-	private Double bonusMoney;
+	@Excel(name="奖金",width=15)
+	private java.lang.Double bonusMoney;
 	/** 性别 {男:1,女:2} */
-	private String sex;
+	@Excel(name = "性别", width = 15, dicCode = "sex")
+	private java.lang.String sex;
 	/** 年龄 */
-	private Integer age;
+	@Excel(name="年龄",width=15)
+	private java.lang.Integer age;
 	/** 生日 */
 	@JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd")
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private Date birthday;
+	@Excel(name="生日",format="yyyy-MM-dd")
+	private java.util.Date birthday;
 	/** 邮箱 */
-	private String email;
+	@Excel(name="邮箱",width=30)
+	private java.lang.String email;
 	/** 个人简介 */
-	private String content;
+	private java.lang.String content;
 	/** createTime */
 	@JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-	private Date createTime;
+	private java.util.Date createTime;
 	/** 创建人 */
 	private String createBy;
 	/** 更新人 */

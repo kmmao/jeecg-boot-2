@@ -1,11 +1,18 @@
 package org.jeecg.modules.demo.test.controller;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import lombok.extern.slf4j.Slf4j;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.jeecg.common.api.vo.Result;
 import org.jeecg.common.system.query.QueryGenerator;
+import org.jeecg.common.util.oConvertUtils;
 import org.jeecg.modules.demo.test.entity.JeecgOrderCustomer;
 import org.jeecg.modules.demo.test.entity.JeecgOrderMain;
 import org.jeecg.modules.demo.test.entity.JeecgOrderTicket;
@@ -20,17 +27,25 @@ import org.jeecgframework.poi.excel.entity.ImportParams;
 import org.jeecgframework.poi.excel.view.JeecgEntityExcelView;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import com.alibaba.fastjson.JSON;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @Title: Controller
@@ -213,10 +228,26 @@ public class JeecgOrderMainController {
 	 */
 	@RequestMapping(value = "/exportXls")
 	public ModelAndView exportXls(HttpServletRequest request, HttpServletResponse response) {
+		// Step.1 组装查询条件
+		QueryWrapper<JeecgOrderMain> queryWrapper = null;
+		try {
+			String paramsStr = request.getParameter("paramsStr");
+			if (oConvertUtils.isNotEmpty(paramsStr)) {
+				String deString = URLDecoder.decode(paramsStr, "UTF-8");
+				JeecgOrderMain jeecgOrderMain = JSON.parseObject(deString, JeecgOrderMain.class);
+				queryWrapper = QueryGenerator.initQueryWrapper(jeecgOrderMain, request.getParameterMap());
+				log.info(paramsStr);
+				log.info(jeecgOrderMain.toString());
+			}
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+
+		//Step.2 AutoPoi 导出Excel
 		ModelAndView mv = new ModelAndView(new JeecgEntityExcelView());
 		List<JeecgOrderMainPage> pageList = new ArrayList<JeecgOrderMainPage>();
 
-		List<JeecgOrderMain> jeecgOrderMainList = jeecgOrderMainService.list();
+		List<JeecgOrderMain> jeecgOrderMainList = jeecgOrderMainService.list(queryWrapper);
 		for (JeecgOrderMain orderMain : jeecgOrderMainList) {
 			JeecgOrderMainPage vo = new JeecgOrderMainPage();
 			BeanUtils.copyProperties(orderMain, vo);
