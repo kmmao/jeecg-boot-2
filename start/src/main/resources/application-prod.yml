@@ -5,7 +5,25 @@ server:
     compression:
       enabled: true
       mime-types: application/javascript,application/json,application/xml,text/html,text/xml,text/plain,text/css,image/*
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: metrics,httptrace
+
 spring:
+  mail:
+    host: smtp.163.com
+    username: jeecgos@163.com
+    password: ??
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
   ## quartz定时任务,采用数据库方式
   quartz:
     job-store-type: jdbc
@@ -89,9 +107,6 @@ spring:
       shutdown-timeout: 100ms
     password: ''
     port: 6379
-  servlet:
-    multipart:
-      max-file-size: 500MB
 #mybatis plus 设置
 mybatis-plus:
   mapper-locations: classpath*:org/jeecg/modules/**/xml/*Mapper.xml
