@@ -1,10 +1,13 @@
 package org.jeecg.modules.online.cgreport.util;
 
 import java.text.MessageFormat;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.jeecg.common.util.oConvertUtils;
 
@@ -49,6 +52,7 @@ public class SqlUtil {
      * @param params
      * @return
      */
+    //TODO 规则要改
     public static String getFullSql(String sql,Map params){
         StringBuilder sqlB =  new StringBuilder();
         sqlB.append("SELECT t.* FROM ( ");
@@ -161,13 +165,13 @@ public class SqlUtil {
     //add-begin--Author:luobaoli  Date:20150620 for：增加各个数据库获取表的SQL和获取指定表列的SQL
     public static String getAllTableSql(String dbType,String ... param){
     	if(oConvertUtils.isNotEmpty(dbType)){
-	    	if(dbType.equals(DATABSE_TYPE_MYSQL)){
+	    	if(DATABSE_TYPE_MYSQL.equals(dbType)){
 	    		return MessageFormat.format(MYSQL_ALLTABLES_SQL, param);
-	    	}else if(dbType.equals(DATABSE_TYPE_ORACLE)){
+	    	}else if(DATABSE_TYPE_ORACLE.equals(dbType)){
 	    		return ORACLE__ALLTABLES_SQL;
-	    	}else if(dbType.equals(DATABSE_TYPE_POSTGRE)){
+	    	}else if(DATABSE_TYPE_POSTGRE.equals(dbType)){
 	    		return POSTGRE__ALLTABLES_SQL;
-	    	}else if(dbType.equals(DATABSE_TYPE_SQLSERVER)){
+	    	}else if(DATABSE_TYPE_SQLSERVER.equals(dbType)){
 	    		return SQLSERVER__ALLTABLES_SQL;
 	    	}
     	}
@@ -176,13 +180,13 @@ public class SqlUtil {
     
     public static String getAllCloumnSql(String dbType,String ... param){
     	if(oConvertUtils.isNotEmpty(dbType)){
-	    	if(dbType.equals(DATABSE_TYPE_MYSQL)){
+	    	if(DATABSE_TYPE_MYSQL.equals(dbType)){
 	    		return MessageFormat.format(MYSQL_ALLCOLUMNS_SQL, param);
-	    	}else if(dbType.equals(DATABSE_TYPE_ORACLE)){
+	    	}else if(DATABSE_TYPE_ORACLE.equals(dbType)){
 	    		return MessageFormat.format(ORACLE_ALLCOLUMNS_SQL, param);
-	    	}else if(dbType.equals(DATABSE_TYPE_POSTGRE)){
+	    	}else if(DATABSE_TYPE_POSTGRE.equals(dbType)){
 	    		return MessageFormat.format(POSTGRE_ALLCOLUMNS_SQL, param);
-	    	}else if(dbType.equals(DATABSE_TYPE_SQLSERVER)){
+	    	}else if(DATABSE_TYPE_SQLSERVER.equals(dbType)){
 	    		return MessageFormat.format(SQLSERVER_ALLCOLUMNS_SQL, param);
 	    	}
     	}
@@ -216,5 +220,41 @@ public class SqlUtil {
 			//System.out.println(sql);
 		}
 		return sql;
+	}
+	
+	/**
+	  * 获取页面查询参数
+	 * @param request
+	 * @return
+	 */
+	public static Map<String, Object> getParameterMap(HttpServletRequest request) {
+		// 参数Map
+		Map<?, ?> properties = request.getParameterMap();
+		// 返回值Map 
+		Map<String, Object> returnMap = new HashMap<String, Object>();
+		Iterator<?> entries = properties.entrySet().iterator();
+		
+		Map.Entry<String, Object> entry;
+		String name = "";
+		String value = "";
+		Object valueObj =null;
+		while (entries.hasNext()) {
+			entry = (Map.Entry<String, Object>) entries.next();
+			name = (String) entry.getKey();
+			valueObj = entry.getValue();
+			if ("_t".equals(name) || null == valueObj) {
+				value = "";
+			} else if (valueObj instanceof String[]) {
+				String[] values = (String[]) valueObj;
+				for (int i = 0; i < values.length; i++) {
+					value = values[i] + ",";
+				}
+				value = value.substring(0, value.length() - 1);
+			} else {
+				value = valueObj.toString();
+			}
+			returnMap.put(name, value);
+		} 
+		return returnMap;
 	}
 }

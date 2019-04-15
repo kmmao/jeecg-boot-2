@@ -7,6 +7,11 @@
 		${_parameter}
 	</select>
 	
+	<!-- 执行select count语句 -->
+	<select id="queryCountBySql" parameterType="java.lang.String" resultType="java.lang.Long">
+		${_parameter}
+	</select>
+	
 	<!-- 执行select sql语句 -->
 	<select id="findForListMap" resultType="map" parameterType="map">
 		${_parameter}

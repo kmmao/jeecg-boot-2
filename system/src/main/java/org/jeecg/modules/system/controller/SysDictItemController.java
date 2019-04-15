@@ -54,6 +54,7 @@ public class SysDictItemController {
 									  @RequestParam(name="pageSize", defaultValue="10") Integer pageSize,HttpServletRequest req) {
 		Result<IPage<SysDictItem>> result = new Result<IPage<SysDictItem>>();
 		QueryWrapper<SysDictItem> queryWrapper = QueryGenerator.initQueryWrapper(sysDictItem, req.getParameterMap());
+		queryWrapper.orderByAsc("sort_order");
 		Page<SysDictItem> page = new Page<SysDictItem>(pageNo, pageSize);
 		IPage<SysDictItem> pageList = sysDictItemService.page(page, queryWrapper);
 		result.setSuccess(true);

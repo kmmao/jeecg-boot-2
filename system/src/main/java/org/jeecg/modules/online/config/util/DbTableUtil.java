@@ -95,6 +95,22 @@ public class DbTableUtil {
 		}
 	}
 	
+	public static String getDatabaseType(DataSource dataSource) throws SQLException, DBException {
+		DatabaseMetaData md = dataSource.getConnection().getMetaData();
+		String dbType = md.getDatabaseProductName().toLowerCase();
+		if(dbType.indexOf("mysql")>=0) {
+			return DB_TYPE_MYSQL;
+		}else if(dbType.indexOf("oracle")>=0) {
+			return DB_TYPE_ORACLE;
+		}else if(dbType.indexOf("sqlserver")>=0) {
+			return DB_TYPE_SQLSERVER;
+		}else if(dbType.indexOf("postgresql")>=0) {
+			return DB_TYPE_POSTGRESQL;
+		}else {
+			throw new DBException("数据库类型:["+dbType+"]不识别!");
+		}
+	}
+	
 	public static String getDataType(Session session) throws SQLException, DBException{
 		return getDatabaseType();
 	}

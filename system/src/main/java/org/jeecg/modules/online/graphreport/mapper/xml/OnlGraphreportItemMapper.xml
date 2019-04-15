@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.jeecg.modules.online.graphreport.mapper.OnlGraphreportItemMapper">
+	
+	<select id="selectByMainId" parameterType="java.lang.String" resultType="org.jeecg.modules.online.graphreport.entity.OnlGraphreportItem">
+		SELECT * FROM onl_graphreport_item
+		WHERE graphreport_head_id = #{id}
+		ORDER BY order_num ASC
+	</select>
+
+	<delete id="deleteByMainId" parameterType="java.lang.String">
+		DELETE FROM onl_graphreport_item
+		WHERE graphreport_head_id = #{id}
+	</delete>
+
+</mapper>

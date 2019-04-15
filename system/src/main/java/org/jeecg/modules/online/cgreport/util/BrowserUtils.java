@@ -113,34 +113,48 @@ public class BrowserUtils {
 
 	public static String checkBrowse(HttpServletRequest request) {
 		String userAgent = request.getHeader("USER-AGENT");
-		if (regex(OPERA, userAgent))
+		if (regex(OPERA, userAgent)) {
 			return OPERA;
-		if (regex(CHROME, userAgent))
+		}
+		if (regex(CHROME, userAgent)) {
 			return CHROME;
-		if (regex(FIREFOX, userAgent))
+		}
+		if (regex(FIREFOX, userAgent)) {
 			return FIREFOX;
-		if (regex(SAFARI, userAgent))
+		}
+		if (regex(SAFARI, userAgent)) {
 			return SAFARI;
-		if (regex(SE360, userAgent))
+		}
+		if (regex(SE360, userAgent)) {
 			return SE360;
-		if (regex(GREEN, userAgent))
+		}
+		if (regex(GREEN, userAgent)) {
 			return GREEN;
-		if (regex(QQ, userAgent))
+		}
+		if (regex(QQ, userAgent)) {
 			return QQ;
-		if (regex(MAXTHON, userAgent))
+		}
+		if (regex(MAXTHON, userAgent)) {
 			return MAXTHON;
-		if (regex(IE11, userAgent))
+		}
+		if (regex(IE11, userAgent)) {
 			return IE11;
-		if (regex(IE10, userAgent))
+		}
+		if (regex(IE10, userAgent)) {
 			return IE10;
-		if (regex(IE9, userAgent))
+		}
+		if (regex(IE9, userAgent)) {
 			return IE9;
-		if (regex(IE8, userAgent))
+		}
+		if (regex(IE8, userAgent)) {
 			return IE8;
-		if (regex(IE7, userAgent))
+		}
+		if (regex(IE7, userAgent)) {
 			return IE7;
-		if (regex(IE6, userAgent))
+		}
+		if (regex(IE6, userAgent)) {
 			return IE6;
+		}
 		return OTHER;
 	}
 

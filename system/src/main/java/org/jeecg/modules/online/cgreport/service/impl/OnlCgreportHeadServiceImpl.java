@@ -51,8 +51,24 @@ public class OnlCgreportHeadServiceImpl extends ServiceImpl<OnlCgreportHeadMappe
 	 * @param sql
 	 */
 	@Override
-	public List<Map<?, ?>> executeSelete(String sql) {
-		return mapper.executeSelete(sql);
+	public Map<String, Object> executeSelectSql(String sql,Map<String,Object> params) {
+		Map<String, Object> result = new HashMap<>();
+		
+		//1、分页查询逻辑
+		Integer pageSize = oConvertUtils.getInt(params.get("pageSize"),10);
+		Integer pageNo = oConvertUtils.getInt(params.get("pageNo"),1);
+		String pagesql = SqlUtil.jeecgCreatePageSql(sql,null,pageNo,pageSize);
+		
+		//2、排序逻辑
+		//TODO
+		
+		//TODO 页面查询条件未实现
+		String countSql = SqlUtil.getCountSql(sql, null);
+		Long cl = mapper.queryCountBySql(countSql);
+		
+		result.put("total", cl);
+		result.put("records", mapper.executeSelete(pagesql));
+		return result;
 	}
 
 	/** 修改全部项，包括新增、修改、删除 */
@@ -133,6 +149,7 @@ public class OnlCgreportHeadServiceImpl extends ServiceImpl<OnlCgreportHeadMappe
 	/**
 	 * 动态数据源： 获取SQL解析的字段
 	 */
+	@Override
 	public List<String> getSqlFields(String sql,String dbKey){
 		List<String> fields = null;
 		sql = SqlUtil.getSql(sql);
@@ -148,6 +165,7 @@ public class OnlCgreportHeadServiceImpl extends ServiceImpl<OnlCgreportHeadMappe
 	/**
 	 * 解析SQL参数
 	 */
+	@Override
 	public List<String> getSqlParams(String sql) {
 		if(oConvertUtils.isEmpty(sql)){
 			return null;
@@ -188,6 +206,7 @@ public class OnlCgreportHeadServiceImpl extends ServiceImpl<OnlCgreportHeadMappe
 	}
 	
 	
+	@Override
 	public Map<String, Object> queryCgReportConfig(String reportId) {
 		Map<String,Object> cgReportM = new HashMap<String, Object>(0);
 		Map<String,Object> mainM = mapper.queryCgReportMainConfig(reportId);
@@ -202,6 +221,7 @@ public class OnlCgreportHeadServiceImpl extends ServiceImpl<OnlCgreportHeadMappe
 	/**
 	 * 分页查询报表数据
 	 */
+	@Override
 	public List<Map<?, ?>> queryByCgReportSql(String sql, Map params,Map paramData,
 			int page, int rows) {
 		String querySql = SqlUtil.getFullSql(sql,params);

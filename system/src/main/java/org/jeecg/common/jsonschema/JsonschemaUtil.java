@@ -1,5 +1,6 @@
 package org.jeecg.common.jsonschema;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -34,6 +35,34 @@ public class JsonschemaUtil {
 		}
 		obj.put("properties", properties);
 		log.info("---JSONSchema--->"+obj.toString());
+		return obj;
+	}
+	
+	/**
+	 * 生成JsonSchema 用于子对象
+	 * @param title 子对象描述
+	 * @param requiredArr 子对象必填属性名集合
+	 * @param propertyList 子对象属性集合
+	 * @return
+	 */
+	public static JSONObject getSubJsonSchema(String title,List<String> requiredArr,List<CommonProperty> propertyList) {
+		JSONObject obj = new JSONObject();
+		obj.put("type", "object");
+		obj.put("view", "tab");
+		obj.put("title", title);
+
+		if(requiredArr==null) {
+			requiredArr = new ArrayList<String>();
+		}
+		obj.put("required", requiredArr);
+
+		JSONObject properties = new JSONObject();
+		for (CommonProperty commonProperty : propertyList) {
+			Map<String, Object> map = commonProperty.getPropertyJson();
+			properties.put(map.get("key").toString(), map.get("prop"));
+		}
+		obj.put("properties", properties);
+		//log.info("---JSONSchema--->"+obj.toString());
 		return obj;
 	}
 

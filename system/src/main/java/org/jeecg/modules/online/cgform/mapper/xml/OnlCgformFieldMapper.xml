@@ -27,6 +27,12 @@
 		${sqlStr}
 	</select>
 	
+	<!-- 执行select 查询集合 -->
+	<select id="queryListData" parameterType="java.lang.String" resultType="java.util.HashMap">
+		${sqlStr}
+	</select>
+	
+	<!-- 执行delete 删除数据 -->
 	<delete id="deleteAutoList" parameterType="java.lang.String">
 		${sqlStr}
 	</delete>

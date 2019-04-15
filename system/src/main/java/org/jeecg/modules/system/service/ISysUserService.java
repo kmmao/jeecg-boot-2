@@ -2,6 +2,8 @@ package org.jeecg.modules.system.service;
 
 import java.util.List;
 import org.jeecg.modules.system.entity.SysUser;
+import org.jeecg.modules.system.model.SysUserCacheInfo;
+
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
@@ -21,7 +23,7 @@ public interface ISysUserService extends IService<SysUser> {
 	 * @param user
 	 * @param roles
 	 */
-	public void addUserWithRole(SysUser user, String roles);
+	public void addUserWithRole(SysUser user,String roles);
 	
 	
 	/**
@@ -29,7 +31,7 @@ public interface ISysUserService extends IService<SysUser> {
 	 * @param user
 	 * @param roles
 	 */
-	public void editUserWithRole(SysUser user, String roles);
+	public void editUserWithRole(SysUser user,String roles);
 
 	/**
 	 * 获取用户的授权角色
@@ -37,4 +39,11 @@ public interface ISysUserService extends IService<SysUser> {
 	 * @return
 	 */
 	public List<String> getRole(String username);
+	
+	/**
+	  * 查询用户信息包括 部门信息
+	 * @param username
+	 * @return
+	 */
+	public SysUserCacheInfo getCacheUser(String username);
 }

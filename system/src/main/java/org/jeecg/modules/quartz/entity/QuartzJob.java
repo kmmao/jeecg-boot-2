@@ -2,6 +2,7 @@ package org.jeecg.modules.quartz.entity;
 
 import java.io.Serializable;
 
+import org.jeecgframework.poi.excel.annotation.Excel;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.baomidou.mybatisplus.annotation.IdType;
@@ -24,29 +25,34 @@ public class QuartzJob implements Serializable {
     
 	/**id*/
 	@TableId(type = IdType.UUID)
-	private String id;
+	private java.lang.String id;
 	/**创建人*/
-	private String createBy;
+	private java.lang.String createBy;
 	/**创建时间*/
 	@JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd HH:mm:ss")
     @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
 	private java.util.Date createTime;
 	/**删除状态*/
-	private Integer delFlag;
+	private java.lang.Integer delFlag;
 	/**修改人*/
-	private String updateBy;
+	private java.lang.String updateBy;
 	/**修改时间*/
 	@JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd HH:mm:ss")
     @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
 	private java.util.Date updateTime;
 	/**任务类名*/
-	private String jobClassName;
+	@Excel(name="任务类名",width=40)
+	private java.lang.String jobClassName;
 	/**cron表达式*/
-	private String cronExpression;
+	@Excel(name="cron表达式",width=30)
+	private java.lang.String cronExpression;
 	/**参数*/
-	private String parameter;
+	@Excel(name="参数",width=15)
+	private java.lang.String parameter;
 	/**描述*/
-	private String description;
+	@Excel(name="描述",width=40)
+	private java.lang.String description;
 	/**状态 0正常 -1停止*/
-	private Integer status;
+	@Excel(name="状态",width=15)
+	private java.lang.Integer status;
 }

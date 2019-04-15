@@ -53,5 +53,12 @@ public interface OnlCgformFieldMapper extends BaseMapper<OnlCgformField> {
 	 * @return
 	 */
 	public Map<String, Object> queryFormData(@Param("sqlStr") String sql);
+	
+	/**
+	 * 执行SQL语句查询集合
+	 * @param sql
+	 * @return
+	 */
+	public List<Map<String, Object>> queryListData(@Param("sqlStr") String sql);
 
 }

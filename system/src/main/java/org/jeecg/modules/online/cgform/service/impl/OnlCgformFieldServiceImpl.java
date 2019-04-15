@@ -89,6 +89,12 @@ public class OnlCgformFieldServiceImpl extends ServiceImpl<OnlCgformFieldMapper,
 		String sql = CgformUtil.getFormDataSaveSql(tbname, fieldList, json);
 		onlCgformFieldMapper.saveFormData(sql);
 	}
+	
+	@Override
+	public void saveFormData(List<OnlCgformField> fieldList, String tbname, JSONObject json) {
+		String sql = CgformUtil.getFormDataSaveSql(tbname, fieldList, json);
+		onlCgformFieldMapper.saveFormData(sql);
+	}
 
 	@Override
 	public void editFormData(String code,String tbname, JSONObject json) {
@@ -112,7 +118,12 @@ public class OnlCgformFieldServiceImpl extends ServiceImpl<OnlCgformFieldMapper,
 
 	@Override
 	public void deleteAutoList(String tbname, String id) {
-		String[] arr = id.split(",");
+		deleteAutoList(tbname, "id", id);
+	}
+	
+	@Override
+	public void deleteAutoList(String tbname, String linkField, String linkValue) {
+		String[] arr = linkValue.split(",");
 		StringBuffer sb = new StringBuffer();
 		for (String str : arr) {
 			if(str==null||"".equals(str)) {
@@ -121,7 +132,7 @@ public class OnlCgformFieldServiceImpl extends ServiceImpl<OnlCgformFieldMapper,
 			sb.append("'"+str+"',");
 		}
 		String temp = sb.toString();
-		String sql = "DELETE FROM "+tbname + " where id in("+temp.substring(0,temp.length()-1)+")";
+		String sql = "DELETE FROM "+tbname + " where "+linkField+" in("+temp.substring(0,temp.length()-1)+")";
 		log.info("--删除sql-->"+sql);
 		this.onlCgformFieldMapper.deleteAutoList(sql);
 	}
@@ -147,6 +158,35 @@ public class OnlCgformFieldServiceImpl extends ServiceImpl<OnlCgformFieldMapper,
 		}
 		return list;
 	}
+
+	@Override
+	public List<OnlCgformField> queryFormFields(String code,boolean isform) {
+		LambdaQueryWrapper<OnlCgformField> query = new LambdaQueryWrapper<OnlCgformField>();
+		query.eq(OnlCgformField::getCgformHeadId, code);
+		if(isform) {
+			query.eq(OnlCgformField::getIsShowForm,1);
+		}
+		return this.list(query);
+	}
+
+	@Override
+	public Map<String, Object> queryFormData(List<OnlCgformField> fieldList, String tbname, String id) {
+		String sql = CgformUtil.getSelectFormSql(tbname, fieldList, id);
+		return onlCgformFieldMapper.queryFormData(sql);
+	}
+
+	@Override
+	public List<Map<String, Object>> querySubFormData(List<OnlCgformField> fieldList, String tbname, String linkField,
+			String value) {
+		String sql = CgformUtil.getSelectSubFormSql(tbname, fieldList, linkField, value);
+		return onlCgformFieldMapper.queryListData(sql);
+	}
+
+	
+
+	
+
+	
 
 	
 }

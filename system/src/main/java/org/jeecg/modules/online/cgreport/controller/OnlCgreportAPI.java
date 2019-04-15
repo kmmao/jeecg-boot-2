@@ -17,11 +17,12 @@ import org.jeecg.common.util.oConvertUtils;
 import org.jeecg.modules.online.cgreport.def.CgReportConstant;
 import org.jeecg.modules.online.cgreport.entity.OnlCgreportHead;
 import org.jeecg.modules.online.cgreport.entity.OnlCgreportItem;
-import org.jeecg.modules.online.cgreport.service.CgReportExcelServiceI;
 import org.jeecg.modules.online.cgreport.service.IOnlCgreportHeadService;
 import org.jeecg.modules.online.cgreport.service.IOnlCgreportItemService;
 import org.jeecg.modules.online.cgreport.util.BrowserUtils;
 import org.jeecg.modules.online.cgreport.util.CgReportQueryParamUtil;
+import org.jeecg.modules.online.cgreport.util.SqlUtil;
+import org.jeecg.modules.system.service.ISysDictService;
 import org.jeecgframework.poi.excel.ExcelExportUtil;
 import org.jeecgframework.poi.excel.entity.ExportParams;
 import org.jeecgframework.poi.excel.entity.params.ExcelExportEntity;
@@ -49,11 +50,10 @@ public class OnlCgreportAPI {
 
 	@Autowired
 	private IOnlCgreportHeadService onlCgreportHeadService;
-
 	@Autowired
 	private IOnlCgreportItemService onlCgreportItemService;
 	@Autowired
-	private CgReportExcelServiceI cgReportExcelService;
+	private ISysDictService sysDictService;
 
 	/**
 	 * 通过 head code 获取 所有的 item，并生成 columns 所需的 json
@@ -78,8 +78,8 @@ public class OnlCgreportAPI {
 			Map<String, String> column = new HashMap<String, String>(3);
 			column.put("title", item.getFieldTxt());
 			column.put("dataIndex", item.getFieldName());
-
 			column.put("align", "center");
+			column.put("sorter", "true");
 
 			array.add(column);
 		}
@@ -97,16 +97,18 @@ public class OnlCgreportAPI {
 	 * @return
 	 */
 	@GetMapping(value = "/getData/{code}")
-	public Result<?> getData(@PathVariable("code") String code) {
+	public Result<?> getData(@PathVariable("code") String code,HttpServletRequest request) {
 		OnlCgreportHead head = onlCgreportHeadService.getById(code);
 		if (head == null) {
 			return Result.error("实体不存在");
 		}
 		String sql = head.getCgrSql();
 		try {
-			List<Map<?, ?>> listMap = onlCgreportHeadService.executeSelete(sql);
-			return Result.ok(listMap);
+			Map<String,Object> params = SqlUtil.getParameterMap(request);
+			Map<String, Object> reslutMap = onlCgreportHeadService.executeSelectSql(sql,params);
+			return Result.ok(reslutMap);
 		} catch (Exception e) {
+			e.printStackTrace();
 			return Result.error("SQL执行失败：" + e.getMessage());
 		}
 
@@ -185,13 +187,33 @@ public class OnlCgreportAPI {
                 result= onlCgreportHeadService.queryByCgReportSql(querySql, pageSearchFields,paramData, -1, -1);
             }
             
-			//转换Autopoi，Map导出所需要的字段参数
-            List<ExcelExportEntity> entityList = new ArrayList<ExcelExportEntity>();
-			for (int i = 0;i< fieldList.size();i++){
-				entityList.add(new ExcelExportEntity(fieldList.get(i).get("field_txt").toString(),fieldList.get(i).get("field_name"),15));
+			// Step.4 组装AutoPoi所需参数
+			List<ExcelExportEntity> entityList = new ArrayList<ExcelExportEntity>();
+			for (int i = 0; i < fieldList.size(); i++) {
+				// 过滤不展示的字段
+				if ("1".equals(oConvertUtils.getString(fieldList.get(i).get("is_show")))) {
+					ExcelExportEntity expEntity = new ExcelExportEntity(fieldList.get(i).get("field_txt").toString(), fieldList.get(i).get("field_name"), 15);
+					
+					//1. 字典值设置
+					Object dictCode = fieldList.get(i).get("dict_code");
+					if (oConvertUtils.isNotEmpty(dictCode)) {
+						List<String> dictReplaces = new ArrayList<String>();
+						List<Map<String, Object>> dictList = sysDictService.queryDictItemsByCode(dictCode.toString());
+						for (Map<String, Object> d : dictList) {
+							dictReplaces.add(d.get("text") + "_" + d.get("value"));
+						}
+						//男_1, 女_2
+						expEntity.setReplace(dictReplaces.toArray(new String[dictReplaces.size()]));
+					}
+					//2. 取值表达式(男_1, 女_2)
+					//TODO oracle下大小写兼容问题
+					Object replace_val = fieldList.get(i).get("replace_val");
+					if(oConvertUtils.isNotEmpty(replace_val)) {
+						expEntity.setReplace(replace_val.toString().split(","));
+					}
+					entityList.add(expEntity);
+				}
 			}
-			
-			//TODO 字典逻辑处理
 			
 			//---------------------------------------------------------------------------------------------------------------------
 			response.setContentType("application/vnd.ms-excel");

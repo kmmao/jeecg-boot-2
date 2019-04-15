@@ -16,8 +16,24 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  */
 public interface OnlCgformHeadMapper extends BaseMapper<OnlCgformHead> {
 	
+	/**
+	 * 执行DDL语句
+	 * @param sql
+	 */
 	public void executeDDL(@Param("sqlStr") String sql);
 	
+	/**
+	 * 执行SQL语句查询集合
+	 * @param sql
+	 * @return
+	 */
 	public List<Map<String,Object>> queryList(@Param("sqlStr") String sql);
+	
+	/**
+	 * 查询Online所有的配置表名集合
+	 * @return
+	 */
+	public List<String> queryOnlinetables();
+
 	
 }

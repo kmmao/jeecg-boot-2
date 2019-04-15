@@ -52,7 +52,7 @@ public class FindsDepartsChildrenUtil {
         List<SysDepartTreeModel> treeList = new ArrayList<>();
         for (int i = 0; i < recordList.size(); i++) {
             SysDepartTreeModel branch = recordList.get(i);
-            if (branch.getParentId().equals("")) {
+            if ("".equals(branch.getParentId())) {
                 treeList.add(branch);
                 DepartIdModel departIdModel = new DepartIdModel().convert(branch);
                 idList.add(departIdModel);
@@ -95,8 +95,10 @@ public class FindsDepartsChildrenUtil {
             SysDepartTreeModel model = treeList.get(i);
             if (model.getChildren().size() == 0) {
                 model.setChildren(null);
+                model.setIsLeaf(true);
             }else{
                 setEmptyChildrenAsNull(model.getChildren());
+                model.setIsLeaf(false);
             }
         }
     }

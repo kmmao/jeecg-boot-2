@@ -19,7 +19,7 @@ public enum QueryRuleEnum {
     LIKE("LIKE","like","全模糊"),
     LEFT_LIKE("LEFT_LIKE","left_like","左模糊"),
     RIGHT_LIKE("RIGHT_LIKE","right_like","右模糊"),
-    SQL_RULES("EXTEND_SQL","ext","自定义SQL片段");
+    SQL_RULES("USE_SQL_RULES","ext","自定义SQL片段");
 
     private String value;
     

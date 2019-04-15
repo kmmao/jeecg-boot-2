@@ -12,5 +12,10 @@
 	<select id="queryList" parameterType="java.lang.String" resultType="java.util.HashMap">
 		${sqlStr}
 	</select>
-
+	
+	<!-- 查询Online所有的配置表名集合 -->
+	<select id="queryOnlinetables" resultType="java.lang.String">
+		select table_name from onl_cgform_head
+	</select>
+	
 </mapper>

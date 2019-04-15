@@ -14,21 +14,25 @@ import org.springframework.stereotype.Service;
 public class DbTableMysqlHandleImpl implements DbTableHandleI {
 
 	
+	@Override
 	public String getAddColumnSql(ColumnMeta columnMeta) {
 		return " ADD COLUMN "+getAddFieldDesc(columnMeta)+";";
 	}
 
 	
+	@Override
 	public String getReNameFieldName(ColumnMeta columnMeta) {
 		return "CHANGE COLUMN "+columnMeta.getOldColumnName() +" "+getRenameFieldDesc(columnMeta)+ " ;";
 	}
 
 	
+	@Override
 	public String getUpdateColumnSql(ColumnMeta cgformcolumnMeta,ColumnMeta datacolumnMeta) {
 		return " MODIFY COLUMN "+getUpdateFieldDesc(cgformcolumnMeta,datacolumnMeta)+ ";";
 	}
 
 	
+	@Override
 	public String getMatchClassTypeByDataType(String dataType,int digits) {
 		String result ="";
 		if (dataType.equalsIgnoreCase("varchar")) {
@@ -52,11 +56,13 @@ public class DbTableMysqlHandleImpl implements DbTableHandleI {
 	}
 
 	
+	@Override
 	public String dropTableSQL(String tableName) {
 		return " DROP TABLE IF EXISTS "+tableName+" ;";
 	}
 
 	
+	@Override
 	public String getDropColumnSql(String fieldName) {
 		 return " DROP COLUMN "+fieldName+";";
 	}
@@ -69,19 +75,19 @@ public class DbTableMysqlHandleImpl implements DbTableHandleI {
 	private String getFieldDesc(ColumnMeta cgfromcolumnMeta,ColumnMeta datacolumnMeta){
 		String result ="";
 		if(cgfromcolumnMeta.getColunmType().equalsIgnoreCase("string")){
-			result = cgfromcolumnMeta.getColumnName()+" varchar("+cgfromcolumnMeta.getColumnSize()+")"+" "+(cgfromcolumnMeta.getIsNullable().equals("Y")?"NULL":"NOT NULL");
+			result = cgfromcolumnMeta.getColumnName()+" varchar("+cgfromcolumnMeta.getColumnSize()+")"+" "+("Y".equals(cgfromcolumnMeta.getIsNullable())?"NULL":"NOT NULL");
 		}else if(cgfromcolumnMeta.getColunmType().equalsIgnoreCase("date")){
-			result = cgfromcolumnMeta.getColumnName()+" datetime"+" "+(cgfromcolumnMeta.getIsNullable().equals("Y")?"NULL":"NOT NULL");
+			result = cgfromcolumnMeta.getColumnName()+" datetime"+" "+("Y".equals(cgfromcolumnMeta.getIsNullable())?"NULL":"NOT NULL");
 		}else if(cgfromcolumnMeta.getColunmType().equalsIgnoreCase("int")){
-			result = cgfromcolumnMeta.getColumnName()+" int("+cgfromcolumnMeta.getColumnSize()+")"+" "+(cgfromcolumnMeta.getIsNullable().equals("Y")?"NULL":"NOT NULL");
+			result = cgfromcolumnMeta.getColumnName()+" int("+cgfromcolumnMeta.getColumnSize()+")"+" "+("Y".equals(cgfromcolumnMeta.getIsNullable())?"NULL":"NOT NULL");
 		}else if(cgfromcolumnMeta.getColunmType().equalsIgnoreCase("double")){
-			result = cgfromcolumnMeta.getColumnName()+" double("+cgfromcolumnMeta.getColumnSize()+","+cgfromcolumnMeta.getDecimalDigits()+")"+" "+(cgfromcolumnMeta.getIsNullable().equals("Y")?"NULL":"NOT NULL");
+			result = cgfromcolumnMeta.getColumnName()+" double("+cgfromcolumnMeta.getColumnSize()+","+cgfromcolumnMeta.getDecimalDigits()+")"+" "+("Y".equals(cgfromcolumnMeta.getIsNullable())?"NULL":"NOT NULL");
 		}else if(cgfromcolumnMeta.getColunmType().equalsIgnoreCase("bigdecimal")){
-			result = cgfromcolumnMeta.getColumnName()+" decimal("+cgfromcolumnMeta.getColumnSize()+","+cgfromcolumnMeta.getDecimalDigits()+")"+" "+(cgfromcolumnMeta.getIsNullable().equals("Y")?"NULL":"NOT NULL");
+			result = cgfromcolumnMeta.getColumnName()+" decimal("+cgfromcolumnMeta.getColumnSize()+","+cgfromcolumnMeta.getDecimalDigits()+")"+" "+("Y".equals(cgfromcolumnMeta.getIsNullable())?"NULL":"NOT NULL");
 		}else if(cgfromcolumnMeta.getColunmType().equalsIgnoreCase("text")){
-			result = cgfromcolumnMeta.getColumnName()+" text "+(cgfromcolumnMeta.getIsNullable().equals("Y")?"NULL":"NOT NULL");
+			result = cgfromcolumnMeta.getColumnName()+" text "+("Y".equals(cgfromcolumnMeta.getIsNullable())?"NULL":"NOT NULL");
 		}else if(cgfromcolumnMeta.getColunmType().equalsIgnoreCase("blob")){
-			result = cgfromcolumnMeta.getColumnName()+" blob "+(cgfromcolumnMeta.getIsNullable().equals("Y")?"NULL":"NOT NULL");
+			result = cgfromcolumnMeta.getColumnName()+" blob "+("Y".equals(cgfromcolumnMeta.getIsNullable())?"NULL":"NOT NULL");
 		}
 		result += (StringUtils.isNotEmpty(cgfromcolumnMeta.getComment())?" COMMENT '"+cgfromcolumnMeta.getComment()+"'":" ");
 		result += (StringUtils.isNotEmpty(cgfromcolumnMeta.getFieldDefault())?" DEFAULT "+cgfromcolumnMeta.getFieldDefault():" ");
@@ -111,11 +117,13 @@ public class DbTableMysqlHandleImpl implements DbTableHandleI {
 	 * Mysql注释是和修改的sql一起的,所以返回空字符串就可以了
 	 */
 	
+	@Override
 	public String getCommentSql(ColumnMeta columnMeta) {
 		return "";
 	}
 
 	
+	@Override
 	public String getSpecialHandle(ColumnMeta cgformcolumnMeta,
 			ColumnMeta datacolumnMeta) {
 		return null;

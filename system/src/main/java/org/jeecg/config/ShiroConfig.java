@@ -46,6 +46,8 @@ public class ShiroConfig {
 		filterChainDefinitionMap.put("/auth/2step-code", "anon");//登录验证码
 		filterChainDefinitionMap.put("/test/jeecgDemo/**", "anon"); //测试接口
 		filterChainDefinitionMap.put("/test/jeecgOrderMain/**", "anon"); //测试接口
+		filterChainDefinitionMap.put("/**/exportXls", "anon"); //导出接口
+		filterChainDefinitionMap.put("/**/importExcel", "anon"); //导入接口
 		filterChainDefinitionMap.put("/sys/common/view/**", "anon");//图片预览不限制token
 		filterChainDefinitionMap.put("/", "anon");
 		filterChainDefinitionMap.put("/**/*.js", "anon");
@@ -60,6 +62,11 @@ public class ShiroConfig {
 		filterChainDefinitionMap.put("/swagger**/**", "anon");
 		filterChainDefinitionMap.put("/webjars/**", "anon");
 		filterChainDefinitionMap.put("/v2/**", "anon");
+		
+		//性能监控
+		filterChainDefinitionMap.put("/actuator/metrics/**", "anon");
+		filterChainDefinitionMap.put("/actuator/httptrace/**", "anon");
+		filterChainDefinitionMap.put("/redis/**", "anon");
 		
 		//用户，需要角色权限 “user”
 		//filterChainDefinitionMap.put("/test/**", "roles[test]");
@@ -84,6 +91,7 @@ public class ShiroConfig {
 		//TODO 排除Online请求
 		filterChainDefinitionMap.put("/auto/cgform/**", "anon");
 		filterChainDefinitionMap.put("/online/cgreport/api/exportXls/**", "anon");
+		filterChainDefinitionMap.put("/online/cgform/api/exportXls/**", "anon");
 		//filterChainDefinitionMap.put("/cgAutoListController?list&id=**", "anon");
 		//filterChainDefinitionMap.put("/cgFormBuildController/**", "anon");
 		//TODO 排除FineReport请求

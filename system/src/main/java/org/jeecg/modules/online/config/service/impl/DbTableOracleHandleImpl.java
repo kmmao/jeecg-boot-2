@@ -15,21 +15,25 @@ import org.springframework.stereotype.Service;
 public class DbTableOracleHandleImpl implements DbTableHandleI {
 
 	
+	@Override
 	public String getAddColumnSql(ColumnMeta columnMeta) {
 		return " ADD  "+getAddFieldDesc(columnMeta)+"";
 	}
 
 	
+	@Override
 	public String getReNameFieldName(ColumnMeta columnMeta) {
 		return "RENAME COLUMN  "+columnMeta.getOldColumnName() +" TO "+columnMeta.getColumnName()+"";
 	}
 
 	
+	@Override
 	public String getUpdateColumnSql(ColumnMeta cgformcolumnMeta,ColumnMeta datacolumnMeta) {
 		return " MODIFY   "+getUpdateFieldDesc(cgformcolumnMeta,datacolumnMeta)+"";
 	}
 
 	
+	@Override
 	public String getMatchClassTypeByDataType(String dataType,int digits) {
 		//update-begin--Author:scott  Date:20180227 for：oracle针对blob\text\nvarchar2逻辑处理--------------------
 		String result ="";
@@ -59,11 +63,13 @@ public class DbTableOracleHandleImpl implements DbTableHandleI {
 	}
 
 	
+	@Override
 	public String dropTableSQL(String tableName) {
 		return " DROP TABLE  "+tableName.toLowerCase()+" ";
 	}
 
 	
+	@Override
 	public String getDropColumnSql(String fieldName) {
 		return " DROP COLUMN "+fieldName.toUpperCase()+"";
 	}
@@ -86,7 +92,7 @@ public class DbTableOracleHandleImpl implements DbTableHandleI {
 			result = columnMeta.getColumnName()+" BLOB ";
 		}
 		result += (StringUtils.isNotEmpty(columnMeta.getFieldDefault())?" DEFAULT "+columnMeta.getFieldDefault():" ");
-		result += (columnMeta.getIsNullable().equals("Y")?" NULL":" NOT NULL");
+		result += ("Y".equals(columnMeta.getIsNullable())?" NULL":" NOT NULL");
 		return result;
 	}
 	private String getUpdateFieldDesc(ColumnMeta cgformcolumnMeta,ColumnMeta datacolumnMeta) {
@@ -122,11 +128,13 @@ public class DbTableOracleHandleImpl implements DbTableHandleI {
 	}
 
 	
+	@Override
 	public String getCommentSql(ColumnMeta columnMeta) {
 		return "COMMENT ON COLUMN "+columnMeta.getTableName()+"."+columnMeta.getColumnName()+" IS '" +columnMeta.getComment()+"'";
 	}
 
 	
+	@Override
 	public String getSpecialHandle(ColumnMeta cgformcolumnMeta,
 			ColumnMeta datacolumnMeta) {
 		return null;

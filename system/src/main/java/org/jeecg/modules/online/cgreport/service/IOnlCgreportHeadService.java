@@ -31,12 +31,12 @@ public interface IOnlCgreportHeadService extends IService<OnlCgreportHead> {
 	 * @param sql
 	 * @return
 	 */
-	List<Map<?, ?>> executeSelete(String sql);
+	Map<String, Object> executeSelectSql(String sql,Map<String,Object> params);
 	
 	/**
 	 * 动态数据源： 获取SQL解析的字段
 	 */
-	public List<String> getSqlFields(String sql, String dbKey);
+	public List<String> getSqlFields(String sql,String dbKey);
 
 	
 	/**
@@ -46,6 +46,6 @@ public interface IOnlCgreportHeadService extends IService<OnlCgreportHead> {
 
 	Map<String, Object> queryCgReportConfig(String reportCode);
 	
-	public List<Map<?, ?>> queryByCgReportSql(String sql, Map params, Map paramData, int page, int rows);
+	public List<Map<?, ?>> queryByCgReportSql(String sql, Map params,Map paramData,int page, int rows);
 
 }

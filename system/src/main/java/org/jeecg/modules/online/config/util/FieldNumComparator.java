@@ -13,9 +13,11 @@ import org.jeecg.modules.online.cgform.entity.OnlCgformField;
 public class FieldNumComparator implements Comparator<OnlCgformField> {
 
 	
+	@Override
 	public int compare(OnlCgformField o1, OnlCgformField o2) {
-		if (o1 == null || o1.getOrderNum() == null || o2 == null || o2.getOrderNum() == null)
+		if (o1 == null || o1.getOrderNum() == null || o2 == null || o2.getOrderNum() == null) {
 			return -1;
+		}
 		Integer thisVal = o1.getOrderNum();
 		Integer anotherVal = o2.getOrderNum();
 		return (thisVal < anotherVal ? -1 : (thisVal == anotherVal ? 0 : 1));

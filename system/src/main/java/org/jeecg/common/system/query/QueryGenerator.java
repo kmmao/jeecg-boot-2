@@ -7,16 +7,30 @@ import java.net.URLDecoder;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import org.apache.commons.beanutils.PropertyUtils;
 import org.jeecg.common.util.oConvertUtils;
+import org.jeecg.modules.shiro.authc.util.JwtUtil;
+import org.jeecg.modules.system.entity.SysPermissionDataRule;
+import org.jeecg.modules.system.util.JeecgDataAutorUtils;
+import org.springframework.util.NumberUtils;
+
 import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class QueryGenerator {
+	
+	public static final String SQL_RULES_COLUMN = "SQL_RULES_COLUMN";
 	
 	private static final String BEGIN = "_begin";
 	private static final String END = "_end";
@@ -68,8 +82,23 @@ public class QueryGenerator {
 	 */
 	public static void installMplus(QueryWrapper<?> queryWrapper,Object searchObj,Map<String, String[]> parameterMap) {
 		
-		//区间条件组装 模糊查询 高级查询组装 简单排序
+		/*
+		 * 注意:权限查询由前端配置数据规则 当一个人有多个所属部门时候 可以在规则配置包含条件 orgCode 包含 #{sys_org_code}
+		但是不支持在自定义SQL中写orgCode in #{sys_org_code} 
+		当一个人只有一个部门 就直接配置等于条件: orgCode 等于 #{sys_org_code} 或者配置自定义SQL: orgCode = '#{sys_org_code}'
+		*/
+		
+		//区间条件组装 模糊查询 高级查询组装 简单排序 权限查询
 		PropertyDescriptor origDescriptors[] = PropertyUtils.getPropertyDescriptors(searchObj);
+		Map<String,SysPermissionDataRule> ruleMap = getRuleMap();
+		
+		//权限规则自定义SQL表达式
+		for (String c : ruleMap.keySet()) {
+			if(oConvertUtils.isNotEmpty(c) && c.startsWith(SQL_RULES_COLUMN)){
+				queryWrapper.and(i ->i.apply(getSqlRuleValue(ruleMap.get(c).getRuleValue())));
+			}
+		}
+		
 		String name, type;
 		for (int i = 0; i < origDescriptors.length; i++) {
 			//aliasName = origDescriptors[i].getName();  mybatis  不存在实体属性 不用处理别名的情况
@@ -79,7 +108,11 @@ public class QueryGenerator {
 				if (judgedIsUselessField(name)|| !PropertyUtils.isReadable(searchObj, name)) {
 					continue;
 				}
-				//TODO 获取字段 作权限查询
+				
+				//权限查询
+				if(ruleMap.containsKey(name)) {
+					addRuleToQueryWrapper(ruleMap.get(name), name, origDescriptors[i].getPropertyType(), queryWrapper);
+				}
 				
 				// 添加 判断是否有区间值
 				String endValue = null,beginValue = null;
@@ -305,7 +338,7 @@ public class QueryGenerator {
 	}
 	
 	/**
-	 * 根据规则走不同的查询
+	  * 根据规则走不同的查询
 	 * @param queryWrapper QueryWrapper
 	 * @param name         字段名字
 	 * @param rule         查询规则
@@ -337,7 +370,13 @@ public class QueryGenerator {
 			queryWrapper.ne(name, value);
 			break;
 		case IN:
-			queryWrapper.in(name, (Object[]) value);
+			if(value instanceof String) {
+				queryWrapper.in(name, (Object[])value.toString().split(","));
+			}else if(value instanceof String[]) {
+				queryWrapper.in(name, (Object[]) value);
+			}else {
+				queryWrapper.in(name, value);
+			}
 			break;
 		case LIKE:
 			queryWrapper.like(name, value);
@@ -364,4 +403,82 @@ public class QueryGenerator {
 				|| "sort".equals(name) || "order".equals(name);
 	}
 
+	
+
+	/**
+	 * 
+	 * @return
+	 */
+	public static Map<String, SysPermissionDataRule> getRuleMap() {
+		Map<String, SysPermissionDataRule> ruleMap = new HashMap<String, SysPermissionDataRule>();
+		List<SysPermissionDataRule> list =JeecgDataAutorUtils.loadDataSearchConditon();
+		if(list != null&&list.size()>0){
+			if(list.get(0)==null){
+				return ruleMap;
+			}
+			for (SysPermissionDataRule rule : list) {
+				String column = rule.getRuleColumn();
+				if(QueryRuleEnum.SQL_RULES.getValue().equals(rule.getRuleConditions())) {
+					column = SQL_RULES_COLUMN+rule.getId();
+				}
+				ruleMap.put(column, rule);
+			}
+		}
+		return ruleMap;
+	}
+	
+	private static void addRuleToQueryWrapper(SysPermissionDataRule dataRule,String name, Class propertyType, QueryWrapper<?> queryWrapper) {
+		QueryRuleEnum rule = QueryRuleEnum.getByValue(dataRule.getRuleConditions());
+		if(rule.equals(QueryRuleEnum.IN) && ! propertyType.equals(String.class)) {
+			String[] values = dataRule.getRuleValue().split(",");
+			Object[] objs = new Object[values.length];
+			for (int i = 0; i < values.length; i++) {
+				objs[i] = NumberUtils.parseNumber(values[i], propertyType);
+			}
+			addEasyQuery(queryWrapper, name, rule, objs);
+		}else {
+			if (propertyType.equals(String.class)) {
+				addEasyQuery(queryWrapper, name, rule, converRuleValue(dataRule.getRuleValue()));
+			} else {
+				addEasyQuery(queryWrapper, name, rule, NumberUtils.parseNumber(dataRule.getRuleValue(), propertyType));
+			}
+		}
+	}
+	
+	public static String converRuleValue(String ruleValue) {
+		String value = JwtUtil.getSessionData(ruleValue);
+		if(oConvertUtils.isEmpty(value)) {
+			value = JwtUtil.getUserSystemData(ruleValue,null);
+		}
+		return value!= null ? value : ruleValue;
+	}
+	
+	public static String getSqlRuleValue(String sqlRule){
+		try {
+			Set<String> varParams = getSqlRuleParams(sqlRule);
+			for(String var:varParams){
+				String tempValue = converRuleValue(var);
+				sqlRule = sqlRule.replace("#{"+var+"}",tempValue);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return sqlRule;
+	}
+	
+	private static Set<String> getSqlRuleParams(String sql) {
+		if(oConvertUtils.isEmpty(sql)){
+			return null;
+		}
+		Set<String> varParams = new HashSet<String>();
+		String regex = "\\#\\{\\w+\\}";
+		
+		Pattern p = Pattern.compile(regex);
+		Matcher m = p.matcher(sql);
+		while(m.find()){
+			String var = m.group();
+			varParams.add(var.substring(var.indexOf("{")+1,var.indexOf("}")));
+		}
+		return varParams;
+	}
 }

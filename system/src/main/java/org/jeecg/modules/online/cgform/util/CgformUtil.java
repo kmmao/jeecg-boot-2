@@ -1,11 +1,12 @@
 package org.jeecg.modules.online.cgform.util;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -15,11 +16,17 @@ import org.jeecg.common.jsonschema.JsonSchemaDescrip;
 import org.jeecg.common.jsonschema.JsonschemaUtil;
 import org.jeecg.common.jsonschema.validate.NumberProperty;
 import org.jeecg.common.jsonschema.validate.StringProperty;
+import org.jeecg.common.system.query.QueryGenerator;
+import org.jeecg.common.system.query.QueryRuleEnum;
 import org.jeecg.common.util.DateUtils;
 import org.jeecg.common.util.SpringContextUtils;
+import org.jeecg.common.util.UUIDGenerator;
+import org.jeecg.common.util.oConvertUtils;
+import org.jeecg.modules.online.cgform.entity.OnlCgformEnhanceJava;
 import org.jeecg.modules.online.cgform.entity.OnlCgformField;
 import org.jeecg.modules.online.cgform.entity.OnlCgformHead;
 import org.jeecg.modules.online.cgform.entity.OnlCgformIndex;
+import org.jeecg.modules.system.entity.SysPermissionDataRule;
 import org.jeecg.modules.system.entity.SysUser;
 import org.jeecg.modules.system.service.ISysDictService;
 import org.jeecgframework.poi.excel.entity.params.ExcelExportEntity;
@@ -104,13 +111,20 @@ public class CgformUtil {
 	public static void getAutoListBaseSql(String tbname,List<OnlCgformField> fieldList,StringBuffer sb) {
 		sb.append(SQL_SELECT);
 		int size = fieldList.size();
+		boolean has = false;
 		for(int i=0;i<size;i++) {
 			OnlCgformField item = fieldList.get(i);
+			if(P_KEY.equals(item.getDbFieldName())) {
+				has = true;
+			}
 			if(i==size-1) {
 				sb.append(item.getDbFieldName()+" ");
 			}else {
 				sb.append(item.getDbFieldName()+SQL_COMMA);
 			}
+		}
+		if(!has) {
+			sb.append(SQL_COMMA+P_KEY);
 		}
 		sb.append(SQL_FROM+tbname);
 	}
@@ -124,11 +138,25 @@ public class CgformUtil {
 	 */
 	public static String getAutoListConditionSql(List<OnlCgformField> fieldList,Map<String,Object> params) {
 		StringBuffer sb = new StringBuffer();
+		Map<String,SysPermissionDataRule> ruleMap = QueryGenerator.getRuleMap();
+		//权限规则自定义SQL表达式
+		for (String c : ruleMap.keySet()) {
+			if(oConvertUtils.isNotEmpty(c) && c.startsWith(QueryGenerator.SQL_RULES_COLUMN)){
+				sb.append(SQL_AND+"("+QueryGenerator.getSqlRuleValue(ruleMap.get(c).getRuleValue())+")");
+			}
+		}
 		for (OnlCgformField item : fieldList) {
+			String field = item.getDbFieldName();
+			String dbtype = item.getDbType();
+			//权限查询 兼容下划线和驼峰命名
+			if(ruleMap.containsKey(field)) {
+				addRuleToStringBuffer(ruleMap.get(field), field, dbtype, sb);
+			}
+			if(ruleMap.containsKey(oConvertUtils.camelNames(field))) {
+				addRuleToStringBuffer(ruleMap.get(field), field, dbtype, sb);
+			}
 			//1.判断是否查询
 			if(1==item.getIsQuery()) {
-				String field = item.getDbFieldName();
-				String dbtype = item.getDbType();
 				//2.判断是否是简单查询
 				if(QUERY_MODE_SINGLE.equals(item.getQueryMode())) {
 					Object value = params.get(field);
@@ -164,11 +192,16 @@ public class CgformUtil {
 					}
 				}
 			}
+			
 		}
 		return sb.toString();
 	}
 
-	
+	/**
+	  * 获取页面查询参数
+	 * @param request
+	 * @return
+	 */
 	public static Map<String, Object> getParameterMap(HttpServletRequest request) {
 		// 参数Map
 		Map<?, ?> properties = request.getParameterMap();
@@ -184,7 +217,7 @@ public class CgformUtil {
 			entry = (Map.Entry<String, Object>) entries.next();
 			name = (String) entry.getKey();
 			valueObj = entry.getValue();
-			if (null == valueObj) {
+			if ("_t".equals(name) || null == valueObj) {
 				value = "";
 			} else if (valueObj instanceof String[]) {
 				String[] values = (String[]) valueObj;
@@ -252,6 +285,52 @@ public class CgformUtil {
 	}
 	
 	/**
+	 * 根据字段集合组装JSON schema 主从表结构从表用到
+	 * @param entityDescrib 
+	 * @param fieldList
+	 * @return
+	 */
+	public static JSONObject getSubJsonSchemaByCgformFieldList(String entityDescrib,List<OnlCgformField> fieldList) {
+		JSONObject json = new JSONObject();
+		List<String> required = new ArrayList<String>();
+		List<CommonProperty> props = new ArrayList<CommonProperty>();
+		ISysDictService sysDictService = SpringContextUtils.getBean(ISysDictService.class);
+		for (OnlCgformField item : fieldList) {
+			String field = item.getDbFieldName();
+			if(P_KEY.equals(field)) {
+				continue;
+			}
+			String title = item.getDbFieldTxt();
+			//获取required
+			if(YES.equals(item.getFieldMustInput())) {
+				required.add(field);
+			}
+			String dbType = item.getDbType();
+			String filedShowType = item.getFieldShowType();
+			
+			//TODO 此处只处理数据字典 没处理字典表
+			String dictCode = item.getDictField();
+			CommonProperty prop = null;
+			if(NUM_TYPE_INT.equals(dbType)) {
+				prop = new NumberProperty(field, title, "integer");
+			}else if(NUM_TYPE_DOUBLE.equals(dbType)){
+				prop = new NumberProperty(field, title, "number");
+			}else {
+				if("list,radio,checkbox".indexOf(filedShowType)>=0) {
+					List<Map<String,Object>> include = sysDictService.queryDictItemsByCode(dictCode);
+					prop = new StringProperty(field, title, filedShowType, item.getDbLength(), include);
+				}else {
+					prop = new StringProperty(field, title, filedShowType, item.getDbLength());
+				}
+			}
+			prop.setOrder(item.getOrderNum());
+			props.add(prop);
+		}
+		json = JsonschemaUtil.getSubJsonSchema(entityDescrib, required, props);
+		return json;
+	}
+	
+	/**
 	 * 表单数据保存SQL获取 默认id是主键并且为uuid
 	 */
 	public static String getFormDataSaveSql(String tbname,List<OnlCgformField> fieldList,JSONObject json) {
@@ -259,13 +338,17 @@ public class CgformUtil {
 		StringBuffer sb2 = new StringBuffer();
 		List<String> sysFields = Lists.newArrayList(CREATE_BY,CREATE_TIME);
 		for (OnlCgformField item : fieldList) {
+			if(item.getIsShowForm()!=1 && oConvertUtils.isEmpty(item.getMainField())) {
+				continue;
+			}
 			String key = item.getDbFieldName();
 			String dbType = item.getDbType();
 			if(null==key) {
 				log.info("--------online保存表单数据遇见空字段------->>"+item.getId());
 				continue;
 			}
-			if(P_KEY.equals(key)) {
+			
+			if(P_KEY.equals(key) && json.get(P_KEY)==null) {
 				continue;
 			}
 			if(json.get(key)==null) {
@@ -306,8 +389,12 @@ public class CgformUtil {
 			
 		}
 		
-		String uuid = UUID.randomUUID().toString().replace("-","");
-		
+		String uuid = "";
+		if(json.get(P_KEY)==null) {
+			uuid = UUIDGenerator.generate();
+		}else {
+			uuid = json.getString(P_KEY);
+		}
 		Map<String,String> map = initSystermFieldsForAdd(sysFields);
 		String sql = "insert into "+tbname+"("+P_KEY+sb1.toString()+map.get("sys_fields")+") values("+SQL_SQ+uuid+SQL_SQ+sb2.toString()+map.get("sys_def_val")+")";
 		log.info("--动态表单保存sql-->"+sql);
@@ -327,6 +414,9 @@ public class CgformUtil {
 			String dbType = item.getDbType();
 			if(null==key) {
 				log.info("--------online修改表单数据遇见空字段------->>"+item.getId());
+				continue;
+			}
+			if(item.getIsShowForm()!=1) {
 				continue;
 			}
 			if(P_KEY.equals(key)) {
@@ -384,18 +474,37 @@ public class CgformUtil {
 	 * @return
 	 */
 	public static String getSelectFormSql(String tbname,List<OnlCgformField> fieldList,String id) {
+		return getSelectSubFormSql(tbname, fieldList, P_KEY, id);
+	}
+	
+	/**
+	 * 组装查询SQL 
+	 * @param tbname 表名
+	 * @param fieldList 需要查询的字段集合
+	 * @param linkField 查询条件字段
+	 * @param value 查询条件值
+	 * @return
+	 */
+	public static String getSelectSubFormSql(String tbname,List<OnlCgformField> fieldList,String linkField,String value) {
 		StringBuffer sb = new StringBuffer();
 		//TODO  这边暂时将id也返回给前端了
 		sb.append(SQL_SELECT);
 		int size = fieldList.size();
+		boolean has = false;
 		for(int i=0;i<size;i++) {
 			String key = fieldList.get(i).getDbFieldName();
+			if(P_KEY.equals(key)) {
+				has = true;
+			}
 			sb.append(key);
 			if(size>i+1) {
 				sb.append(SQL_COMMA);
 			}
 		}
-		sb.append(SQL_FROM+tbname+SQL_WHERE_TRUE + SQL_AND + P_KEY + SQL_EQ+"'"+id+"'");
+		if(!has) {
+			sb.append(SQL_COMMA+P_KEY);
+		}
+		sb.append(SQL_FROM+tbname+SQL_WHERE_TRUE + SQL_AND + linkField + SQL_EQ+"'"+value+"'");
 		return sb.toString();
 	}
 	
@@ -428,6 +537,11 @@ public class CgformUtil {
 		return map;
 	}
 	
+	/**
+	 * 给系统字段update_by update_time赋值 
+	 * @param fields
+	 * @return
+	 */
 	public static String initSystermFieldsForUpdate(List<String> fields) {
 		String sql = "";
 		Map<String,String> map = new HashMap<>();
@@ -447,23 +561,29 @@ public class CgformUtil {
 		return sql;
 	}
 	
+	/**
+	 * 比较两个是否相等 
+	 * @param oldvalue
+	 * @param newvalue
+	 * @return
+	 */
 	public static boolean compareValue(Object oldvalue,Object newvalue){
-		if(oldvalue==null){
-			if(newvalue!=null){
-				return false;
-			}
-		}else{
-			if(newvalue==null){
-				return false;
-			}else{
-				if(!oldvalue.equals(newvalue)){
-					return false;
-				}
+		if(oConvertUtils.isEmpty(oldvalue) && oConvertUtils.isEmpty(newvalue)) {
+			return true;
+		}else {
+			if(oldvalue.equals(newvalue)){
+				return true;
 			}
 		}
-		return true;
+		return false;
 	}
 	
+	/**
+	 * 通过比较OnlCgformField配置信息判断数据库表信息是否变动
+	 * @param oldColumn
+	 * @param newColumn
+	 * @return
+	 */
 	public static boolean databaseFieldIsChange(OnlCgformField oldColumn,OnlCgformField newColumn) {
 		if (!compareValue(oldColumn.getDbFieldName(), newColumn.getDbFieldName())
 				|| !compareValue(oldColumn.getDbFieldTxt(),newColumn.getDbFieldTxt())
@@ -481,6 +601,12 @@ public class CgformUtil {
 		return false;
 	}
 	
+	/**
+	 * 判断数据库索引是否改变
+	 * @param oldIndex
+	 * @param newIndex
+	 * @return
+	 */
 	public static boolean databaseIndexIsChange(OnlCgformIndex oldIndex,OnlCgformIndex newIndex) {
 		if (!compareValue(oldIndex.getIndexName(), newIndex.getIndexName())
 				|| !compareValue(oldIndex.getIndexField(),newIndex.getIndexField())
@@ -490,6 +616,12 @@ public class CgformUtil {
 		return false;
 	}
 	
+	/**
+	 * 判断数据库表是否改变
+	 * @param oldTable
+	 * @param newTable
+	 * @return
+	 */
 	public static boolean databaseTableIsChange(OnlCgformHead oldTable,OnlCgformHead newTable) {
 		if (!compareValue(oldTable.getTableName(), newTable.getTableName()) || !compareValue(oldTable.getTableTxt(), newTable.getTableTxt())) {
 			return true;
@@ -581,6 +713,159 @@ public class CgformUtil {
 			}
 		}
 		return entityList;
+	}
+	
+	/**
+	 * 判断class或是spring的bean是否存在
+	 * @param onlCgformEnhanceJava
+	 * @return
+	 */
+	public static boolean checkClassOrSpringBeanIsExist(OnlCgformEnhanceJava onlCgformEnhanceJava) {
+		String cgJavaType = onlCgformEnhanceJava.getCgJavaType();
+		String cgJavaValue = onlCgformEnhanceJava.getCgJavaValue();
+		if(oConvertUtils.isNotEmpty(cgJavaValue)){
+			try {
+				if("class".equals(cgJavaType)){
+					Class clazz = Class.forName(cgJavaValue);
+					if(clazz==null || clazz.newInstance()==null) {
+						return false;
+					}
+				}
+				
+				if("spring".equals(cgJavaType)){
+					Object obj = SpringContextUtils.getBean(cgJavaValue);
+					if(obj==null) {
+						return false;
+					}
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	/**
+	 * 字符串集合排序 不比较长度
+	 * @param list
+	 */
+	public static void sortStringList(List<String> list) {
+		Collections.sort(list, new Comparator<String>() {
+			@Override
+			public int compare(String o1, String o2) {
+				if(o1 == null || o2 == null){
+		            return -1;
+		        }
+		        if(o1.compareTo(o2) > 0){
+		            return 1;
+		        }
+		        if(o1.compareTo(o2) < 0){
+		            return -1;
+		        }
+		        if(o1.compareTo(o2) == 0){
+		            return 0;
+		        }
+		        return 0;
+			}
+		});
+	}
+	
+	/**
+	 * 字符串集合排序 优先比较长度
+	 * @param list
+	 */
+	public static void sortStringList2(List<String> list) {
+		Collections.sort(list, new Comparator<String>() {
+			@Override
+			public int compare(String o1, String o2) {
+				if(o1 == null || o2 == null){
+		            return -1;
+		        }
+		        if(o1.length() > o2.length()){
+		            return 1;
+		        }
+		        if(o1.length() < o2.length()){
+		            return -1;
+		        }
+		        if(o1.compareTo(o2) > 0){
+		            return 1;
+		        }
+		        if(o1.compareTo(o2) < 0){
+		            return -1;
+		        }
+		        if(o1.compareTo(o2) == 0){
+		            return 0;
+		        }
+		        return 0;
+			}
+		});
+	}
+	
+	/**
+	 * 转化数据规则配置的系统变量
+	 * @param value
+	 * @param flag
+	 * @return
+	 */
+	private static String converRuleValue(String value,boolean flag) {
+		if(flag) {
+			return SQL_SQ+QueryGenerator.converRuleValue(value)+SQL_SQ;
+		}else {
+			return QueryGenerator.converRuleValue(value);
+		}
+	}
+	
+	/**
+	 * 根据数据规则对象 组装SQL
+	 * @param dataRule 数据规则
+	 * @param field 字段名
+	 * @param dbtype 字段类型
+	 * @param sb sql拼接对象
+	 */
+	private static void addRuleToStringBuffer(SysPermissionDataRule dataRule,String field,String dbtype,StringBuffer sb) {
+		QueryRuleEnum rule = QueryRuleEnum.getByValue(dataRule.getRuleConditions());
+		boolean isSq = !(NUM_TYPE_INT.equals(dbtype)||NUM_TYPE_DOUBLE.equals(dbtype)||NUM_TYPE_DECIMAL.equals(dbtype));
+		String value = converRuleValue(dataRule.getRuleValue(),isSq);
+		if (value == null || rule == null) {
+			return;
+		}
+		switch (rule) {
+		case GT:
+			sb.append(SQL_AND+field+" > "+value);
+			break;
+		case GE:
+			sb.append(SQL_AND+field+SQL_GE+value);
+			break;
+		case LT:
+			sb.append(SQL_AND+field+" > "+value);
+			break;
+		case LE:
+			sb.append(SQL_AND+field+SQL_LE+value);
+			break;
+		case EQ:
+			sb.append(SQL_AND+field+SQL_EQ+value);
+			break;
+		case NE:
+			sb.append(SQL_AND+field+" <> "+value);
+			break;
+		case IN:
+			sb.append(SQL_AND+field+" IN "+QueryGenerator.converRuleValue(value));
+			break;
+		case LIKE:
+			sb.append(SQL_AND+field+" LIKE '%"+QueryGenerator.converRuleValue(value)+"%'");
+			break;
+		case LEFT_LIKE:
+			sb.append(SQL_AND+field+" LIKE '%"+QueryGenerator.converRuleValue(value)+"'");
+			break;
+		case RIGHT_LIKE:
+			sb.append(SQL_AND+field+" LIKE '"+QueryGenerator.converRuleValue(value)+"%'");
+			break;
+		default:
+			log.info("--查询规则未匹配到---");
+			break;
+		}
+		
 	}
 			
 

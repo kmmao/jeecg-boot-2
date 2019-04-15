@@ -14,27 +14,32 @@ import org.springframework.stereotype.Service;
 public class DbTablePostgresHandleImpl implements DbTableHandleI {
 
 	
+	@Override
 	public String getAddColumnSql(ColumnMeta columnMeta) {
 		return " ADD COLUMN "+getAddFieldDesc(columnMeta)+";";
 	}
 
 	
+	@Override
 	public String getReNameFieldName(ColumnMeta columnMeta) {
 		return " RENAME  COLUMN  "+columnMeta.getOldColumnName() +" to "+columnMeta.getColumnName()+";";
 	}
 
 	
+	@Override
 	public String getUpdateColumnSql(ColumnMeta cgformcolumnMeta,ColumnMeta datacolumnMeta)throws DBException {
 		return "  ALTER  COLUMN   "+getUpdateFieldDesc(cgformcolumnMeta,datacolumnMeta)+";";
 	}
 
 	
+	@Override
 	public String getSpecialHandle(ColumnMeta cgformcolumnMeta,
 			ColumnMeta datacolumnMeta) {
 		return "  ALTER  COLUMN   "+getUpdateFieldDefault(cgformcolumnMeta,datacolumnMeta)+";";
 	}
 	
 	
+	@Override
 	public String getMatchClassTypeByDataType(String dataType,int digits) {
 		String result ="";
 		if (dataType.equalsIgnoreCase("varchar")) {
@@ -61,11 +66,13 @@ public class DbTablePostgresHandleImpl implements DbTableHandleI {
 	}
 
 	
+	@Override
 	public String dropTableSQL(String tableName) {
 		return " DROP TABLE  "+tableName+" ;";
 	}
 
 	
+	@Override
 	public String getDropColumnSql(String fieldName) {
 		 return " DROP COLUMN "+fieldName+";";
 	}
@@ -158,6 +165,7 @@ public class DbTablePostgresHandleImpl implements DbTableHandleI {
 	}
 
 	
+	@Override
 	public String getCommentSql(ColumnMeta columnMeta) {
 		return "COMMENT ON COLUMN "+columnMeta.getTableName()+"."+columnMeta.getColumnName()+" IS '" +columnMeta.getComment()+"'";
 	}

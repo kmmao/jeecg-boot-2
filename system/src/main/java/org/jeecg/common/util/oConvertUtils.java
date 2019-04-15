@@ -29,10 +29,10 @@ public class oConvertUtils {
 		if (object == null) {
 			return (true);
 		}
-		if (object.equals("")) {
+		if ("".equals(object)) {
 			return (true);
 		}
-		if (object.equals("null")) {
+		if ("null".equals(object)) {
 			return (true);
 		}
 		return (false);

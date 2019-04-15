@@ -2,6 +2,8 @@ package org.jeecg.modules.system.controller;
 
 
 import java.util.ArrayList;
+
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,11 +16,14 @@ import org.jeecg.common.api.vo.Result;
 import org.jeecg.common.util.MD5Util;
 import org.jeecg.common.util.oConvertUtils;
 import org.jeecg.modules.system.entity.SysPermission;
+import org.jeecg.modules.system.entity.SysPermissionDataRule;
 import org.jeecg.modules.system.entity.SysRolePermission;
 import org.jeecg.modules.system.model.SysPermissionTree;
 import org.jeecg.modules.system.model.TreeModel;
+import org.jeecg.modules.system.service.ISysPermissionDataRuleService;
 import org.jeecg.modules.system.service.ISysPermissionService;
 import org.jeecg.modules.system.service.ISysRolePermissionService;
+import org.jeecg.modules.system.util.PermissionDataUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -52,6 +57,9 @@ public class SysPermissionController {
 	@Autowired
 	private ISysRolePermissionService sysRolePermissionService;
 	
+	@Autowired
+	private ISysPermissionDataRuleService sysPermissionDataRuleService;
+	
 	
 	/**
 	 * 加载数据节点
@@ -59,7 +67,6 @@ public class SysPermissionController {
 	 */
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public Result<List<SysPermissionTree>> list() {
-		//@RequestParam(name="pid",required=false) String parentId
 		Result<List<SysPermissionTree>> result = new Result<>();
 		try {
 			LambdaQueryWrapper<SysPermission> query = new LambdaQueryWrapper<SysPermission>();
@@ -102,9 +109,11 @@ public class SysPermissionController {
 	
 	
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
+	@RequiresRoles({"admin"})
 	public Result<SysPermission> add(@RequestBody SysPermission permission) {
 		Result<SysPermission> result = new Result<SysPermission>();
 		try {
+			permission = PermissionDataUtil.intelligentProcessData(permission);
 			sysPermissionService.addPermission(permission);
 			result.success("添加成功！");
 		} catch (Exception e) {
@@ -120,6 +129,7 @@ public class SysPermissionController {
 	public Result<SysPermission> edit(@RequestBody SysPermission permission) {
 		Result<SysPermission> result = new Result<>();
 		try {
+			permission = PermissionDataUtil.intelligentProcessData(permission);
 			sysPermissionService.editPermission(permission);
 			result.success("修改成功！");
 		} catch (Exception e) {
@@ -136,6 +146,7 @@ public class SysPermissionController {
 		Result<SysPermission> result = new Result<>();
 		try {
 			sysPermissionService.deletePermission(id);
+			sysPermissionService.deletePermRuleByPermId(id);
 			result.success("删除成功!");
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -181,8 +192,6 @@ public class SysPermissionController {
 			for(SysPermission sysPer : list) {
 				ids.add(sysPer.getId());
 			}
-			
-			System.out.println(list.size());
 			List<TreeModel> treeList = new ArrayList<>();
 			getTreeModelList(treeList, list, null);
 			
@@ -437,6 +446,97 @@ public class SysPermissionController {
 		}else {
 			return null;
 		}
+	}
+	
+	/**
+	 * 根据菜单id来获取其对应的权限数据
+	 * 
+	 * @param sysPermissionDataRule
+	 * @return
+	 */
+	@RequestMapping(value = "/getPermRuleListByPermId", method = RequestMethod.GET)
+	public Result<List<SysPermissionDataRule>> getPermRuleListByPermId(SysPermissionDataRule sysPermissionDataRule) {
+		List<SysPermissionDataRule> permRuleList = sysPermissionDataRuleService.getPermRuleListByPermId(sysPermissionDataRule.getPermissionId());
+		Result<List<SysPermissionDataRule>> result = new Result<>();
+		result.setSuccess(true);
+		result.setResult(permRuleList);
+		return result;
+	}
+
+	/**
+	 * 添加菜单权限数据
+	 * 
+	 * @param sysPermissionDataRule
+	 * @return
+	 */
+	@RequestMapping(value = "/addPermissionRule", method = RequestMethod.POST)
+	public Result<SysPermissionDataRule> addPermissionRule(@RequestBody SysPermissionDataRule sysPermissionDataRule) {
+		Result<SysPermissionDataRule> result = new Result<SysPermissionDataRule>();
+		try {
+			sysPermissionDataRule.setCreateTime(new Date());
+			sysPermissionDataRuleService.save(sysPermissionDataRule);
+			result.success("添加成功！");
+		} catch (Exception e) {
+			e.printStackTrace();
+			log.info(e.getMessage());
+			result.error500("操作失败");
+		}
+		return result;
+	}
+
+	@RequestMapping(value = "/editPermissionRule", method = { RequestMethod.PUT, RequestMethod.POST })
+	public Result<SysPermissionDataRule> editPermissionRule(@RequestBody SysPermissionDataRule sysPermissionDataRule) {
+		Result<SysPermissionDataRule> result = new Result<SysPermissionDataRule>();
+		try {
+			sysPermissionDataRuleService.saveOrUpdate(sysPermissionDataRule);
+			result.success("更新成功！");
+		} catch (Exception e) {
+			e.printStackTrace();
+			log.info(e.getMessage());
+			result.error500("操作失败");
+		}
+		return result;
+	}
+
+	/**
+	 * 删除菜单权限数据
+	 * 
+	 * @param sysPermissionDataRule
+	 * @return
+	 */
+	@RequestMapping(value = "/deletePermissionRule", method = RequestMethod.DELETE)
+	public Result<SysPermissionDataRule> deletePermissionRule(@RequestParam(name = "id", required = true) String id) {
+		Result<SysPermissionDataRule> result = new Result<SysPermissionDataRule>();
+		try {
+			sysPermissionDataRuleService.removeById(id);
+			result.success("删除成功！");
+		} catch (Exception e) {
+			e.printStackTrace();
+			log.info(e.getMessage());
+			result.error500("操作失败");
+		}
+		return result;
+	}
+
+	/**
+	 * 查询菜单权限数据
+	 * 
+	 * @param sysPermissionDataRule
+	 * @return
+	 */
+	@RequestMapping(value = "/queryPermissionRule", method = RequestMethod.GET)
+	public Result<List<SysPermissionDataRule>> queryPermissionRule(SysPermissionDataRule sysPermissionDataRule) {
+		Result<List<SysPermissionDataRule>> result = new Result<>();
+		try {
+			List<SysPermissionDataRule> permRuleList = sysPermissionDataRuleService.queryPermissionRule(sysPermissionDataRule);
+			result.setResult(permRuleList);
+			result.success("查询成功！");
+		} catch (Exception e) {
+			e.printStackTrace();
+			log.info(e.getMessage());
+			result.error500("操作失败");
+		}
+		return result;
 	}
 	
 }

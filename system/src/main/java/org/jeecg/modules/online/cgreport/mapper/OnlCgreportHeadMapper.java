@@ -22,6 +22,13 @@ public interface OnlCgreportHeadMapper extends BaseMapper<OnlCgreportHead> {
 	 * @return
 	 */
 	List<Map<?, ?>> executeSelete(String sql);
+	
+	/**
+	  * 动态sql查询数据量
+	 * @param sql
+	 * @return
+	 */
+	Long queryCountBySql(String sql);
 
 	/**
 	 * 通过reportId获取报表主配置信息

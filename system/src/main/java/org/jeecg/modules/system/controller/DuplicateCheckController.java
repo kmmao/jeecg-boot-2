@@ -33,7 +33,7 @@ public class DuplicateCheckController {
 	 * 
 	 * @return
 	 */
-	@RequestMapping(value = "/check", method = RequestMethod.POST)
+	@RequestMapping(value = "/check", method = RequestMethod.GET)
 	@ApiOperation("重复校验接口")
 	public Result<Object> doDuplicateCheck(DuplicateCheckVo duplicateCheckVo, HttpServletRequest request) {
 		Long num = null;
@@ -49,11 +49,11 @@ public class DuplicateCheckController {
 
 		if (num == null || num == 0) {
 			// 该值可用
-			Result.ok("该值可用！");
+			return Result.ok("该值可用！");
 		} else {
 			// 该值不可用
-			Result.error("该值不可用，系统中已存在！");
+			log.info("该值不可用，系统中已存在！");
+			return Result.error("该值不可用，系统中已存在！");
 		}
-		return Result.ok("该值可用！");
 	}
 }

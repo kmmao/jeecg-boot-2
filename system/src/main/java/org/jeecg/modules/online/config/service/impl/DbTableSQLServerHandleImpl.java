@@ -13,11 +13,13 @@ import org.springframework.stereotype.Service;
 public class DbTableSQLServerHandleImpl implements DbTableHandleI {
 
 	
+	@Override
 	public String getAddColumnSql(ColumnMeta columnMeta) {
 		return " ADD  "+getAddFieldDesc(columnMeta)+";";
 	}
 
 	
+	@Override
 	public String getReNameFieldName(ColumnMeta columnMeta) {
 		//sp_rename 'TOA_E_ARTICLE.version','processVersion','COLUMN';  
 		return  "  sp_rename '"+columnMeta.getTableName()+"."+columnMeta.getOldColumnName()+"', '"+columnMeta.getColumnName()+"', 'COLUMN';";
@@ -25,11 +27,13 @@ public class DbTableSQLServerHandleImpl implements DbTableHandleI {
 	}
 
 	
+	@Override
 	public String getUpdateColumnSql(ColumnMeta cgformcolumnMeta,ColumnMeta datacolumnMeta) {
 		return " ALTER COLUMN  "+getUpdateFieldDesc(cgformcolumnMeta,datacolumnMeta)+";";
 	}
 
 	
+	@Override
 	public String getMatchClassTypeByDataType(String dataType,int digits) {
 		//update-begin--Author:qinfeng  Date:20180118 for：Sqlserver2008 字段类型适配问题解决--------------------
 		String result ="";
@@ -53,11 +57,13 @@ public class DbTableSQLServerHandleImpl implements DbTableHandleI {
 	}
 
 	
+	@Override
 	public String dropTableSQL(String tableName) {
 		return " DROP TABLE "+tableName+" ;";
 	}
 
 	
+	@Override
 	public String getDropColumnSql(String fieldName) {
 		 return " DROP COLUMN "+fieldName+";";
 	}
@@ -66,19 +72,19 @@ public class DbTableSQLServerHandleImpl implements DbTableHandleI {
 		String result ="";
 		//update-begin--Author:qinfeng  Date:20180118 for：Sqlserver2008 字段类型适配问题解决、sqlserver注解生成有问题暂时注释掉--------------------
 		if(cgfromcolumnMeta.getColunmType().equalsIgnoreCase("string")){
-			result = cgfromcolumnMeta.getColumnName()+" varchar("+cgfromcolumnMeta.getColumnSize()+")"+" "+(cgfromcolumnMeta.getIsNullable().equals("Y")?"NULL":"NOT NULL");
+			result = cgfromcolumnMeta.getColumnName()+" varchar("+cgfromcolumnMeta.getColumnSize()+")"+" "+("Y".equals(cgfromcolumnMeta.getIsNullable())?"NULL":"NOT NULL");
 		}else if(cgfromcolumnMeta.getColunmType().equalsIgnoreCase("date")){
-			result = cgfromcolumnMeta.getColumnName()+" datetime"+" "+(cgfromcolumnMeta.getIsNullable().equals("Y")?"NULL":"NOT NULL");
+			result = cgfromcolumnMeta.getColumnName()+" datetime"+" "+("Y".equals(cgfromcolumnMeta.getIsNullable())?"NULL":"NOT NULL");
 		}else if(cgfromcolumnMeta.getColunmType().equalsIgnoreCase("int")){
-			result = cgfromcolumnMeta.getColumnName()+" int "+(cgfromcolumnMeta.getIsNullable().equals("Y")?"NULL":"NOT NULL");
+			result = cgfromcolumnMeta.getColumnName()+" int "+("Y".equals(cgfromcolumnMeta.getIsNullable())?"NULL":"NOT NULL");
 		}else if(cgfromcolumnMeta.getColunmType().equalsIgnoreCase("double")){
-			result = cgfromcolumnMeta.getColumnName()+" float "+(cgfromcolumnMeta.getIsNullable().equals("Y")?"NULL":"NOT NULL");
+			result = cgfromcolumnMeta.getColumnName()+" float "+("Y".equals(cgfromcolumnMeta.getIsNullable())?"NULL":"NOT NULL");
 		}else if(cgfromcolumnMeta.getColunmType().equalsIgnoreCase("bigdecimal")){
-			result = cgfromcolumnMeta.getColumnName()+" numeric("+cgfromcolumnMeta.getColumnSize()+","+cgfromcolumnMeta.getDecimalDigits()+")"+" "+(cgfromcolumnMeta.getIsNullable().equals("Y")?"NULL":"NOT NULL");
+			result = cgfromcolumnMeta.getColumnName()+" numeric("+cgfromcolumnMeta.getColumnSize()+","+cgfromcolumnMeta.getDecimalDigits()+")"+" "+("Y".equals(cgfromcolumnMeta.getIsNullable())?"NULL":"NOT NULL");
 		}else if(cgfromcolumnMeta.getColunmType().equalsIgnoreCase("text")){
-			result = cgfromcolumnMeta.getColumnName()+" text"+" "+(cgfromcolumnMeta.getIsNullable().equals("Y")?"NULL":"NOT NULL");
+			result = cgfromcolumnMeta.getColumnName()+" text"+" "+("Y".equals(cgfromcolumnMeta.getIsNullable())?"NULL":"NOT NULL");
 		}else if(cgfromcolumnMeta.getColunmType().equalsIgnoreCase("blob")){
-			result = cgfromcolumnMeta.getColumnName()+" varbinary("+cgfromcolumnMeta.getColumnSize()+")"+" "+(cgfromcolumnMeta.getIsNullable().equals("Y")?"NULL":"NOT NULL");
+			result = cgfromcolumnMeta.getColumnName()+" varbinary("+cgfromcolumnMeta.getColumnSize()+")"+" "+("Y".equals(cgfromcolumnMeta.getIsNullable())?"NULL":"NOT NULL");
 		}
 		//result += (StringUtils.isNotEmpty(cgfromcolumnMeta.getFieldDefault())?" DEFAULT "+cgfromcolumnMeta.getFieldDefault():" ");
 		//update-end--Author:qinfeng  Date:20180118 for：Sqlserver2008 字段类型适配问题解决、sqlserver注解生成有问题暂时注释掉--------------------
@@ -89,19 +95,19 @@ public class DbTableSQLServerHandleImpl implements DbTableHandleI {
 		String result ="";
 		//update-begin--Author:qinfeng  Date:20180118 for：Sqlserver2008 字段类型适配问题解决、sqlserver注解生成有问题暂时注释掉--------------------
 		if(cgfromcolumnMeta.getColunmType().equalsIgnoreCase("string")){
-			result = cgfromcolumnMeta.getColumnName()+" varchar("+cgfromcolumnMeta.getColumnSize()+")"+" "+(cgfromcolumnMeta.getIsNullable().equals("Y")?"NULL":"NOT NULL");
+			result = cgfromcolumnMeta.getColumnName()+" varchar("+cgfromcolumnMeta.getColumnSize()+")"+" "+("Y".equals(cgfromcolumnMeta.getIsNullable())?"NULL":"NOT NULL");
 		}else if(cgfromcolumnMeta.getColunmType().equalsIgnoreCase("date")){
-			result = cgfromcolumnMeta.getColumnName()+" datetime"+" "+(cgfromcolumnMeta.getIsNullable().equals("Y")?"NULL":"NOT NULL");
+			result = cgfromcolumnMeta.getColumnName()+" datetime"+" "+("Y".equals(cgfromcolumnMeta.getIsNullable())?"NULL":"NOT NULL");
 		}else if(cgfromcolumnMeta.getColunmType().equalsIgnoreCase("int")){
-			result = cgfromcolumnMeta.getColumnName()+" int "+(cgfromcolumnMeta.getIsNullable().equals("Y")?"NULL":"NOT NULL");
+			result = cgfromcolumnMeta.getColumnName()+" int "+("Y".equals(cgfromcolumnMeta.getIsNullable())?"NULL":"NOT NULL");
 		}else if(cgfromcolumnMeta.getColunmType().equalsIgnoreCase("double")){
-			result = cgfromcolumnMeta.getColumnName()+" float "+(cgfromcolumnMeta.getIsNullable().equals("Y")?"NULL":"NOT NULL");
+			result = cgfromcolumnMeta.getColumnName()+" float "+("Y".equals(cgfromcolumnMeta.getIsNullable())?"NULL":"NOT NULL");
 		}else if(cgfromcolumnMeta.getColunmType().equalsIgnoreCase("bigdecimal")){
-			result = cgfromcolumnMeta.getColumnName()+" numeric("+cgfromcolumnMeta.getColumnSize()+","+cgfromcolumnMeta.getDecimalDigits()+")"+" "+(cgfromcolumnMeta.getIsNullable().equals("Y")?"NULL":"NOT NULL");
+			result = cgfromcolumnMeta.getColumnName()+" numeric("+cgfromcolumnMeta.getColumnSize()+","+cgfromcolumnMeta.getDecimalDigits()+")"+" "+("Y".equals(cgfromcolumnMeta.getIsNullable())?"NULL":"NOT NULL");
 		}else if(cgfromcolumnMeta.getColunmType().equalsIgnoreCase("text")){
-			result = cgfromcolumnMeta.getColumnName()+" text"+" "+(cgfromcolumnMeta.getIsNullable().equals("Y")?"NULL":"NOT NULL");
+			result = cgfromcolumnMeta.getColumnName()+" text"+" "+("Y".equals(cgfromcolumnMeta.getIsNullable())?"NULL":"NOT NULL");
 		}else if(cgfromcolumnMeta.getColunmType().equalsIgnoreCase("blob")){
-			result = cgfromcolumnMeta.getColumnName()+" varbinary("+cgfromcolumnMeta.getColumnSize()+")"+" "+(cgfromcolumnMeta.getIsNullable().equals("Y")?"NULL":"NOT NULL");
+			result = cgfromcolumnMeta.getColumnName()+" varbinary("+cgfromcolumnMeta.getColumnSize()+")"+" "+("Y".equals(cgfromcolumnMeta.getIsNullable())?"NULL":"NOT NULL");
 		}//update-end--Author:liuht  Date:20131223 
 		//result += (StringUtils.isNotEmpty(cgfromcolumnMeta.getFieldDefault())?" DEFAULT "+cgfromcolumnMeta.getFieldDefault():" ");
 		//update-end--Author:qinfeng  Date:20180118 for：Sqlserver2008 字段类型适配问题解决、sqlserver注解生成有问题暂时注释掉--------------------
@@ -112,19 +118,20 @@ public class DbTableSQLServerHandleImpl implements DbTableHandleI {
 		String result ="";
 		//update-begin--Author:qinfeng  Date:20180118 for：Sqlserver2008 字段类型适配问题解决-------------------
 		if(cgfromcolumnMeta.getColunmType().equalsIgnoreCase("string")){
-			result = cgfromcolumnMeta.getColumnName()+" varchar("+cgfromcolumnMeta.getColumnSize()+")"+" "+(cgfromcolumnMeta.getIsNullable().equals("Y")?"NULL":"NOT NULL");
+			result = cgfromcolumnMeta.getColumnName()+" varchar("+cgfromcolumnMeta.getColumnSize()+")"+" "+("Y".equals(cgfromcolumnMeta.getIsNullable())?"NULL":"NOT NULL");
 		}else if(cgfromcolumnMeta.getColunmType().equalsIgnoreCase("date")){
-			result = cgfromcolumnMeta.getColumnName()+" datetime"+" "+(cgfromcolumnMeta.getIsNullable().equals("Y")?"NULL":"NOT NULL");
+			result = cgfromcolumnMeta.getColumnName()+" datetime"+" "+("Y".equals(cgfromcolumnMeta.getIsNullable())?"NULL":"NOT NULL");
 		}else if(cgfromcolumnMeta.getColunmType().equalsIgnoreCase("int")){
-			result = cgfromcolumnMeta.getColumnName()+" int "+(cgfromcolumnMeta.getIsNullable().equals("Y")?"NULL":"NOT NULL");
+			result = cgfromcolumnMeta.getColumnName()+" int "+("Y".equals(cgfromcolumnMeta.getIsNullable())?"NULL":"NOT NULL");
 		}else if(cgfromcolumnMeta.getColunmType().equalsIgnoreCase("double")){
-			result = cgfromcolumnMeta.getColumnName()+" float "+(cgfromcolumnMeta.getIsNullable().equals("Y")?"NULL":"NOT NULL");
+			result = cgfromcolumnMeta.getColumnName()+" float "+("Y".equals(cgfromcolumnMeta.getIsNullable())?"NULL":"NOT NULL");
 		}
 		//update-end--Author:qinfeng  Date:20180118 for：Sqlserver2008 字段类型适配问题解决--------------------
 		return result;
 	}
 
 	
+	@Override
 	public String getCommentSql(ColumnMeta columnMeta) {
 		StringBuffer commentSql = new StringBuffer("EXECUTE ");
 		if(oConvertUtils.isEmpty(columnMeta.getOldColumnName())){
@@ -142,6 +149,7 @@ public class DbTableSQLServerHandleImpl implements DbTableHandleI {
 	}
 
 	
+	@Override
 	public String getSpecialHandle(ColumnMeta cgformcolumnMeta,
 			ColumnMeta datacolumnMeta) {
 		return null;
