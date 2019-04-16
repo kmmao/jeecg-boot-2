@@ -26,7 +26,8 @@ const routes: Routes = [
       { path: 'sys', loadChildren: './sys/sys.module#SysModule' },
       { path: 'isystem', loadChildren: './isystem/isystem.module#IsystemModule' },
       { path: 'jeecg', loadChildren: './demo/demo.module#DemoModule' },
-      { path: 'online', loadChildren: './online/online.module#OnlineModule' }
+      { path: 'online', loadChildren: './online/online.module#OnlineModule' },
+      { path: 'modules/message', loadChildren: './message/message.module#MessageModule' }
       // 业务子模块
       // { path: 'widgets', loadChildren: './widgets/widgets.module#WidgetsModule' }
     ]
