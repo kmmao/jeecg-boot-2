@@ -27,7 +27,8 @@ const routes: Routes = [
       { path: 'isystem', loadChildren: './isystem/isystem.module#IsystemModule' },
       { path: 'jeecg', loadChildren: './demo/demo.module#DemoModule' },
       { path: 'online', loadChildren: './online/online.module#OnlineModule' },
-      { path: 'modules/message', loadChildren: './message/message.module#MessageModule' }
+      { path: 'modules/message', loadChildren: './message/message.module#MessageModule' },
+      { path: 'shell', loadChildren: './shell/shell.module#ShellModule' }
       // 业务子模块
       // { path: 'widgets', loadChildren: './widgets/widgets.module#WidgetsModule' }
     ]

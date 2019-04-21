@@ -12,7 +12,8 @@
         <module>demo</module>
 		<module>start</module>
 		<module>activiti</module>
-	</modules>
+        <module>shell</module>
+    </modules>
 
 	<parent>
 	    <groupId>org.springframework.boot</groupId>
