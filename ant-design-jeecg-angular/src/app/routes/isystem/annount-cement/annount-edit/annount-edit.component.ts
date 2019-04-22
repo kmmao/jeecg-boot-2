@@ -27,6 +27,7 @@ export class IsystemAnnountEditComponent implements OnInit {
         this.i[key]=this.datePipe.transform(this.i[key],"yyyy-MM-dd HH:mm:ss")
         }
     } 
+    console.log(this.i)
     this.http.put(`sys/annountCement/edit`, this.i).subscribe(res => {
       this.modal.close(true);
     });

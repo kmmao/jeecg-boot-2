@@ -67,6 +67,7 @@ import { SharedModule } from './shared/shared.module';
 import { AppComponent } from './app.component';
 import { RoutesModule } from './routes/routes.module';
 import { LayoutModule } from './layout/layout.module';
+import { NgxTinymceModule } from 'ngx-tinymce';
 
 @NgModule({
   declarations: [
@@ -77,6 +78,13 @@ import { LayoutModule } from './layout/layout.module';
     BrowserAnimationsModule,
     HttpClientModule,
     DelonModule.forRoot(),
+    NgxTinymceModule.forRoot({
+      baseURL: '//cdn.bootcss.com/tinymce/4.7.13/',
+      delay:30,
+      config:{
+        height: 300
+      }
+    }),
     CoreModule,
     SharedModule,
     LayoutModule,

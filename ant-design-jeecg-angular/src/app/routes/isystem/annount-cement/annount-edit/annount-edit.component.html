@@ -7,8 +7,7 @@
     <input nz-input [(ngModel)]="i.titile" name="titile" required>
   </se>
   <se required  label="内容">
-    <textarea nz-input [(ngModel)]="i.msgContent" name="msgContent" rows="6" placeholder="" required ></textarea>
-  
+    <tinymce  delay=30 [(ngModel)]="i.msgContent" name="msgContent" ></tinymce>
   </se>
   <se required="required" label="开始时间">
       <nz-date-picker nzFormat="yyyy-MM-dd HH:mm:ss" [(ngModel)]="i.startTime" name="startTime" required ></nz-date-picker>

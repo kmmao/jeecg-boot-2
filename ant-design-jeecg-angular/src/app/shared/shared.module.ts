@@ -1,29 +1,30 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-// delon
-import { AlainThemeModule } from '@delon/theme';
 import { DelonABCModule } from '@delon/abc';
 import { DelonACLModule } from '@delon/acl';
-import { DelonFormModule } from '@delon/form';
-import { DelonChartModule } from '@delon/chart';
 import { DelonCacheModule } from '@delon/cache';
-
-
+import { DelonChartModule } from '@delon/chart';
+import { DelonFormModule } from '@delon/form';
+// delon
+import { AlainThemeModule } from '@delon/theme';
 // #region third libs
 import { NgZorroAntdModule } from 'ng-zorro-antd';
 import { CountdownModule } from 'ngx-countdown';
-import { DictSelectComponent } from './widgets/dict-select';
-import { UpLoadComponent } from './widgets/upload';
+import { NgxTinymceModule } from 'ngx-tinymce';
+import { DictPipe } from './pipe/dict.pipe';
 import { SafePipe } from './pipe/safe.pipe';
+import { DictSelectComponent } from './widgets/dict-select';
 import { ImageWrapperComponent } from './widgets/image-wrapper';
 import { MutiBarChartComponent } from './widgets/muti-bar-chart';
-import { DictPipe } from './pipe/dict.pipe';
-import { DictService } from './service/dict.service';
+import { UpLoadComponent } from './widgets/upload';
+
+
 const THIRDMODULES = [
   NgZorroAntdModule,
-  CountdownModule
+  CountdownModule,
+  NgxTinymceModule
 ];
 // #endregion
 
