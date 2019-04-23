@@ -100,8 +100,15 @@ export const DICT={
     {value:'M',label:'中'},
     {value:'H',label:'高'},
   ],
+  job_status:[
+    {value:'0',label:'已启动'},
+    {value:'-1',label:'已暂停'},
+  
+  ],
 }
 /* 
+ '0':'已启动',
+        '-1':'已暂停',
                      <a-select-option value="Integer">数值类型</a-select-option>
                     <a-select-option value="Date">日期类型</a-select-option>
                     <a-select-option value="String">字符类型</a-select-option>
