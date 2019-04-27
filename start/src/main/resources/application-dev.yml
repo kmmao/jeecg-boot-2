@@ -14,9 +14,9 @@ management:
 
 spring:
   mail:
-    host: smtp.163.com
-    username: dangzhenghui@163.com
-    password: 5111986032a
+    host: smtp.qq.com
+    username: 345144656@qq.com
+    password: dfvpairgmybebhch
     properties:
       mail:
         smtp:

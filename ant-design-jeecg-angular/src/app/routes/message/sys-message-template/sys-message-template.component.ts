@@ -45,7 +45,7 @@ export class MessageSysMessageTemplateComponent implements OnInit {
           text:'删除',
           type:'del',
           click:(item:STData)=>{
-            this.http.delete(`message/sysMessageTemplate/delete?id=${item.id}`)
+            this.http.delete(`message/sysMessageTemplate/delete?id=${item.id}`).subscribe(res=>this.st.reload())
           }
 
         }
